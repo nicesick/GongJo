@@ -6,5 +6,5 @@
 
 I. ERD
 
-![ERD](https://user-images.githubusercontent.com/50862254/66387531-146b0100-e9ff-11e9-9c6f-c1fd23cdb393.PNG)
+![ERD](https://user-images.githubusercontent.com/50862254/66547863-1e197380-eb7b-11e9-9cc0-abae52427ed2.PNG)
 
