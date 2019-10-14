@@ -1,17 +1,18 @@
 package com.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 
 import com.frame.Dao;
-import com.mapper.UserMapper;
+import com.mapper.userMapper;
 import com.vo.User;
 
-@Component("userDao")
+@Component("UserDao")
 public class UserDao implements Dao<String, User> {
 
-	@Autowired
-	UserMapper userMapper;
+	@Resource(name="userMapper")
+	userMapper userMapper;
 	
 	@Override
 	public void insert(User v) {
