@@ -55,28 +55,30 @@
                             <img src="assets/images/logo-sample.PNG" alt="homepage" class="light-logo" />
                         </b>
 						<span class="text-white p-l-10">ConnectedCarControlSystem</span>
+						<span class="text-white p-l-10">로그인</span>
 					</div>
+					
 					<!-- Form -->
 					<form class="form-horizontal m-t-20" id="loginform"
 						action="index.html">
-						<div class="row p-b-30">
+						<div class="row p-b-20">
 							<div class="col-12">
-								<div class="input-group mb-3">
+								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<span class="input-group-text bg-success text-white"
 											id="basic-addon1"><i class="ti-user"></i></span>
 									</div>
-									<input type="text" class="form-control form-control-lg"
-										placeholder="Username" aria-label="Username"
+									<input type="text" class="form-control"
+										placeholder="아이디" aria-label="Username"
 										aria-describedby="basic-addon1" required="">
 								</div>
-								<div class="input-group mb-3">
+								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<span class="input-group-text bg-warning text-white"
 											id="basic-addon2"><i class="ti-pencil"></i></span>
 									</div>
-									<input type="text" class="form-control form-control-lg"
-										placeholder="Password" aria-label="Password"
+									<input type="text" class="form-control"
+										placeholder="비밀번호" aria-label="Password"
 										aria-describedby="basic-addon1" required="">
 								</div>
 							</div>

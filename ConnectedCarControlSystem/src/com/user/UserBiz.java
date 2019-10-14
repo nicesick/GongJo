@@ -1,5 +1,7 @@
 package com.user;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -8,11 +10,10 @@ import com.frame.Biz;
 import com.frame.Dao;
 import com.vo.User;
 
-@Component("userBiz")
+@Component("UserBiz")
 public class UserBiz implements Biz<String, User> {
 	
-	@Autowired
-	@Qualifier("userDao")
+	@Resource(name="UserDao")
 	Dao<String, User> userDao;
 	
 	@Override

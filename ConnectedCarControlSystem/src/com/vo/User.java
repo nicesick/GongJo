@@ -12,6 +12,7 @@ public class User {
 	String user_type;
 	
 	public User() {
+		super();
 	}
 
 	public User(String user_id, String user_pwd, String user_name, String user_gender, String user_birthdate,
