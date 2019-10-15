@@ -38,6 +38,7 @@ public class LoginController {
 			if (user != null) {
 				if (user.getUser_pwd().equals(pwd)) {
 					session.setAttribute("userInfo", user);
+					session.setMaxInactiveInterval(10000);
 					
 					out.print("LoginSuccess");
 				}
