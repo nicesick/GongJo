@@ -5,7 +5,7 @@
 <html dir="ltr">
 
 <head>
-<meta charset="utf-8">
+<meta charset="EUC-KR">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,44 +58,41 @@
 						<span class="text-white p-l-10">로그인</span>
 					</div>
 					
-					<!-- Form -->
-					<form class="form-horizontal m-t-20" id="loginform"
-						action="index.html">
-						<div class="row p-b-20">
-							<div class="col-12">
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<span class="input-group-text bg-success text-white"
-											id="basic-addon1"><i class="ti-user"></i></span>
-									</div>
-									<input type="text" class="form-control"
-										placeholder="아이디" aria-label="Username"
-										aria-describedby="basic-addon1" required="">
+					<div class="row p-b-20">
+						<div class="col-12">
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text bg-success text-white"
+										id="basic-addon1"><i class="ti-user"></i></span>
 								</div>
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<span class="input-group-text bg-warning text-white"
-											id="basic-addon2"><i class="ti-pencil"></i></span>
-									</div>
-									<input type="text" class="form-control"
-										placeholder="비밀번호" aria-label="Password"
-										aria-describedby="basic-addon1" required="">
+								<input type="text" id="user_id" class="form-control"
+									placeholder="아이디" aria-label="Username"
+									aria-describedby="basic-addon1" required>
+							</div>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text bg-warning text-white"
+										id="basic-addon2"><i class="ti-pencil"></i></span>
+								</div>
+								<input type="password" id="user_pwd" class="form-control"
+									placeholder="비밀번호" aria-label="Password"
+									aria-describedby="basic-addon1" required>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row border-top border-secondary">
+						<div class="col-12">
+							<div class="form-group">
+								<div class="p-t-20">
+									<button class="btn btn-info" id="registerButton" type="button">
+										<i class="fa fa-lock m-r-5"></i> Register
+									</button>
+									<button id="loginimpl" class="btn btn-success float-right" type="button">Login</button>
 								</div>
 							</div>
 						</div>
-						<div class="row border-top border-secondary">
-							<div class="col-12">
-								<div class="form-group">
-									<div class="p-t-20">
-										<button class="btn btn-info" id="registerButton" type="button">
-											<i class="fa fa-lock m-r-5"></i> Register
-										</button>
-										<button id="loginimpl" class="btn btn-success float-right" type="button">Login</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -134,11 +131,38 @@
 		// ============================================================== 
 		
 		$('#registerButton').click(function(){
-			location.href = "register.mc";	
+			location.href = "register.mc";
 		});
 		
 		$('#loginimpl').click(function(){
-			location.href = "main.mc";
+			var id = $('#user_id').val();
+			var pwd = $('#user_pwd').val();
+			
+			if (id != '' && pwd != '') {
+				$.ajax({
+					url : 'loginImpl.mc',
+					method : 'POST',
+					
+					data : {
+						'id' : id,
+						'pwd' : pwd
+					},
+					
+					success : function(data) {
+						if (data == 'LoginSuccess') {
+							location.href = 'main.mc';
+						}
+						
+						else {
+							alert('사용자 정보가 일치하지 않습니다');
+						}
+					}
+				});
+			}
+			
+			else {
+				alert('사용자 정보를 입력해 주세요');
+			}
 		});
 	</script>
 </body>

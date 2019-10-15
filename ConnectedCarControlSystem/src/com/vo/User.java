@@ -1,11 +1,13 @@
 package com.vo;
 
+import java.sql.Date;
+
 public class User {
 	String user_id;
 	String user_pwd;
 	String user_name;
 	String user_gender;
-	String user_birthdate;
+	Date user_birthdate;
 	String user_phone;
 	String user_add;
 	String user_email;
@@ -15,9 +17,10 @@ public class User {
 		super();
 	}
 
-	public User(String user_id, String user_pwd, String user_name, String user_gender, String user_birthdate,
+	public User(String user_id, String user_pwd, String user_name, String user_gender, Date user_birthdate,
 			String user_phone, String user_add, String user_email, String user_type) {
 		super();
+		
 		this.user_id = user_id;
 		this.user_pwd = user_pwd;
 		this.user_name = user_name;
@@ -61,11 +64,11 @@ public class User {
 		this.user_gender = user_gender;
 	}
 
-	public String getUser_birthdate() {
+	public Date getUser_birthdate() {
 		return user_birthdate;
 	}
 
-	public void setUser_birthdate(String user_birthdate) {
+	public void setUser_birthdate(Date user_birthdate) {
 		this.user_birthdate = user_birthdate;
 	}
 

@@ -29,17 +29,20 @@ public class RegisterController {
 	}
 	
 	@RequestMapping("registerImpl.mc")
-	public void registerImpl() {
-		User user = userBiz.select("id01");
+	public ModelAndView registerImpl(ModelAndView mv, User user) {
 		PrintLog.printLog("registerImpl", user.toString());
+		userBiz.insert(user);
+		
+		mv.setViewName("login");
+		
+		return mv;
 	}
 	
 	@RequestMapping("checkId.mc")
 	@ResponseBody
 	public void checkId(String id, HttpServletResponse reponse) {
+		PrintLog.printLog("checkId", id);
 		User user = userBiz.select(id);
-		
-		PrintLog.printLog("checkId", "get User");
 		
 		try {
 			PrintWriter out = reponse.getWriter();
