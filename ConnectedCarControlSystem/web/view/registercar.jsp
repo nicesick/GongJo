@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html dir="ltr">
 
 <head>
-    <meta charset="EUC-KR">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,7 +54,7 @@
                             <img src="assets/images/logo-sample.PNG" alt="homepage" class="light-logo" />
                         </b>
 						<span class="text-white p-l-10">ConnectedCarControlSystem</span>
-						<span class="text-white p-l-10">ÀÚµ¿Â÷ µî·Ï</span>
+						<span class="text-white p-l-10">ìë™ì°¨ ë“±ë¡</span>
 					</div>
 					
                     <!-- Form -->
@@ -63,7 +63,7 @@
                         <div class="row border-top border-secondary p-t-20 p-b-20">
                         	<div class="col-12">
                         		<div class="mb-2">
-                            		<span class="text-white">µî·Ï»çÇ×</span>
+                            		<span class="text-white">ë“±ë¡ì‚¬í•­</span>
                             	</div>
                             	
                         		<!-- Car ID -->
@@ -72,16 +72,16 @@
                                 </div>
 		                        
                         		<div class="form-group row mb-2">
-		                        	<label class="text-white col-md-3">ÀÚµ¿Â÷ ¹øÈ£</label>
+		                        	<label class="text-white col-md-3">ìë™ì°¨ ë²ˆí˜¸</label>
 			                        <div class="col-md-9">
-			                           <input type="text" id="car_id" name="car_id" class="form-control" placeholder="ÀÚµ¿Â÷ ¹øÈ£" aria-label="Email" aria-describedby="basic-addon1" required>
+			                           <input type="text" id="car_id" name="car_id" class="form-control" placeholder="ìë™ì°¨ ë²ˆí˜¸" aria-label="Email" aria-describedby="basic-addon1" required>
 			                        </div>
 			                    </div>
                                 <!-- <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
                                     </div>
-                                    <input type="text" id="car_id" name="car_id" class="form-control" placeholder="ÀÚµ¿Â÷ ¹øÈ£" aria-label="Email" aria-describedby="basic-addon1" required>
+                                    <input type="text" id="car_id" name="car_id" class="form-control" placeholder="ìë™ì°¨ ë²ˆí˜¸" aria-label="Email" aria-describedby="basic-addon1" required>
                                 </div> -->
                         
                         		<!-- Car Name -->
@@ -89,21 +89,21 @@
                                     	<span id="car_name_msg"></span>
                                 </div>
                         		<div class="form-group row mb-2">
-		                        	<label class="text-white col-md-3">¸ğµ¨¸í</label>
+		                        	<label class="text-white col-md-3">ëª¨ë¸ëª…</label>
 			                        <div class="col-md-9">
-			                           <input type="text" id="car_name" name="car_name" class="form-control" placeholder="ÀÚµ¿Â÷ ¸ğµ¨¸í" aria-label="Email" aria-describedby="basic-addon1" required>
+			                           <input type="text" id="car_name" name="car_name" class="form-control" placeholder="ìë™ì°¨ ëª¨ë¸ëª…" aria-label="Email" aria-describedby="basic-addon1" required>
 			                        </div>
 			                    </div>
                                 
                                 <!-- Car type -->
 		                        <div class="form-group row mb-2">
-		                        	<label class="text-white col-md-3">ÀÚµ¿Â÷ Á¾·ù</label>
+		                        	<label class="text-white col-md-3">ìë™ì°¨ ì¢…ë¥˜</label>
 			                        <div class="col-md-9">
 			                            <select class="form-control" id="car_type" name="car_type">
-			                                    <option value="CompactCar">°æÂ÷</option>
-			                                    <option value="SmallCar">¼ÒÇüÂ÷</option>
-			                                    <option value="MidSizeCar">ÁßÇüÂ÷</option>
-			                                    <option value="FullSizedCar">´ëÇüÂ÷</option>
+			                                    <option value="CompactCar">ê²½ì°¨</option>
+			                                    <option value="SmallCar">ì†Œí˜•ì°¨</option>
+			                                    <option value="MidSizeCar">ì¤‘í˜•ì°¨</option>
+			                                    <option value="FullSizedCar">ëŒ€í˜•ì°¨</option>
 			                            </select>
 			                        </div>
 			                    </div>
@@ -113,14 +113,14 @@
                                     	<span id="car_fuel_msg"></span>
                                 </div>
                                      <div class="form-group row mb-2">
-		                        	<label class="text-white col-md-3">¿¬·á</label>
+		                        	<label class="text-white col-md-3">ì—°ë£Œ</label>
 			                        <div class="col-md-9">
 			                            <select class="form-control" id="car_fuel" name="car_fuel">
-			                                    <option value="GasolineCar">ÈÖ¹ßÀ¯</option>
-			                                    <option value="DigelCar">°æÀ¯</option>
+			                                    <option value="GasolineCar">íœ˜ë°œìœ </option>
+			                                    <option value="DigelCar">ê²½ìœ </option>
 			                                    <option value="LPGCar">LPG</option>
-			                                    <option value="ElectiricCar">Àü±âÂ÷</option>
-			                                    <option value="HybridCar">ÇÏÀÌºê¸®µå</option>
+			                                    <option value="ElectiricCar">ì „ê¸°ì°¨</option>
+			                                    <option value="HybridCar">í•˜ì´ë¸Œë¦¬ë“œ</option>
 			                            </select>
 			                        </div>
 			                    </div>
@@ -133,9 +133,9 @@
                                     	<span id="car_displacement_msg"></span>
                                 </div>
                                 <div class="form-group row mb-2">
-		                        	<label class="text-white col-md-3">¹è±â·®</label>
+		                        	<label class="text-white col-md-3">ë°°ê¸°ëŸ‰</label>
 			                        <div class="col-md-9">
-			                           <input type="text" id="car_displacement" name="car_displacement" class="form-control" placeholder="¹è±â·®" aria-label="Email" aria-describedby="basic-addon1" required>
+			                           <input type="text" id="car_displacement" name="car_displacement" class="form-control" placeholder="ë°°ê¸°ëŸ‰" aria-label="Email" aria-describedby="basic-addon1" required>
 			                        </div>
 			                    </div>
 			                    
@@ -147,9 +147,9 @@
                                     	<span id="car_color_msg"></span>
                                 </div>
                                 <div class="form-group row mb-2">
-		                        	<label class="text-white col-md-3">ÀÚµ¿Â÷ »ö»ó</label>
+		                        	<label class="text-white col-md-3">ìë™ì°¨ ìƒ‰ìƒ</label>
 			                        <div class="col-md-9">
-			                           <input type="text" id="car_color" name="car_color" class="form-control" placeholder="ÀÚµ¿Â÷ »ö»ó" aria-label="Email" aria-describedby="basic-addon1" required>
+			                           <input type="text" id="car_color" name="car_color" class="form-control" placeholder="ìë™ì°¨ ìƒ‰ìƒ" aria-label="Email" aria-describedby="basic-addon1" required>
 			                        </div>
 			                    </div>
 			                    
@@ -246,19 +246,19 @@
         		
         			success : function(data){
         				if (data == 'OK') {
-        					$('#car_id_msg').html('µ¿·Ï °¡´ÉÇÑ Â÷·®¹øÈ£ ÀÔ´Ï´Ù');
+        					$('#car_id_msg').html('ë™ë¡ ê°€ëŠ¥í•œ ì°¨ëŸ‰ë²ˆí˜¸ ì…ë‹ˆë‹¤');
         					changeStyleOk('#car_id_msg');
         				}
         				
         				else {
-        					$('#car_id_msg').html('ÀÌ¹Ì µî·ÏµÈ Â÷·®¹øÈ£ ÀÔ´Ï´Ù');
+        					$('#car_id_msg').html('ì´ë¯¸ ë“±ë¡ëœ ì°¨ëŸ‰ë²ˆí˜¸ ì…ë‹ˆë‹¤');
         					changeStyleNo('#car_id_msg');
         				}
         			}
         		});
     		}    		
     		else {
-    			$('#car_id_msg').html('Â÷·® ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
+    			$('#car_id_msg').html('ì°¨ëŸ‰ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”');
     			changeStyleNo('#car_id_msg');
 				
     			return false;
@@ -267,14 +267,14 @@
     	
     	function checkCarName(name) {
     		if (name != '') {
-    			$('#car_name_msg').html('µî·Ï°¡´ÉÇÑ ÀÚµ¿Â÷ ¸ğµ¨ÀÔ´Ï´Ù');
+    			$('#car_name_msg').html('ë“±ë¡ê°€ëŠ¥í•œ ìë™ì°¨ ëª¨ë¸ì…ë‹ˆë‹¤');
     			changeStyleOk('#car_name_msg');
     			
     			return true;
     		}
     		
     		else {
-    			$('#car_name_msg').html('ÀÚµ¿Â÷ ¸ğµ¨¸íÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
+    			$('#car_name_msg').html('ìë™ì°¨ ëª¨ë¸ëª…ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”');
     			changeStyleNo('#car_name_msg');
     			
     			return false;
@@ -283,14 +283,14 @@
     	
     	function checkCarDisplacement(displacement) {
     		if (displacement != '') {
-    			$('#car_displacement_msg').html('»ç¿ë °¡´ÉÇÑ ¹è±â·® ÀÔ´Ï´Ù');
+    			$('#car_displacement_msg').html('ì‚¬ìš© ê°€ëŠ¥í•œ ë°°ê¸°ëŸ‰ ì…ë‹ˆë‹¤');
     			changeStyleOk('#car_displacement_msg');
     			
     			return true;
     		}
     		
     		else {
-    			$('#car_displacement_msg').html('ÀÚµ¿Â÷ ¹è±â·®À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
+    			$('#car_displacement_msg').html('ìë™ì°¨ ë°°ê¸°ëŸ‰ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”');
     			changeStyleNo('#car_displacement_msg');
     			
     			return false;
@@ -299,14 +299,14 @@
     	
     	function checkCarColor(color) {
     		if (color != '') {
-    			$('#car_color_msg').html('»ç¿ë °¡´ÉÇÑ »ö»ó ÀÔ´Ï´Ù');
+    			$('#car_color_msg').html('ì‚¬ìš© ê°€ëŠ¥í•œ ìƒ‰ìƒ ì…ë‹ˆë‹¤');
     			changeStyleOk('#car_color_msg');
     			
     			return true;
     		}
     		
     		else {
-    			$('#car_color_msg').html('ÀÚµ¿Â÷ »ö»óÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
+    			$('#car_color_msg').html('ìë™ì°¨ ìƒ‰ìƒì„ ì…ë ¥í•´ ì£¼ì„¸ìš”');
     			changeStyleNo('#car_color_msg');
     			
     			return false;

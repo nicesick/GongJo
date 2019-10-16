@@ -103,7 +103,7 @@
                         </li>
                         
                         <li class="nav-item d-none d-md-block">
-                            <a class="nav-link waves-effect waves-dark" href="#" id="navbarDropdown" role="button">
+                            <a class="nav-link waves-effect waves-dark" href="registercar.mc" id="navbarDropdown" role="button">
                              	Register New Car
                             </a>
                         </li>
