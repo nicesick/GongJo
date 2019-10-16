@@ -9,6 +9,10 @@ public class Car {
 	String car_color;
 	String car_auto;
 	
+	public Car() {
+		super();
+	}
+	
 	public Car(String car_id, String car_name, String car_type, String car_fuel, int car_displacement, String car_color,
 			String car_auto) {
 		super();

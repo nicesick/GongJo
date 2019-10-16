@@ -1,5 +1,7 @@
 package com.user;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -34,5 +36,15 @@ public class UserDao implements Dao<String, User> {
 		User user = userMapper.select(k);
 		
 		return user;
+	}
+
+	@Override
+	public ArrayList<User> selects(String k) {
+		return null;
+	}
+
+	@Override
+	public ArrayList<User> selectAll() {
+		return null;
 	}
 }
