@@ -334,7 +334,6 @@
     		checkCarColor(color);
     	});
     	
-    	
 	    $('#signUpButton').click(function(){
 	    		$('#registercar_form').attr('action','registercarImpl.mc');
 	    		$('#registercar_form').attr('method','POST');
