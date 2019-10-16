@@ -1,5 +1,7 @@
 package com.user;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +40,13 @@ public class UserBiz implements Biz<String, User> {
 		return user;
 	}
 
+	@Override
+	public ArrayList<User> selects(String k) {
+		return null;
+	}
+
+	@Override
+	public ArrayList<User> selectAll() {
+		return null;
+	}
 }
