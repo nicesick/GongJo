@@ -7,10 +7,12 @@ PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias type="com.vo.User" alias="user"/>
 		<typeAlias type="com.vo.Car" alias="car"/>
+		<typeAlias type="com.vo.Car" alias="carGroup"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="com/config/userMapper.xml"/>
 		<mapper resource="com/config/carMapper.xml"/>
+		<mapper resource="com/config/carGroupMapper.xml"/>
 	</mappers>
 </configuration>
