@@ -38,7 +38,6 @@ public class MainController {
 			else {
 				mv.addObject("center", "home");
 			}
-			
 		}
 		
 		return mv;
