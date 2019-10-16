@@ -28,6 +28,7 @@ public class RegisterController {
 		return mv;
 	}
 	
+
 	@RequestMapping("registerImpl.mc")
 	public ModelAndView registerImpl(ModelAndView mv, User user) {
 		PrintLog.printLog("registerImpl", user.toString());
@@ -60,4 +61,12 @@ public class RegisterController {
 			e.printStackTrace();
 		}
 	}
+	//Start Register Car---------------------------------------------------------------------
+	
+	@RequestMapping("registercar.mc")
+	public ModelAndView registercarPage(ModelAndView mv) {
+		mv.setViewName("registercar");
+		return mv;
+	}
+	
 }
