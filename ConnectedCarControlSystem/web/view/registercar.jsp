@@ -66,36 +66,27 @@
                             		<span class="text-white">등록사항</span>
                             	</div>
                             	
-                            	<div class="text-left p-l-10">
-                                    	<span id="user_name_msg"></span>
-                                </div>
-                            	
                         		<!-- Car ID -->
-                                <div class="input-group mb-2">
+                        		<div class="form-group row mb-2">
+		                        	<label class="text-white col-md-3">자동차 번호</label>
+			                        <div class="col-md-9">
+			                           <input type="text" id="car_id" name="car_id" class="form-control" placeholder="자동차 번호" aria-label="Email" aria-describedby="basic-addon1" required>
+			                        </div>
+			                    </div>
+                                <!-- <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
                                     </div>
                                     <input type="text" id="car_id" name="car_id" class="form-control" placeholder="자동차 번호" aria-label="Email" aria-describedby="basic-addon1" required>
-                                </div>
-                            	
-                            	<div class="text-left p-l-10">
-                                    	<span id="user_email_msg"></span>
-                                </div>
-                            	
-                        		<!-- Car Name -->
-                                <div class="input-group mb-2">
-                                <label class="text-white col-md-3">모델명</label>
-                                  <!--   <div class="input-group-prepend">
-                                        <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
-                                    </div>  -->
-                                    <div class="col-md-9">
-                                    <input type="text" id="car_name" name="car_name" class="form-control" placeholder="자동차 모델명"  aria-describedby="basic-addon1" required>
-                                    </div>
-                                </div>
-                             <!--    <div class="text-left p-l-10">
-                                    	<span id="user_phone_msg"></span>
                                 </div> -->
-                                
+                        
+                        		<!-- Car Name -->
+                        		<div class="form-group row mb-2">
+		                        	<label class="text-white col-md-3">모델명</label>
+			                        <div class="col-md-9">
+			                           <input type="text" id="car_name" name="car_name" class="form-control" placeholder="자동차 모델명" aria-label="Email" aria-describedby="basic-addon1" required>
+			                        </div>
+			                    </div>
                                 
                                 <!-- Car type -->
 		                        <div class="form-group row mb-2">
@@ -103,11 +94,8 @@
 			                        <div class="col-md-9">
 			                            <select class="form-control" id="car_type" name="car_type">
 			                                    <option value="CompactCar">경차</option>
-			                                
 			                                    <option value="SmallCar">소형차</option>
-			                             
 			                                    <option value="MidSizeCar">중형차</option>
-			                              
 			                                    <option value="FullSizedCar">대형차</option>
 			                            </select>
 			                        </div>
@@ -119,65 +107,44 @@
 			                        <div class="col-md-9">
 			                            <select class="form-control" id="car_fuel" name="car_fuel">
 			                                    <option value="GasolineCar">휘발유</option>
-			                                
 			                                    <option value="DigelCar">경유</option>
-			                             
 			                                    <option value="LPGCar">LPG</option>
-			                              
 			                                    <option value="ElectiricCar">전기차</option>
-			                                    
 			                                    <option value="HybridCar">하이브리드</option>
 			                            </select>
 			                        </div>
 			                    </div>
+			                    
                                 <!-- Displacement -->
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
-                                    </div>
-                                    <input type="text" id="car_displacement" name="car_displacement" class="form-control" placeholder="배기량" aria-label="Email" aria-describedby="basic-addon1" required>
-                                </div>
-                            	
-                            	<div class="text-left p-l-10">
-                                    	<span id="user_email_msg"></span>
-                                </div>
+                                <div class="form-group row mb-2">
+		                        	<label class="text-white col-md-3">배기량</label>
+			                        <div class="col-md-9">
+			                           <input type="text" id="car_displacement" name="car_displacement" class="form-control" placeholder="배기량" aria-label="Email" aria-describedby="basic-addon1" required>
+			                        </div>
+			                    </div>
+			                    
                                 <!-- Car Color -->
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
-                                    </div>
-                                    <input type="text" id="car_color" name="car_color" class="form-control" placeholder="자동차 색상" aria-label="Email" aria-describedby="basic-addon1" required>
-                                </div>
-                            	
-                            	<div class="text-left p-l-10">
-                                    	<span id="user_email_msg"></span>
-                                </div>
-                                
-                                
+                                <div class="form-group row mb-2">
+		                        	<label class="text-white col-md-3">자동차 색상</label>
+			                        <div class="col-md-9">
+			                           <input type="text" id="car_color" name="car_color" class="form-control" placeholder="자동차 색상" aria-label="Email" aria-describedby="basic-addon1" required>
+			                        </div>
+			                    </div>
+			                    
                                 <!-- Auto/Manual Type -->
                                 <div class="form-group row mb-2">
 			                        <label class="text-white col-md-3">Auto/Manual</label>
 			                        <div class="col-md-9">
 			                            <div class="custom-control custom-radio">
-			                                <input type="radio" class="custom-control-input" id="car_auto" name="car_auto" value="auto" checked>
-			                                <label class="text-white custom-control-label" for="car_auto">Auto</label>
+			                                <input type="radio" class="custom-control-input" id="car_auto1" name="car_auto" value="auto" checked>
+			                                <label class="text-white custom-control-label" for="car_auto1">Auto</label>
 			                            </div>
 			                             <div class="custom-control custom-radio">
-			                                <input type="radio" class="custom-control-input" id="car_auto" name="car_auto" value="manual">
-			                                <label class="text-white custom-control-label" for="car_auto">Manual</label>
+			                                <input type="radio" class="custom-control-input" id="car_auto2" name="car_auto" value="manual">
+			                                <label class="text-white custom-control-label" for="car_auto2">Manual</label>
 			                            </div>
 			                        </div>
 			                    </div>
-		                        
-		                        <div class="text-left p-l-10">
-                                    	<span id="user_add_msg"></span>
-                                </div>
-		                        
-		                        
-			                    <div class="text-left p-l-10">
-                                    	<span id="user_birthdate_msg"></span>
-                                </div>
-			                    <input type="hidden" name="user_type" value="0">
                         	</div>
                         </div>
                         
