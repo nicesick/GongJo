@@ -18,7 +18,7 @@
                                     <div class="el-overlay">
                                         <ul class="list-style-none el-info">
                                             <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="assets/images/big/img1.jpg"><i class="mdi mdi-magnify-plus"></i></a></li>
-                                            <li class="el-item"><a class="btn default btn-outline el-link" href="javascript:void(0);"><i class="mdi mdi-link"></i></a></li>
+                                            <li class="el-item"><a class="btn default btn-outline el-link" href="selectcar.mc?id=${car.car_id}"><i class="mdi mdi-link"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

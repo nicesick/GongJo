@@ -20,6 +20,16 @@ public class LoginController {
 	@Resource(name="UserBiz")
 	Biz<String, User> userBiz;
 	
+	@RequestMapping("logout.mc")
+	public void logout(HttpSession session, HttpServletResponse response) {
+		session.removeAttribute("userInfo");
+		try {
+			response.sendRedirect("login.mc");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
+	
 	@RequestMapping("login.mc")
 	public ModelAndView loginPage(ModelAndView mv) {
 		mv.setViewName("login");
