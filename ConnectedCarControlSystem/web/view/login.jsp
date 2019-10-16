@@ -5,7 +5,7 @@
 <html dir="ltr">
 
 <head>
-<meta charset="utf-8">
+<meta charset="EUC-KR">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,77 +48,50 @@
 			class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
 			<div class="auth-box bg-dark border-top border-secondary">
 				<div id="loginform">
-					<div class="text-center p-t-20 p-b-20">
-						<span class="db"><img src="assets/images/logo.png"
-							alt="logo" /></span>
+					<div class="p-t-20 p-b-20">
+						<b class="logo-icon">
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <img src="assets/images/logo-sample.PNG" alt="homepage" class="light-logo" />
+                        </b>
+						<span class="text-white p-l-10">ConnectedCarControlSystem</span>
+						<span class="text-white p-l-10">로그인</span>
 					</div>
-					<!-- Form -->
-					<form class="form-horizontal m-t-20" id="loginform"
-						action="index.html">
-						<div class="row p-b-30">
-							<div class="col-12">
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text bg-success text-white"
-											id="basic-addon1"><i class="ti-user"></i></span>
-									</div>
-									<input type="text" class="form-control form-control-lg"
-										placeholder="Username" aria-label="Username"
-										aria-describedby="basic-addon1" required="">
-								</div>
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text bg-warning text-white"
-											id="basic-addon2"><i class="ti-pencil"></i></span>
-									</div>
-									<input type="text" class="form-control form-control-lg"
-										placeholder="Password" aria-label="Password"
-										aria-describedby="basic-addon1" required="">
-								</div>
-							</div>
-						</div>
-						<div class="row border-top border-secondary">
-							<div class="col-12">
-								<div class="form-group">
-									<div class="p-t-20">
-										<button class="btn btn-info" id="to-recover" type="button">
-											<i class="fa fa-lock m-r-5"></i> Lost password?
-										</button>
-										<button id="loginimpl" class="btn btn-success float-right" type="button">Login</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div id="recoverform">
-					<div class="text-center">
-						<span class="text-white">Enter your e-mail address below
-							and we will send you instructions how to recover a password.</span>
-					</div>
-					<div class="row m-t-20">
-						<!-- Form -->
-						<form class="col-12" action="index.html">
-							<!-- email -->
-							<div class="input-group mb-3">
+					
+					<div class="row p-b-20">
+						<div class="col-12">
+							<div class="input-group mb-2">
 								<div class="input-group-prepend">
-									<span class="input-group-text bg-danger text-white"
-										id="basic-addon1"><i class="ti-email"></i></span>
+									<span class="input-group-text bg-success text-white"
+										id="basic-addon1"><i class="ti-user"></i></span>
 								</div>
-								<input type="text" class="form-control form-control-lg"
-									placeholder="Email Address" aria-label="Username"
-									aria-describedby="basic-addon1">
+								<input type="text" id="user_id" class="form-control"
+									placeholder="아이디" aria-label="Username"
+									aria-describedby="basic-addon1" required>
 							</div>
-							<!-- pwd -->
-							<div class="row m-t-20 p-t-20 border-top border-secondary">
-								<div class="col-12">
-									<a class="btn btn-success" href="#" id="to-login" name="action">Back
-										To Login</a>
-									<button class="btn btn-info float-right" type="button"
-										name="action">Recover</button>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text bg-warning text-white"
+										id="basic-addon2"><i class="ti-pencil"></i></span>
+								</div>
+								<input type="password" id="user_pwd" class="form-control"
+									placeholder="비밀번호" aria-label="Password"
+									aria-describedby="basic-addon1" required>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row border-top border-secondary">
+						<div class="col-12">
+							<div class="form-group">
+								<div class="p-t-20">
+									<button class="btn btn-info" id="registerButton" type="button">
+										<i class="fa fa-lock m-r-5"></i> Register
+									</button>
+									<button id="loginimpl" class="btn btn-success float-right" type="button">Login</button>
 								</div>
 							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -152,21 +125,44 @@
 	<script>
 		$('[data-toggle="tooltip"]').tooltip();
 		$(".preloader").fadeOut();
+		
 		// ============================================================== 
 		// Login and Recover Password 
 		// ============================================================== 
-		$('#to-recover').on("click", function() {
-			$("#loginform").slideUp();
-			$("#recoverform").fadeIn();
-		});
-		$('#to-login').click(function() {
-
-			$("#recoverform").hide();
-			$("#loginform").fadeIn();
+		
+		$('#registerButton').click(function(){
+			location.href = "register.mc";
 		});
 		
 		$('#loginimpl').click(function(){
-			location.href = "main.mc";
+			var id = $('#user_id').val();
+			var pwd = $('#user_pwd').val();
+			
+			if (id != '' && pwd != '') {
+				$.ajax({
+					url : 'loginImpl.mc',
+					method : 'POST',
+					
+					data : {
+						'id' : id,
+						'pwd' : pwd
+					},
+					
+					success : function(data) {
+						if (data == 'LoginSuccess') {
+							location.href = 'main.mc';
+						}
+						
+						else {
+							alert('사용자 정보가 일치하지 않습니다');
+						}
+					}
+				});
+			}
+			
+			else {
+				alert('사용자 정보를 입력해 주세요');
+			}
 		});
 	</script>
 </body>
