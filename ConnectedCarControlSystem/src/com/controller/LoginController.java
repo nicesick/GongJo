@@ -22,17 +22,24 @@ public class LoginController {
 	
 	@RequestMapping("logout.mc")
 	public void logout(HttpSession session, HttpServletResponse response) {
-		session.removeAttribute("userInfo");
+		if (session != null) {
+			session.invalidate();
+		}
+		
 		try {
 			response.sendRedirect("login.mc");
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 	
 	@RequestMapping("login.mc")
-	public ModelAndView loginPage(ModelAndView mv) {
+	public ModelAndView loginPage(ModelAndView mv, HttpSession session) {
 		mv.setViewName("login");
+		
+		if (session != null) {
+			session.invalidate();
+		}
 		
 		return mv;
 	}
