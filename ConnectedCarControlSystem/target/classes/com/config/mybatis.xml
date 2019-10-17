@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 		<typeAlias type="com.vo.User" alias="user"/>
 		<typeAlias type="com.vo.Car" alias="car"/>
 		<typeAlias type="com.vo.Car" alias="carGroup"/>
+		<typeAlias type="com.vo.CarStatus" alias="carStatus"/>
 	</typeAliases>
 	
 	<mappers>

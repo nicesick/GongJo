@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.carStatusMapper">
+	<select id="select" parameterType="String"
+	resultType="carStatus">
+		SELECT * FROM CARSTATUS_TABLE WHERE CAR_ID=#{key}
+	</select>
+	
+	<insert id="insert" parameterType="carStatus">
+		<!-- INSERT INTO CARSTATUS_TABLE VALUES (#{user_id},#{car_id},SYSDATE,'정상') -->
+	</insert>
+	
+	<update id="update" parameterType="carStatus">
+		<!-- UPDATE CARSTATUS_TABLE SET CAR_DATE=#{car_date}, CAR_STAT=#{car_stat} WHERE USER_ID=#{user_id} AND CAR_ID=#{car_id} -->
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM CARSTATUS_TABLE WHERE CAR_ID=#{key}
+	</delete>
+</mapper>
