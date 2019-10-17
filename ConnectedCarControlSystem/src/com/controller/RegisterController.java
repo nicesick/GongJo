@@ -37,7 +37,6 @@ public class RegisterController {
 		
 		return mv;
 	}
-	
 
 	@RequestMapping("registerImpl.mc")
 	public ModelAndView registerImpl(ModelAndView mv, User user) {

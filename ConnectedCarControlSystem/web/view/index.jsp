@@ -107,33 +107,26 @@
                              	Register New Car
                             </a>
                         </li>
-                        
-                        <c:choose>
-                        <c:when test="${selectcar}!=null">
-                        <li class="nav-item d-none d-md-block">
-                        	<h3>선택된 차량 : ${selectcar} </h3>
-                        </li>
-                        </c:when>
-                        </c:choose>
-                        
-                  
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-right">
+                    	<c:choose>
+	                        <c:when test="${selectcar != null }">
+	                        	<li class="nav-item d-none d-md-block">
+		                        	<span class="nav-link waves-effect waves-dark"> 선택된 차량 : ${selectcar} </span>
+		                        </li>
+	                        </c:when>
+                        </c:choose>
+                    
                     	<!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu user-dd animated">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
-                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> ${userInfo.user_id } 님</a>
                                 <a class="dropdown-item" href="logout.mc"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                             </div>
                         </li>
@@ -150,11 +143,16 @@
                              <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <!-- here to use SQL to get user's car -->
-                            <c:forEach var="car" items="#{carInfo}">
-                            	<a class="dropdown-item" href="selectcar.mc?id=${car.car_id}">${car.car_name} / ${car.car_id}</a>
-                            </c:forEach>
-                                
+	                            <c:choose>
+	                            	<c:when test="${carInfo != null }">
+			                            <c:forEach var="car" items="${carInfo}">
+			                            	<a class="dropdown-item" href="selectcar.mc?id=${car.car_id}">${car.car_name} / ${car.car_id}</a>
+			                            </c:forEach>
+	                            	</c:when>
+	                            	<c:otherwise>
+	                            		<a class="dropdown-item" href="#">등록된 차량 없음</a>
+	                            	</c:otherwise>
+	                            </c:choose>
                             </div>
                         </li>
                     </ul>

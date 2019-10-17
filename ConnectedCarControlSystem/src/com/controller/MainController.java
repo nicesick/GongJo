@@ -1,8 +1,10 @@
 package com.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -20,24 +22,33 @@ public class MainController {
 	Biz<String, Car> carBiz;
 	
 	@RequestMapping("main.mc")
-	public ModelAndView mainPage(ModelAndView mv, HttpSession session) {
+	public ModelAndView mainPage(ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		mv.setViewName("index");
 		
 		User user = (User) session.getAttribute("userInfo");
-		PrintLog.printLog("[MainController]", user.toString());
 		
 		if (user != null) {
+			PrintLog.printLog("[MainController]", user.toString());
+			
 			ArrayList<Car> cars = carBiz.selects(user.getUser_id());
 			PrintLog.printLog("[MainController]", cars.toString());
 			
 			if(cars.size() > 0) {
-				mv.addObject("carInfo", cars);
-				mv.addObject("center", "carlist");
+				session.setAttribute("carInfo", cars);
 			}
 			
-			else {
-				mv.addObject("center", "home");
+			mv.addObject("center", "carlist");
+		}
+		
+		else {
+			try {
+				response.sendRedirect("login.mc");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			
+			return null;
 		}
 		
 		return mv;
