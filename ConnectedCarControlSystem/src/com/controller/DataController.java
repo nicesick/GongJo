@@ -16,13 +16,17 @@ public class DataController {
 		if (id != null) {
 			session.setAttribute("selectcar", id);
 			session.setMaxInactiveInterval(10000);
-		} 
+		}
 		
 		try {
 			response.sendRedirect("main.mc");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("sendData.mc")
+	public void getData(String id) {
+		System.out.println(id);
 	}
 }
