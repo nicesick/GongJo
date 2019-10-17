@@ -33,7 +33,11 @@ public class ECU implements SerialPortEventListener {
 	static String distance;
 	static String fuel;
 	static String battery;
-	
+	static String co2;
+	static String dust;
+	static String sdust;
+	static String temperature;
+	static String humidity;
 	
 
 	public ECU() {
@@ -168,10 +172,32 @@ public class ECU implements SerialPortEventListener {
 					
 					else if(str.substring(0,8).equals("00010050")) {
 						fuel = str.substring(8,24);
+						st.sendData("W28"+str);
 					}
 					
 					else if(str.substring(0,8).equals("00010055")) {
 						battery = str.substring(8,24);
+						st.sendData("W28"+str);
+					}
+					else if(str.substring(0,8).equals("00020020")) {
+						co2 = str.substring(8,24);
+						st.sendData("W28"+str);
+					}
+					else if(str.substring(0,8).equals("00020030")) {
+						dust = str.substring(8,24);
+						st.sendData("W28"+str);
+					}
+					else if(str.substring(0,8).equals("00020035")) {
+						sdust = str.substring(8,24);
+						st.sendData("W28"+str);
+					}
+					else if(str.substring(0,8).equals("00020040")) {
+						temperature = str.substring(8,24);
+						st.sendData("W28"+str);
+					}
+					else if(str.substring(0,8).equals("00020045")) {
+						humidity = str.substring(8,24);
+						st.sendData("W28"+str);
 					}
 				} 
 			} catch (Exception e) {
@@ -327,7 +353,7 @@ public class ECU implements SerialPortEventListener {
 		try {
 			// ECU st = new ECU("COM5");
 			//st = new ECU("COM5");
-			st = new ECU("COM7");
+			st = new ECU("COM8");
 			ecu = new ECU("70.12.230.119", 8888);
 //			ecu.start();
 		}
