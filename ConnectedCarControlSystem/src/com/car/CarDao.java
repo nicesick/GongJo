@@ -33,12 +33,14 @@ public class CarDao implements Dao<String, Car> {
 
 	@Override
 	public Car select(String k) {
-		return null;
+		Car car = carMapper.select(k);
+		
+		return car;
 	}
 
 	@Override
 	public ArrayList<Car> selects(String k) {
-		ArrayList<Car> cars = carMapper.select(k);
+		ArrayList<Car> cars = carMapper.selects(k);
 		return cars;
 	}
 

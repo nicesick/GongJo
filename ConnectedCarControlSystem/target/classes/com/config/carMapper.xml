@@ -7,6 +7,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.mapper.carMapper">
 	<select id="select" parameterType="String"
 	resultType="car">
+		SELECT * FROM CAR_TABLE WHERE CAR_ID=#{car_id}
+	</select>
+
+	<select id="selects" parameterType="String"
+	resultType="car">
 		SELECT CAR_TABLE.CAR_ID, CAR_TABLE.CAR_NAME, CAR_TABLE.CAR_TYPE, CAR_TABLE.CAR_FUEL, CAR_TABLE.CAR_DISPLACEMENT, CAR_TABLE.CAR_COLOR, CAR_TABLE.CAR_AUTO FROM CAR_TABLE, CARGROUP_TABLE WHERE USER_ID=#{key} AND CAR_TABLE.CAR_ID=CARGROUP_TABLE.CAR_ID
 	</select>
 	

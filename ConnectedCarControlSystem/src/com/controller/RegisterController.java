@@ -94,4 +94,27 @@ public class RegisterController {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping("checkCarId.mc")
+	@ResponseBody
+	public void checkCarId(String id, HttpServletResponse response) {
+		Car car = carBiz.select(id);
+		
+		try {
+			PrintWriter out = response.getWriter();
+			
+			if (car == null) {
+				out.write("OK");
+			}
+			
+			else {
+				out.write("Already");
+			}
+			
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
