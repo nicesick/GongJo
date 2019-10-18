@@ -86,7 +86,14 @@ public class ConnectIoTTask {
             Thread sendToServerThread = new Thread(sendToServerRunnable);
             sendToServerThread.start();
             textView.append("\n"+mySocket.getInetAddress()+msg);
-            realTimeController.setInAir(msg);
+
+            String id = msg.substring(4,12);
+            String data = msg.substring(12, 28);
+
+            System.out.println("id : " + id);
+            System.out.println("data : " + data);
+
+            realTimeController.setValues(id, data);
         }
 
 
@@ -109,3 +116,4 @@ public class ConnectIoTTask {
     }
 
 }
+
