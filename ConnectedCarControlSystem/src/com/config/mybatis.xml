@@ -9,11 +9,14 @@ PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 		<typeAlias type="com.vo.Car" alias="car"/>
 		<typeAlias type="com.vo.Car" alias="carGroup"/>
 		<typeAlias type="com.vo.CarStatus" alias="carStatus"/>
+		<typeAlias type="com.vo.CarConsumable" alias="carConsumable"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="com/config/userMapper.xml"/>
 		<mapper resource="com/config/carMapper.xml"/>
 		<mapper resource="com/config/carGroupMapper.xml"/>
+		<mapper resource="com/config/carStatusMapper.xml"/>
+		<mapper resource="com/config/carConsumableMapper.xml"/>
 	</mappers>
 </configuration>

@@ -32,7 +32,9 @@ public class CarBiz implements Biz<String, Car> {
 
 	@Override
 	public Car select(String k) {
-		return null;
+		Car car = carDao.select(k);
+		
+		return car;
 	}
 
 	@Override
