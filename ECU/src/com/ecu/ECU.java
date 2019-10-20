@@ -43,7 +43,27 @@ public class ECU implements SerialPortEventListener {
 	public ECU() {
 
 	}
+	
+	public ECU(String portName) throws NoSuchPortException {
+		portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
+		// 포트가 정상이면 CONNECT
+		System.out.println("Connect Com Port!");
+		
+		try {
+			connectSerial();
+			System.out.println("Connect OK !!");
+			(new Thread(new SerialWriter())).start(); //
+		} catch (Exception e) {
+			System.out.println("Connect Fail !!");
+			e.printStackTrace();
+		}
+	}
+	
+	public ECU(String ip, int port) throws IOException {
+		new ServerThread(port).start();
+	}
 
+	
 	class ServerThread extends Thread {
 		private int port;
 		
@@ -66,7 +86,6 @@ public class ECU implements SerialPortEventListener {
 			while (flag) {
 				try {
 					System.out.println("server is ready...");
-					
 					socket = serverSocket.accept();
 					System.out.println("Socket : " + socket.getInetAddress());
 					new Receiver(socket).start();
@@ -85,9 +104,6 @@ public class ECU implements SerialPortEventListener {
 		}
 	}
 	
-	public ECU(String ip, int port) throws IOException {
-		new ServerThread(port).start();
-	}
 
 //	public void sendMsg(String msg) throws IOException {
 //		Sender sender = null;
@@ -333,20 +349,6 @@ public class ECU implements SerialPortEventListener {
 
 	}
 
-	public ECU(String portName) throws NoSuchPortException {
-		portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
-		// 포트가 정상이면 CONNECT
-		System.out.println("Connect Com Port!");
-		
-		try {
-			connectSerial();
-			System.out.println("Connect OK !!");
-			(new Thread(new SerialWriter())).start(); //
-		} catch (Exception e) {
-			System.out.println("Connect Fail !!");
-			e.printStackTrace();
-		}
-	}
 	
 	public static void main(String[] args) throws Exception {
 		ecu = null;
@@ -357,7 +359,6 @@ public class ECU implements SerialPortEventListener {
 			ecu = new ECU("70.12.230.119", 8888);
 //			ecu.start();
 		}
-
 		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
