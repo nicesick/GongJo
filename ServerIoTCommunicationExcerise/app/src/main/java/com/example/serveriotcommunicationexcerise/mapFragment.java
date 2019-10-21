@@ -1,9 +1,6 @@
 package com.example.serveriotcommunicationexcerise;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -22,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.skt.Tmap.TMapMarkerItem;
+import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
 
 
@@ -37,9 +36,11 @@ public class mapFragment extends Fragment {
     LinearLayout linearLayout;
     boolean threadEndFlag;
     private OnFragmentInteractionListener mListener;
-
+    MapUpdateTask mapUpdateTask;
+    TMapPoint tMapPoint;
+    TMapMarkerItem tMapMarkerItem;
+    View mapView;
     public mapFragment() {
-        threadEndFlag = true;
         // Required empty public constructor
     }
 
@@ -47,17 +48,31 @@ public class mapFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        tMapView = new TMapView(getActivity());
 
-        View mapView = inflater.inflate(R.layout.fragment_map, container, false);
+        mapView = inflater.inflate(R.layout.fragment_map, container, false);
+        tMapSetting();
 
+        threadEndFlag = true;
         linearLayout = mapView.findViewById(R.id.mapLayout);
-        tMapView.setSKTMapApiKey("8a7cffe8-176c-43ed-ba28-6b56639f9b6c");
         linearLayout.addView(tMapView);
-        MapUpdateTask mapUpdateTask = new MapUpdateTask();
+
+
+
+        mapUpdateTask = new MapUpdateTask();
         mapUpdateTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         return mapView;
+    }
+    void tMapSetting(){
+        tMapView = new TMapView(getActivity());
+        tMapView.setSKTMapApiKey("8a7cffe8-176c-43ed-ba28-6b56639f9b6c");
+//        tMapMarkerItem = new TMapMarkerItem();
+//        tMapMarkerItem.setName("현재 위치");
+//        tMapMarkerItem.setVisible(TMapMarkerItem.VISIBLE);
+//        tMapPoint = tMapView.getCenterPoint();
+//        tMapMarkerItem.setTMapPoint(tMapPoint);
+//
+//        tMapView.addMarkerItem("center",tMapMarkerItem);
     }
     /**
      * Called when the view previously created by {@link #onCreateView} has
@@ -71,6 +86,7 @@ public class mapFragment extends Fragment {
     @Override
     public void onDestroyView() {
         threadEndFlag = false;
+        if(!mapUpdateTask.isCancelled()) mapUpdateTask.cancel(true);
         super.onDestroyView();
     }
 
@@ -89,7 +105,6 @@ public class mapFragment extends Fragment {
 
         @Override
         protected void onProgressUpdate(Void... values) {
-            if(getActivity() == null) return;
             int permission = PermissionChecker.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
             if(permission == PackageManager.PERMISSION_GRANTED){
 //                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,0,gpsListener);
@@ -108,11 +123,15 @@ public class mapFragment extends Fragment {
                     else {
                         Log.d("network loc is ", location.getLongitude()+"lac is "+location.getLatitude());
                         tMapView.setCenterPoint(location.getLongitude(),location.getLatitude(),true);
+//                        tMapMarkerItem.setPosition((float)location.getLongitude(),(float)location.getLatitude());
+//                        tMapView.addMarkerItem("center",tMapMarkerItem);
                     }
                 }
                 else{
                     Log.d("GPS loc is ", location.getLongitude()+"lac is "+location.getLatitude());
                     tMapView.setCenterPoint(location.getLongitude(),location.getLatitude(),true);
+//                    tMapMarkerItem.setPosition((float)location.getLongitude(),(float)location.getLatitude());
+//                    tMapView.addMarkerItem("center",tMapMarkerItem);
                 }
 
             }

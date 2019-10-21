@@ -1,8 +1,7 @@
 package com.example.serveriotcommunicationexcerise;
 
-import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -21,6 +20,7 @@ public class RealTimeFragment extends Fragment {
     RealTimeController realTimeController;
     TextView inFreshView,outFreshView,inTempView,outTempView,totalAirView,CO2View,dustView,ultraDustView,humidityView;
     View RealTimeRootView;
+    UpdateViewTask updateViewTask;
 
     boolean threadEndFlag;
 
@@ -48,7 +48,6 @@ public class RealTimeFragment extends Fragment {
         @Override
         protected void onProgressUpdate(Void... values) {
             setViews();
-            Log.d("realTIme Thread",realTimeController.getInTpt()+"");
         }
 
         @Override
@@ -72,10 +71,30 @@ public class RealTimeFragment extends Fragment {
                 setView(dustView,realTimeController.getDust());
                 setView(ultraDustView,realTimeController.getUltraDust());
                 setView(humidityView,realTimeController.getHumidity());
+                setView(totalAirView,realTimeController.getTotal());
             }
             public void setView(TextView textView,String string){
                 if(textView!=null){
-                    textView.setText(string);
+                    if(string.charAt(0)=='G'){
+                        if(textView.getId()==R.id.TotalAirView){
+                            textView.setBackgroundResource(R.drawable.blue);
+                        }
+                       else textView.setTextColor(Color.GREEN);
+                    }
+                    else if(string.charAt(0)=='Y') {
+                        if(textView.getId()==R.id.TotalAirView){
+                            textView.setBackgroundResource(R.drawable.yellow);
+                        }
+                        textView.setTextColor(Color.YELLOW);
+                    }
+                    else if(string.charAt(0)=='R') {
+                        if(textView.getId()==R.id.TotalAirView){
+                            textView.setBackgroundResource(R.drawable.red);
+                        }
+                        textView.setTextColor(Color.RED);
+                    }
+
+                    textView.setText(string.substring(2));
                 }
             }
     }
@@ -90,7 +109,7 @@ public class RealTimeFragment extends Fragment {
 
         Log.d("realTIme Thread","ready");
 
-        UpdateViewTask updateViewTask = new UpdateViewTask();
+        updateViewTask = new UpdateViewTask();
         updateViewTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         return RealTimeRootView;
@@ -108,6 +127,7 @@ public class RealTimeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         threadEndFlag = false;
+        if(!updateViewTask.isCancelled()) updateViewTask.cancel(true);
         super.onDestroyView();
     }
 
