@@ -1,7 +1,6 @@
 package com.example.serveriotcommunicationexcerise;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -11,13 +10,15 @@ public class ChangeTimeInRealTime {
     TextView timeView;
     boolean flag;
     ChangeTimeAsyncTask changeTimeAsyncTask;
+
     public ChangeTimeInRealTime(TextView timeView) {
         this.timeView = timeView;
         changeTimeAsyncTask = new ChangeTimeAsyncTask();
         flag = true;
     }
+
     public void start(){
-        changeTimeAsyncTask.execute();
+        changeTimeAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
     void endProcess(){
         flag =false;

@@ -71,4 +71,26 @@ public class RealTimeController {
     public void setHumidity(String humidity) {
         RealTimeController.humidity = humidity;
     }
+
+    public void setValues(String id, String data) {
+        if (id.equals("00020020")) {
+            this.setCO2(String.valueOf(Integer.parseInt(data)));
+        }
+
+        else if (id.equals("00020030")) {
+            this.setDust(String.valueOf(Integer.parseInt(data)));
+        }
+
+        else if (id.equals("00020035")) {
+            this.setUltraDust(String.valueOf(Integer.parseInt(data)));
+        }
+
+        else if (id.equals("00020040")) {
+            this.setInTpt(String.valueOf(Integer.parseInt(data) - 40));
+        }
+
+        else if (id.equals("00020045")) {
+            this.setHumidity(String.valueOf(Integer.parseInt(data)));
+        }
+    }
 }
