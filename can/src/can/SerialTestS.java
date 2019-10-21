@@ -151,12 +151,9 @@ public class SerialTestS implements SerialPortEventListener {
 			try {
 				while (rflag) {
 					String str = din.readUTF();
-					System.out.println(str);
-					if(str.equals("Test : android is send 2")) {
-						sendData("W28000000000000000000000001");
-					} else if(str.equals("Test : android is send 3")){
-						sendData("W28000000000000000000000010");
-					}
+					System.out.println("Receiver From Pad : " + str);
+					
+					sendData(str);
 					
 //					if(str.equals("1th send")) {
 //						st.sendData("W28000000000000000000000001");
