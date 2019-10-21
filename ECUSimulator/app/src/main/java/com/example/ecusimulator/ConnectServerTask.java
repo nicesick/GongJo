@@ -1,6 +1,5 @@
 package com.example.ecusimulator;
 
-
 import android.util.Log;
 
 import java.io.IOException;

@@ -283,8 +283,8 @@ public class MainActivity extends AppCompatActivity {
                 String temp = "";
                 if(co2<1000){
                     temp = "0"+co2;
-                }else if(co2<=5000){
-                    temp = " "+co2;
+                }else{
+                    temp = ""+co2;
                 }
                 final String finalTemp = temp;
                 Runnable testSendIoTRunnable = new Runnable() {
