@@ -2,6 +2,7 @@ package com.ecu;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -105,12 +106,12 @@ public class ECU implements SerialPortEventListener {
 	}
 	
 
-//	public void sendMsg(String msg) throws IOException {
-//		Sender sender = null;
-//		sender = new Sender(socket);
-//		sender.setMsg(msg);
-//		sender.start();
-//	}
+	public void sendMsg(String msg) throws IOException {
+		Sender sender = null;
+		sender = new Sender(socket);
+		sender.setMsg(msg);
+		sender.start();
+	}
 
 //	public void start() throws Exception {
 //		Scanner sc = new Scanner(System.in);
@@ -128,30 +129,30 @@ public class ECU implements SerialPortEventListener {
 //		sc.close();
 //	}
 
-//	class Sender extends Thread {
-//		OutputStream out;
-//		DataOutputStream dout;
-//		String msg;
-//
-//		public Sender(Socket socket) throws IOException {
-//			out = socket.getOutputStream();
-//			dout = new DataOutputStream(out);
-//		}
-//
-//		public void setMsg(String msg) {
-//			this.msg = msg;
-//		}
-//
-//		public void run() {
-//			if (dout != null) {
-//				try {
-//					dout.writeUTF(msg);
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//	}
+	class Sender extends Thread {
+		OutputStream out;
+		DataOutputStream dout;
+		String msg;
+
+		public Sender(Socket socket) throws IOException {
+			out = socket.getOutputStream();
+			dout = new DataOutputStream(out);
+		}
+
+		public void setMsg(String msg) {
+			this.msg = msg;
+		}
+
+		public void run() {
+			if (dout != null) {
+				try {
+					dout.writeUTF(msg);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	class Receiver extends Thread {
 		Socket socket;
@@ -265,9 +266,12 @@ public class ECU implements SerialPortEventListener {
 
 				String ss = new String(readBuffer);
 				boolean result = checkSerialData(ss);
-				System.out.println("Result:" + result);
-				System.out.println("Receive Low Data:" + ss + "||");
 				
+				System.out.println("Result:" + result);
+				System.out.println("Receive Raw Data:" + ss + "||");
+				
+				ecu.sendMsg(ss);
+
 				if(checkData.equals("U28000000000000000000000001")){
 					System.out.println("enginestart");
 //					ecu.sendMsg("EngineStart");
@@ -355,7 +359,7 @@ public class ECU implements SerialPortEventListener {
 		try {
 			// ECU st = new ECU("COM5");
 			//st = new ECU("COM5");
-			st = new ECU("COM8");
+			st = new ECU("COM7");
 			ecu = new ECU("70.12.230.119", 8888);
 //			ecu.start();
 		}
