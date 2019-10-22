@@ -52,10 +52,10 @@ public class DataController {
 	        ResultSet rs = stmt.executeQuery("SELECT * FROM test_hive");
 	        
 	        while (rs.next()) {
-	            System.out.println(rs.getDate("car_date"));
-	            System.out.println(rs.getString("car_id"));
+	            System.out.println(rs.getDate("test_hive.car_date"));
+	            System.out.println(rs.getString("test_hive.car_id"));
 	            
-	            carStatus.add(new CarStatusTestHive(rs.getDate("car_date"), rs.getString("car_id")));
+	            carStatus.add(new CarStatusTestHive(rs.getDate("test_hive.car_date"), rs.getString("test_hive.car_id")));
 	        }
 
 	        conn.close();
