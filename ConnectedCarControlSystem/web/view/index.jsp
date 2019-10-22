@@ -127,6 +127,7 @@
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu user-dd animated">
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> ${userInfo.user_id } 님</a>
+                                <a class="dropdown-item" href="editmyinfo.mc"><i class="ti-user m-r-5 m-l-5"></i> 정보 수정</a>
                                 <a class="dropdown-item" href="logout.mc"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                             </div>
                         </li>
