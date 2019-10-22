@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="assets/libs/jquery/dist/jquery.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$('#submitButton').click(function(){
+			$('#aopTestForm').attr('action','sendData.mc');
+			$('#aopTestForm').attr('method','POST');
+			$('#aopTestForm').submit();
+		});
+	});
+</script>
+
+</head>
+<body>
+	<form id="aopTestForm">
+		<input type="hidden" name="car_id" value="CJ1234">
+		<button id="submitButton">submit</button>
+	</form>
+</body>
+</html>
