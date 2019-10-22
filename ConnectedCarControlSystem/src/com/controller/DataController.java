@@ -1,12 +1,17 @@
 package com.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class DataController {
@@ -25,8 +30,25 @@ public class DataController {
 		}
 	}
 	
-	@RequestMapping("sendData.mc")
-	public void getData(String id) {
-		System.out.println(id);
+	@RequestMapping(value="/sendData.mc",method= RequestMethod.POST)
+	public void getData(HttpServletRequest request) {
+		InputStream in = null;
+		String data = "";
+		
+		try {
+			in = request.getInputStream();
+			BufferedInputStream bin = new BufferedInputStream(in);
+			StringBuilder sb = new StringBuilder();
+			
+            while (bin.available() > 0) {
+                sb.append((char) bin.read());
+            }
+            
+            data = sb.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(data);
 	}
 }

@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.PermissionChecker;
 import androidx.fragment.app.Fragment;
 
@@ -51,7 +50,6 @@ public class mapFragment extends Fragment {
 
         mapView = inflater.inflate(R.layout.fragment_map, container, false);
         tMapSetting();
-
         threadEndFlag = true;
         linearLayout = mapView.findViewById(R.id.mapLayout);
         linearLayout.addView(tMapView);
@@ -66,13 +64,13 @@ public class mapFragment extends Fragment {
     void tMapSetting(){
         tMapView = new TMapView(getActivity());
         tMapView.setSKTMapApiKey("8a7cffe8-176c-43ed-ba28-6b56639f9b6c");
-//        tMapMarkerItem = new TMapMarkerItem();
-//        tMapMarkerItem.setName("현재 위치");
-//        tMapMarkerItem.setVisible(TMapMarkerItem.VISIBLE);
-//        tMapPoint = tMapView.getCenterPoint();
-//        tMapMarkerItem.setTMapPoint(tMapPoint);
-//
-//        tMapView.addMarkerItem("center",tMapMarkerItem);
+        tMapMarkerItem = new TMapMarkerItem();
+        tMapMarkerItem.setName("현재 위치");
+        tMapMarkerItem.setVisible(TMapMarkerItem.VISIBLE);
+        tMapPoint = tMapView.getCenterPoint();
+        tMapMarkerItem.setTMapPoint(tMapPoint);
+        tMapView.setZoomLevel(16);
+        tMapView.addMarkerItem("center",tMapMarkerItem);
     }
     /**
      * Called when the view previously created by {@link #onCreateView} has
@@ -93,7 +91,6 @@ public class mapFragment extends Fragment {
     class MapUpdateTask extends AsyncTask<Void,Void,Void> implements LocationListener{
         LocationManager locationManager;
 //        GPSListener gpsListener;
-        Location location;
 
         public MapUpdateTask() {
             locationManager = (LocationManager)getActivity().getSystemService(getContext().LOCATION_SERVICE);
@@ -102,7 +99,16 @@ public class mapFragment extends Fragment {
             Log.d("network is ", String.valueOf(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)));
 
         }
-
+        void setCenterView(Location location){
+            tMapView.setCenterPoint(location.getLongitude(),location.getLatitude(),false);
+            tMapPoint = tMapView.getCenterPoint();
+            tMapMarkerItem = new TMapMarkerItem();
+            tMapMarkerItem.setTMapPoint(tMapPoint);
+            tMapMarkerItem.setVisible(TMapMarkerItem.VISIBLE);
+            tMapView.addMarkerItem("center",tMapMarkerItem);
+            tMapView.setCenterPoint(location.getLongitude(),location.getLatitude()-0.001,false);
+            Log.d("LOCATION","update");
+        }
         @Override
         protected void onProgressUpdate(Void... values) {
             int permission = PermissionChecker.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
@@ -113,7 +119,7 @@ public class mapFragment extends Fragment {
 //
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10,0,this);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,10,0,this);
-                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 if(location==null){
                     Log.d("location","GPS is null");
                     location = locationManager.getLastKnownLocation(LocationManager.    NETWORK_PROVIDER);
@@ -122,18 +128,14 @@ public class mapFragment extends Fragment {
                     }
                     else {
                         Log.d("network loc is ", location.getLongitude()+"lac is "+location.getLatitude());
-                        tMapView.setCenterPoint(location.getLongitude(),location.getLatitude(),true);
-//                        tMapMarkerItem.setPosition((float)location.getLongitude(),(float)location.getLatitude());
-//                        tMapView.addMarkerItem("center",tMapMarkerItem);
+                        setCenterView(location);
+
                     }
                 }
                 else{
                     Log.d("GPS loc is ", location.getLongitude()+"lac is "+location.getLatitude());
-                    tMapView.setCenterPoint(location.getLongitude(),location.getLatitude(),true);
-//                    tMapMarkerItem.setPosition((float)location.getLongitude(),(float)location.getLatitude());
-//                    tMapView.addMarkerItem("center",tMapMarkerItem);
+                    setCenterView(location);
                 }
-
             }
         }
 

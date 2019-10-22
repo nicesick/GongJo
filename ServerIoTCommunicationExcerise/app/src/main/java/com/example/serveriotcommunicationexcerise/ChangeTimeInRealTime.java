@@ -23,7 +23,7 @@ public class ChangeTimeInRealTime {
     void endProcess(){
         flag =false;
     }
-    class ChangeTimeAsyncTask extends AsyncTask<Void,String,Void>{
+        class ChangeTimeAsyncTask extends AsyncTask<Void,String,Void>{
 
 
         @Override

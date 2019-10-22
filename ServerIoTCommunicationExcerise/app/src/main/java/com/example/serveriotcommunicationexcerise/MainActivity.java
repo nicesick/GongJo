@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         sendStateWithHttp = new SendStateWithHttp(url);
         checkPermission();
         openSocket();
+
     }
     void checkPermission(){
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
     void setURL(){
         try {
-            url = new URL("http://70.12.60.99/sendData.mc?id=temp");
+            url = new URL("http://70.12.60.95/ConnectedCarControlSystem/sendData.mc");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -158,15 +159,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.envFragmentButton:
                 Log.d("button","environment");
                 clickedButton = R.id.envFragmentButton;
-
                 setButtonUI(realTimeFragmentButton);
-
                 getSupportFragmentManager().beginTransaction().replace(R.id.FragmentLayout,realTimeFragment).commit();
                 break;
             case R.id.csmFragmentButton:
                 Log.d("button","consumable");
                 setButtonUI(consumableFragmentButton);
-
                 clickedButton = R.id.csmFragmentButton;
                 getSupportFragmentManager().beginTransaction().replace(R.id.FragmentLayout,comsumableFragment).commit();
 
@@ -178,7 +176,11 @@ public class MainActivity extends AppCompatActivity {
                 realTimeController.setInTpt(index+"");
                 index++;
                 getSupportFragmentManager().beginTransaction().replace(R.id.FragmentLayout,settingFragment).commit();
-
+                try {
+                    sendStateWithHttp.sendMsg("aaa");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());

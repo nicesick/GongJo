@@ -13,7 +13,7 @@ public class RealTimeController {
     private static String CO2 = "G 0";
     private static String humidity = "Y 0";
     private static String total = "G 0";
-
+    private static boolean startUp;
 
     final int IN_AIR_STANDARD1 = 10,IN_AIR_STANDARD2 = 20;
     final int OUT_AIR_STANDARD1 = 10,OUT_AIR_STANDARD2 = 20;
