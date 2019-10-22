@@ -2,11 +2,7 @@
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
-img {
-  width: auto;
-  height: 60px;
-  border: 5px solid black;	//사진 높이만 정해줘서 크기는 맞추면서 이미지는 안뭉개짐.
-}
+
 </style>
 <head>
 <!-- Favicon icon -->
@@ -29,39 +25,25 @@ img {
 	<div class="row el-element-overlay">
 <div class="col-12">
      <div class="card">
-         <nav aria-label="breadcrumb">
-             <ol class="breadcrumb">
-                 <li class="breadcrumb-item"><a href="admincarlist.mc">관리자모드 차량관리</a></li>
-                 <li class="breadcrumb-item"><a href="adminuserlist.mc">관리자모드 유저관리</li>
-             </ol>
-         </nav>
+         <div class="card-body">
+             <h5 class="card-title m-b-0" href="admincarlist.mc" role="button">관리자모드 차량제어</h5>&nbsp&nbsp&nbsp&nbsp&nbsp<h5 class="card-title m-b-0">관리자모드 유저관리</h5>
+         </div>
          <table class="table">
          <thead>
              <tr>
-                 <th scope="col">차량 이름</th>
-                 <th scope="col">차량 제어</th>
+                 <th scope="col">유저 ID</th>
+                 <th scope="col">유저선택</th>
              </tr>
          </thead>
          <tbody>
            <tr>
                <td>
-                   <img src="../assets/images/thecar.png">&nbsp&nbsp<span class="badge badge-dark">CAR 1</span><br>소유자 : ${ }
+                   	id01
                </td>
                <td>
-                   <i class="fas fa-chevron-up"></i>
-                   <button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                     	희망온도 : [${ } ] 현재온도 : [${ } ]
-                   </button><i class="fas fa-chevron-down"></i>&nbsp&nbsp&nbsp
-                   <i class="fas fa-chevron-up"></i><button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                     CONTROL 2 : STATUS
-                   </button><i class="fas fa-chevron-down"></i><br>
-                   <i class="fas fa-chevron-up"></i>
-                   <button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                     CONTROL 3 : STATUS
-                   </button><i class="fas fa-chevron-down"></i>&nbsp&nbsp&nbsp
-                   <i class="fas fa-chevron-up"></i><button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                     CONTROL 4 : STATUS
-                   </button><i class="fas fa-chevron-down"></i><br>
+                   <button class="btn btn-cyan btn-sm" type="button" href="">Edit</button>
+                   <button class="btn btn-danger btn-sm" type="button" href="">Delete</button><br>
+                   	소유 차량 : 
                </td>
            </tr>
            
