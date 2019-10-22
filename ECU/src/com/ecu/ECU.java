@@ -46,6 +46,24 @@ public class ECU implements SerialPortEventListener {
 	}
 	
 	public ECU(String portName) throws NoSuchPortException {
+		boolean flag = true;
+		
+		while(flag) {
+		try {	
+		if(CommPortIdentifier.getPortIdentifier(portName) != null) {
+			break;
+		}
+		}catch(Exception e){
+			System.out.println("Re-Try");
+			
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
+		}
+		
 		portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
 		// 포트가 정상이면 CONNECT
 		System.out.println("Connect Com Port!");
@@ -58,6 +76,10 @@ public class ECU implements SerialPortEventListener {
 			System.out.println("Connect Fail !!");
 			e.printStackTrace();
 		}
+		
+		
+		
+		
 	}
 	
 	public ECU(String ip, int port) throws IOException {
@@ -101,6 +123,7 @@ public class ECU implements SerialPortEventListener {
 						e1.printStackTrace();
 					}
 				}
+				
 			}
 		}
 	}
@@ -170,7 +193,9 @@ public class ECU implements SerialPortEventListener {
 			
 			try {
 				while (rflag) {
+
 					str = din.readUTF();
+					
 					System.out.println(str);
 					// 시뮬레이터 조작
 					// 속도 연료 거리 베터리
@@ -218,6 +243,7 @@ public class ECU implements SerialPortEventListener {
 					}
 				} 
 			} catch (Exception e) {
+				System.out.println("Disconnected");			
 				e.printStackTrace();
 			}
 		}
@@ -270,7 +296,10 @@ public class ECU implements SerialPortEventListener {
 				System.out.println("Result:" + result);
 				System.out.println("Receive Raw Data:" + ss + "||");
 				
+				
+				if(ss.substring(0,4).equals(":U28")){
 				ecu.sendMsg(ss);
+				}
 
 				if(checkData.equals("U28000000000000000000000001")){
 					System.out.println("enginestart");
@@ -359,7 +388,7 @@ public class ECU implements SerialPortEventListener {
 		try {
 			// ECU st = new ECU("COM5");
 			//st = new ECU("COM5");
-			st = new ECU("COM7");
+			st = new ECU("COM8");
 			ecu = new ECU("70.12.230.119", 8888);
 //			ecu.start();
 		}
