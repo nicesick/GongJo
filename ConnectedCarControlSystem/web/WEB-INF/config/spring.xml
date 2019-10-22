@@ -17,6 +17,8 @@
 	<tx:annotation-driven
 		transaction-manager="txManager" />
 
+	<aop:aspectj-autoproxy />
+
 	<!-- ViewResolver -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -30,27 +32,6 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="500000000" />
 	</bean>
-
-	<!-- Multi language -->
-
-	<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basenames">
-			<list>
-				<value>messages/messages</value> <!-- 폴더/파일 -->
-			</list>
-		</property>
-	</bean>
-	<bean id="localeResolver"
-		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-	</bean>
-
-	<mvc:interceptors>  <!-- 사용자의 브라우저에서 접속할 떄 언어가 영어인지 한국어인지 캡쳐하겠다 -->
-		<bean
-			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-			<property name="paramName" value="lang" />
-		</bean>
-	</mvc:interceptors>
 
 	<!-- 1. Database Setting -->
 	<bean id="dataSource"
