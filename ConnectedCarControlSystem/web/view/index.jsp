@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -49,7 +50,6 @@
 	<!-- ============================================================== -->
 
 	<div id="main-wrapper">
-<<<<<<< HEAD
 		<!-- ============================================================== -->
 		<!-- Topbar header - style you can find in pages.scss -->
 		<!-- ============================================================== -->
@@ -99,10 +99,6 @@
 							class="nav-link sidebartoggler waves-effect waves-light"
 							href="javascript:void(0)" data-sidebartype="mini-sidebar"><i
 								class="mdi mdi-menu font-24"></i> </a></li>
-
-						<li class="nav-item d-none d-md-block"><a
-							class="nav-link waves-effect waves-dark" href="registercar.mc"
-							id="navbarDropdown" role="button"> Register New Car </a></li>
 					</ul>
 					<!-- ============================================================== -->
 					<!-- Right side toggle and nav items -->
@@ -139,14 +135,15 @@
 						<!-- ============================================================== -->
 						<!-- create new -->
 						<!-- ============================================================== -->
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle waves-effect waves-dark" href="#"
-							id="navbarDropdown" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false"> <span
-								class="d-none d-md-block">Select Car <i
-									class="fa fa-angle-down"></i></span> <span class="d-block d-md-none"><i
-									class="fa fa-plus"></i></span>
-						</a>
+						<li class="nav-item dropdown">
+							<a
+								class="nav-link dropdown-toggle waves-effect waves-dark" href="#"
+								id="navbarDropdown" role="button" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"> <span
+									class="d-none d-md-block">Select Car <i
+										class="fa fa-angle-down"></i></span> <span class="d-block d-md-none"><i
+										class="fa fa-plus"></i></span>
+							</a>
 							<div class="dropdown-menu dropdown-menu-right"
 								aria-labelledby="navbarDropdown">
 								<c:choose>
@@ -159,9 +156,14 @@
 									<c:otherwise>
 										<a class="dropdown-item" href="#">등록된 차량 없음</a>
 									</c:otherwise>
-									<a class="dropdown-item" href="registercar.mc" id="navbarDropdown" role="button"><i class="fas fa-plus-circle"></i>Register New Car </a>
 								</c:choose>
-							</div></li>
+								
+								<a class="dropdown-item" href="registercar.mc"
+										id="navbarDropdown" role="button"><i
+										class="fas fa-plus-circle"></i>Register New Car 
+								</a>
+							</div>
+						</li>
 					</ul>
 				</div>
 			</nav>
@@ -237,28 +239,29 @@
 
 	<script src="assets/libs/jquery/dist/jquery.min.js"></script>
 	<script src="dist/js/jquery.ui.touch-punch-improved.js"></script>
-    <script src="dist/js/jquery-ui.min.js"></script>
-    
+	<script src="dist/js/jquery-ui.min.js"></script>
+
 	<!-- Bootstrap tether Core JavaScript -->
 	<script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
 	<script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script
 		src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 	<script src="assets/extra-libs/sparkline/sparkline.js"></script>
-	
+
 	<!-- slimscrollbar scrollbar JavaScript -->
-    <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
-	
+	<script
+		src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+	<script src="assets/extra-libs/sparkline/sparkline.js"></script>
+
 	<!--Wave Effects -->
 	<script src="dist/js/waves.js"></script>
-	
+
 	<!--Menu sidebar -->
 	<script src="dist/js/sidebarmenu.js"></script>
-	
+
 	<!--Custom JavaScript -->
 	<script src="dist/js/custom.min.js"></script>
-	
+
 	<!-- Charts js Files -->
 	<script src="assets/libs/flot/excanvas.js"></script>
 	<script src="assets/libs/flot/jquery.flot.js"></script>
