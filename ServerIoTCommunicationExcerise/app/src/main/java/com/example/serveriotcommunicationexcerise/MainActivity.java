@@ -126,12 +126,36 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private class TestSender extends Thread {
+        private Socket socket;
+
+        public TestSender(Socket socket) {
+            this.socket = socket;
+        }
+
+        @Override
+        public void run() {
+            try {
+                OutputStream out = socket.getOutputStream();
+                DataOutputStream dout = new DataOutputStream(out);
+
+                dout.writeUTF("HaHa");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     void openSocket(){
         socketList = new ArrayList<Socket>();
 
         connectServerTask = new ConnectServerTask(8890, "70.12.60.99",socketList,textView);
-
         serverSocket = connectServerTask.getSocket();
+
+        TestSender testSender = new TestSender(serverSocket);
+        testSender.start();
+
         if(serverSocket == null) Log.i("Server","socket is empty");
         try {
             connectIoTTask = new ConnectIoTTask(socketList,serverSocket,textView);
@@ -146,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View v){
         setButtonClickable(clickedButton);
+
         switch (v.getId()){
             case R.id.mapFragmentButton:
                 Log.d("button","map");

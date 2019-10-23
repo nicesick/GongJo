@@ -2,6 +2,7 @@ package com.ecu;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -45,6 +46,24 @@ public class ECU implements SerialPortEventListener {
 	}
 	
 	public ECU(String portName) throws NoSuchPortException {
+		boolean flag = true;
+		
+		while(flag) {
+		try {	
+		if(CommPortIdentifier.getPortIdentifier(portName) != null) {
+			break;
+		}
+		}catch(Exception e){
+			System.out.println("Re-Try");
+			
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
+		}
+		
 		portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
 		// 포트가 정상이면 CONNECT
 		System.out.println("Connect Com Port!");
@@ -57,6 +76,10 @@ public class ECU implements SerialPortEventListener {
 			System.out.println("Connect Fail !!");
 			e.printStackTrace();
 		}
+		
+		
+		
+		
 	}
 	
 	public ECU(String ip, int port) throws IOException {
@@ -100,17 +123,18 @@ public class ECU implements SerialPortEventListener {
 						e1.printStackTrace();
 					}
 				}
+				
 			}
 		}
 	}
 	
 
-//	public void sendMsg(String msg) throws IOException {
-//		Sender sender = null;
-//		sender = new Sender(socket);
-//		sender.setMsg(msg);
-//		sender.start();
-//	}
+	public void sendMsg(String msg) throws IOException {
+		Sender sender = null;
+		sender = new Sender(socket);
+		sender.setMsg(msg);
+		sender.start();
+	}
 
 //	public void start() throws Exception {
 //		Scanner sc = new Scanner(System.in);
@@ -128,30 +152,30 @@ public class ECU implements SerialPortEventListener {
 //		sc.close();
 //	}
 
-//	class Sender extends Thread {
-//		OutputStream out;
-//		DataOutputStream dout;
-//		String msg;
-//
-//		public Sender(Socket socket) throws IOException {
-//			out = socket.getOutputStream();
-//			dout = new DataOutputStream(out);
-//		}
-//
-//		public void setMsg(String msg) {
-//			this.msg = msg;
-//		}
-//
-//		public void run() {
-//			if (dout != null) {
-//				try {
-//					dout.writeUTF(msg);
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//	}
+	class Sender extends Thread {
+		OutputStream out;
+		DataOutputStream dout;
+		String msg;
+
+		public Sender(Socket socket) throws IOException {
+			out = socket.getOutputStream();
+			dout = new DataOutputStream(out);
+		}
+
+		public void setMsg(String msg) {
+			this.msg = msg;
+		}
+
+		public void run() {
+			if (dout != null) {
+				try {
+					dout.writeUTF(msg);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	class Receiver extends Thread {
 		Socket socket;
@@ -169,7 +193,9 @@ public class ECU implements SerialPortEventListener {
 			
 			try {
 				while (rflag) {
+
 					str = din.readUTF();
+					
 					System.out.println(str);
 					// 시뮬레이터 조작
 					// 속도 연료 거리 베터리
@@ -217,6 +243,7 @@ public class ECU implements SerialPortEventListener {
 					}
 				} 
 			} catch (Exception e) {
+				System.out.println("Disconnected");			
 				e.printStackTrace();
 			}
 		}
@@ -265,9 +292,15 @@ public class ECU implements SerialPortEventListener {
 
 				String ss = new String(readBuffer);
 				boolean result = checkSerialData(ss);
-				System.out.println("Result:" + result);
-				System.out.println("Receive Low Data:" + ss + "||");
 				
+				System.out.println("Result:" + result);
+				System.out.println("Receive Raw Data:" + ss + "||");
+				
+				
+				if(ss.substring(0,4).equals(":U28")){
+				ecu.sendMsg(ss);
+				}
+
 				if(checkData.equals("U28000000000000000000000001")){
 					System.out.println("enginestart");
 //					ecu.sendMsg("EngineStart");
