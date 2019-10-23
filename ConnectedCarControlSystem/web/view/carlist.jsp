@@ -2,6 +2,21 @@
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<div class="page-breadcrumb">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center">
+			<h4 class="page-title">Home</h4>
+			<div class="ml-auto text-right">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="main.mc">Home</a></li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!-- ============================================================== -->
 <!-- Container fluid  -->
 <!-- ============================================================== -->

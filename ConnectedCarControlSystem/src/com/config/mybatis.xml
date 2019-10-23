@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias type="com.vo.User" alias="user"/>
 		<typeAlias type="com.vo.Car" alias="car"/>
-		<typeAlias type="com.vo.Car" alias="carGroup"/>
+		<typeAlias type="com.vo.CarGroup" alias="carGroup"/>
 		<typeAlias type="com.vo.CarStatus" alias="carStatus"/>
 		<typeAlias type="com.vo.CarConsumable" alias="carConsumable"/>
 	</typeAliases>
