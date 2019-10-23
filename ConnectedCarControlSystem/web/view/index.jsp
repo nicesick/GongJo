@@ -124,7 +124,7 @@
 								<a class="dropdown-item" href="javascript:void(0)"><i
 									class="ti-user m-r-5 m-l-5"></i> ${userInfo.user_id } 님</a> <a
 									class="dropdown-item" href="editmyinfo.mc"><i
-									class="ti-user m-r-5 m-l-5"></i> 정보 수정</a> <a class="dropdown-item"
+									class="far fa-edit"></i> 정보 수정</a> <a class="dropdown-item"
 									href="logout.mc"><i class="fa fa-power-off m-r-5 m-l-5"></i>
 									Logout</a>
 							</div></li>
@@ -149,7 +149,7 @@
 								<c:choose>
 									<c:when test="${carInfo != null }">
 										<c:forEach var="car" items="${carInfo}">
-											<a class="dropdown-item" href="selectcar.mc?id=${car.car_id}">${car.car_name}
+											<a class="dropdown-item" href="selectcar.mc?id=${car.car_id}"><i class="mdi mdi-car-connected"></i>${car.car_name}
 												/ ${car.car_id}</a>
 										</c:forEach>
 									</c:when>
