@@ -86,9 +86,24 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Connection
-        connectServerTask = new ConnectServerTask(8888, "70.12.60.106");
-        socket = connectServerTask.getSocket();
 
+        while(true) {
+            connectServerTask = new ConnectServerTask(8888, "70.12.60.106");
+            socket = connectServerTask.getSocket();
+            try{
+            if(socket != null){
+                break;
+            }}catch (Exception e){
+                Log.d("connection to ECU","Re-try ");
+
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+        }
 
         Receiver receiver = new Receiver(socket);
         receiver.execute();

@@ -112,7 +112,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/dxgpgd"
             android:gravity="center"
-            android:text="75%"
+            android:text="10"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -179,7 +179,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/dxgpgd"
             android:gravity="center"
-            android:text="TextView"
+            android:text="20"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -246,7 +246,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/dxgpgd"
             android:gravity="center"
-            android:text="TextView"
+            android:text="30"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -313,7 +313,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/dxgpgd"
             android:gravity="center"
-            android:text="TextView"
+            android:text="40"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -380,7 +380,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/dxgpgd"
             android:gravity="center"
-            android:text="TextView"
+            android:text="50"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 

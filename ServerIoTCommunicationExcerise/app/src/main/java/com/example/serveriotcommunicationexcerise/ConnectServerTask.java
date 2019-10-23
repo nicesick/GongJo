@@ -21,7 +21,7 @@ public class ConnectServerTask {
     ServerSocket serverSocketTask;
     TextView textView;
     boolean flag;
-
+    final String CarId = "car1";
     OutputStream out;
     DataOutputStream dout;
 
@@ -37,6 +37,9 @@ public class ConnectServerTask {
             public void run() {
                 try {
                     socket = new Socket(IP,port);
+                    out = socket.getOutputStream();
+                    dout = new DataOutputStream(out);
+                    dout.writeUTF(CarId);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -114,6 +117,7 @@ public class ConnectServerTask {
             final String Msg = msg;
             for(final Socket socket1:socketList){
                 if(socket1!=null && socket1.isConnected()) {
+                    Log.d("iot address", String.valueOf(socket1.getInetAddress()));
                     Runnable sendRunable = new Runnable() {
                         @Override
                         public void run() {
