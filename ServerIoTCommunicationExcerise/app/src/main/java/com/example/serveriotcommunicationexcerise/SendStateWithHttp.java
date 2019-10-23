@@ -22,6 +22,7 @@ public class SendStateWithHttp {
     ConsumableController consumableController;
     public SendStateWithHttp(URL url) {
         this.url = url;
+        realTimeController = new RealTimeController();
     }
 
     public void sendMsg(String string) throws IOException {
@@ -37,6 +38,15 @@ public class SendStateWithHttp {
                 try {
                     JSONObject postData = new JSONObject();
                     postData.put("job", "leader");
+                    postData.put("CO2",realTimeController.getCO2());
+                    postData.put("dust",realTimeController.getDust());
+                    postData.put("humidity",realTimeController.getHumidity());
+                    postData.put("inAir",realTimeController.getInAir());
+                    postData.put("inTemperature",realTimeController.getInTpt());
+                    postData.put("outAir",realTimeController.getOutAir());
+                    postData.put("outTemperature",realTimeController.getOutTpt());
+                    postData.put("ultraDust",realTimeController.getUltraDust());
+                    postData.put("Total",realTimeController.getTotal());
 
                     urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestProperty("Content-Type", "application/json");

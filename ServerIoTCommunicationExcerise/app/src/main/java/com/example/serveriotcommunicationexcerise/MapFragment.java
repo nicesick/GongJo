@@ -26,11 +26,11 @@ import com.skt.Tmap.TMapView;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link mapFragment.OnFragmentInteractionListener} interface
+ * {@link MapFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * create an instance of this fragment.
  */
-public class mapFragment extends Fragment {
+public class MapFragment extends Fragment {
     TMapView tMapView;
     LinearLayout linearLayout;
     boolean threadEndFlag;
@@ -39,7 +39,7 @@ public class mapFragment extends Fragment {
     TMapPoint tMapPoint;
     TMapMarkerItem tMapMarkerItem;
     View mapView;
-    public mapFragment() {
+    public MapFragment() {
         // Required empty public constructor
     }
 

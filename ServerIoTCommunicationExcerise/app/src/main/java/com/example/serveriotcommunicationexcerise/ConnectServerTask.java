@@ -10,6 +10,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -30,31 +31,42 @@ public class ConnectServerTask {
         this.IP = ip;
         this.socketList = socketList;
         this.textView = textView;
-
+        makeSocket();
+        startServerSocket();
+    }
+    public void startServerSocket(){
         flag = true;
-        Thread makeServerSocket = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    socket = new Socket(IP,port);
-                    out = socket.getOutputStream();
-                    dout = new DataOutputStream(out);
-                    dout.writeUTF(CarId);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        makeServerSocket.start();;
-        try {
-            makeServerSocket.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         serverSocketTask = new ServerSocket(socket,socketList);
         if(serverSocketTask!=null){
             serverSocketTask.execute();
         }
+    }
+    public Socket makeSocket(){
+        if(socket==null) {
+            Thread makeServerSocket = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        socket = new Socket(IP, port);
+                        out = socket.getOutputStream();
+                        dout = new DataOutputStream(out);
+                        dout.writeUTF(CarId);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            makeServerSocket.start();
+            try {
+                makeServerSocket.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return socket;
+    }
+    public Socket getSocket(){
+        return socket;
     }
     public void endProcess() throws IOException {
 
@@ -63,9 +75,7 @@ public class ConnectServerTask {
         dout.writeUTF("!q"); //send msg when process is out;
         flag = false;
     }
-    public Socket getSocket(){
-        return socket;
-    }
+
     class ServerSocket extends AsyncTask<Void,Object,Void> {
 
         Socket serverSocket = null;
@@ -104,6 +114,10 @@ public class ConnectServerTask {
                         din = new DataInputStream(in);
 
                         String Msg = din.readUTF();
+                        if(!serverSocket.isConnected()){
+                            flag = false;
+                            break;
+                        }
                         Object[] container = {new String("msg"), Msg};
                         publishProgress(container);
                     }

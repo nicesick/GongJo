@@ -14,6 +14,7 @@ public class RealTimeController {
     private static String humidity = "Y 0";
     private static String total = "G 0";
     private static boolean startUp;
+    private static boolean lightOn;
 
     final int IN_AIR_STANDARD1 = 10,IN_AIR_STANDARD2 = 20;
     final int OUT_AIR_STANDARD1 = 10,OUT_AIR_STANDARD2 = 20;
@@ -27,42 +28,42 @@ public class RealTimeController {
 
     final String red = "R ", yellow = "Y ",green = "G " ;
 
-    public static String getTotal() {
+    public  String getTotal() {
         return total;
     }
 
-    public static void setTotal(String total) {
+    public  void setTotal(String total) {
         RealTimeController.total = total;
     }
-    public static String getInAir() {
+    public  String getInAir() {
         return inAir;
     }
 
-    public static String getInTpt() {
+    public  String getInTpt() {
         return inTpt;
     }
 
-    public static String getOutAir() {
+    public  String getOutAir() {
         return outAir;
     }
 
-    public static String getOutTpt() {
+    public  String getOutTpt() {
         return outTpt;
     }
 
-    public static String getDust() {
+    public  String getDust() {
         return dust;
     }
 
-    public static String getUltraDust() {
+    public  String getUltraDust() {
         return ultraDust;
     }
 
-    public static String getCO2() {
+    public  String getCO2() {
         return CO2;
     }
 
-    public static String getHumidity() {
+    public String getHumidity() {
         return humidity;
     }
 
@@ -96,6 +97,22 @@ public class RealTimeController {
 
     public void setHumidity(String humidity) {
         RealTimeController.humidity = humidity;
+    }
+
+    public  boolean isStartUp() {
+        return startUp;
+    }
+
+    public  void setStartUp(boolean startUp) {
+        RealTimeController.startUp = startUp;
+    }
+
+    public  boolean isLightOn() {
+        return lightOn;
+    }
+
+    public  void setLightOn(boolean lightOn) {
+        RealTimeController.lightOn = lightOn;
     }
 
     public void setValues(String id, String data) {

@@ -11,7 +11,7 @@
     android:orientation="vertical"
     android:showDividers="middle|beginning"
     android:weightSum="6"
-    tools:context=".comsumableFragment">
+    tools:context=".ConsumableFragment">
 
     <LinearLayout
         android:id="@+id/LinearLayout"

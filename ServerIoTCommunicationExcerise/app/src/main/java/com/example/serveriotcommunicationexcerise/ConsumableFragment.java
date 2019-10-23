@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class comsumableFragment extends Fragment {
+public class ConsumableFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     boolean threadEndFlag;
@@ -24,7 +24,7 @@ public class comsumableFragment extends Fragment {
     View consumableView;
     UpdateViewTask1 updateViewTask1;
 
-    public comsumableFragment() {
+    public ConsumableFragment() {
 
         consumableController = new ConsumableController();
         // Required empty public constructor

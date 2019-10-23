@@ -7,13 +7,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,16 +22,12 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     TextView textView;
     ArrayList<Socket> socketList;
-    Socket serverSocket;
     ConnectIoTTask connectIoTTask = null;
-    ConnectServerTask connectServerTask = null;
     int index;
     int clickedButton;
     OutputStream out;
@@ -44,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
     TextView timeTextView;
 
     FragmentManager fragmentManager;
-    comsumableFragment comsumableFragment;
-    mapFragment mapFragment;
+    ConsumableFragment comsumableFragment;
+    MapFragment mapFragment;
     SettingFragment settingFragment;
     RealTimeFragment realTimeFragment;
 
@@ -103,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager =getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
-        comsumableFragment = new comsumableFragment();
-        mapFragment = new mapFragment();
+        comsumableFragment = new ConsumableFragment();
+        mapFragment = new MapFragment();
         settingFragment = new SettingFragment();
         realTimeFragment = new RealTimeFragment();
 
@@ -150,15 +142,8 @@ public class MainActivity extends AppCompatActivity {
     void openSocket(){
         socketList = new ArrayList<Socket>();
 
-        connectServerTask = new ConnectServerTask(8890, "70.12.60.99",socketList,textView);
-        serverSocket = connectServerTask.getSocket();
-
-        TestSender testSender = new TestSender(serverSocket);
-        testSender.start();
-
-        if(serverSocket == null) Log.i("Server","socket is empty");
         try {
-            connectIoTTask = new ConnectIoTTask(socketList,serverSocket,textView);
+            connectIoTTask = new ConnectIoTTask(socketList,textView,"70.12.60.99",8890);
         } catch (IOException e) {
             e.printStackTrace();
         }
