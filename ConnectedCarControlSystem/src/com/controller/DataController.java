@@ -1,8 +1,10 @@
 package com.controller;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -91,14 +93,11 @@ public class DataController {
 
 		try {
 			in = request.getInputStream();
-			BufferedInputStream bin = new BufferedInputStream(in);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
 			StringBuilder sb = new StringBuilder();
 
-			while (bin.available() > 0) {
-				sb.append((char) bin.read());
-			}
-
-			data = sb.toString();
+			data = br.readLine();
+			// data = sb.toString();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

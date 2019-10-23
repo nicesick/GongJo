@@ -106,9 +106,10 @@
 					<ul class="navbar-nav float-right">
 						<c:choose>
 							<c:when test="${selectcar != null }">
-								<li class="nav-item d-none d-md-block"><span
+								<li class="nav-item"><span
 									class="nav-link waves-effect waves-dark"> 선택된 차량 :
-										${selectcar} </span></li>
+										${selectcar} </span>
+								</li>
 							</c:when>
 						</c:choose>
 
