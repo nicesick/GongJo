@@ -13,12 +13,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.frame.Biz;
+import com.socket.MainServer;
 import com.vo.User;
 
 @Controller
 public class LoginController {
+	// For Socket Test
+	private MainServer mainServer;
+	
 	@Resource(name="UserBiz")
 	Biz<String, User> userBiz;
+	
+	// Initialize MainServer
+	public LoginController() {
+		mainServer = new MainServer();
+		mainServer.start();
+	}
 	
 	@RequestMapping("logout.mc")
 	public void logout(HttpSession session, HttpServletResponse response) {
