@@ -6,9 +6,9 @@ public class CarStatus {
 	String car_id;
 	int car_speed;
 	int car_distance;
-	String car_air;
-	String car_dust;
-	String car_finedust;
+	int car_air;
+	int car_dust;
+	int car_finedust;
 	int car_temp;
 	int car_humidity;
 	int car_fuel;
@@ -29,8 +29,8 @@ public class CarStatus {
 		super();
 	}
 
-	public CarStatus(String car_id, int car_speed, int car_distance, String car_air, String car_dust,
-			String car_finedust, int car_temp, int car_humidity, int car_fuel, int car_bat, Date car_date,
+	public CarStatus(String car_id, int car_speed, int car_distance, int car_air, int car_dust,
+			int car_finedust, int car_temp, int car_humidity, int car_fuel, int car_bat, Date car_date,
 			String car_hms, float car_lat, float car_log, int car_filter, int car_eng_oil, int car_brakeoil,
 			int car_accoil, int car_coolwat, int car_accel_pressure, int car_brake_pressure) {
 		super();
@@ -81,27 +81,27 @@ public class CarStatus {
 		this.car_distance = car_distance;
 	}
 
-	public String getCar_air() {
+	public int getCar_air() {
 		return car_air;
 	}
 
-	public void setCar_air(String car_air) {
+	public void setCar_air(int car_air) {
 		this.car_air = car_air;
 	}
 
-	public String getCar_dust() {
+	public int getCar_dust() {
 		return car_dust;
 	}
 
-	public void setCar_dust(String car_dust) {
+	public void setCar_dust(int car_dust) {
 		this.car_dust = car_dust;
 	}
 
-	public String getCar_finedust() {
+	public int getCar_finedust() {
 		return car_finedust;
 	}
 
-	public void setCar_finedust(String car_finedust) {
+	public void setCar_finedust(int car_finedust) {
 		this.car_finedust = car_finedust;
 	}
 

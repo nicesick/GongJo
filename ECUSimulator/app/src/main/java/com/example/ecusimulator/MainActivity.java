@@ -3,14 +3,18 @@ package com.example.ecusimulator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
@@ -27,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     OutputStream out;
     DataOutputStream dout;
+
+    InputStream in;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +86,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Connection
-        connectServerTask = new ConnectServerTask(8888, "70.12.60.106");
-        socket = connectServerTask.getSocket();
+
+        while(true) {
+            connectServerTask = new ConnectServerTask(8888, "70.12.60.106");
+            socket = connectServerTask.getSocket();
+            try{
+            if(socket != null){
+                break;
+            }}catch (Exception e){
+                Log.d("connection to ECU","Re-try ");
+
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+        }
+
+        Receiver receiver = new Receiver(socket);
+        receiver.execute();
 
         //Speed SeekBar
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -795,6 +820,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }//End OnCreate
+
+    public class Receiver extends AsyncTask<String,String,Void>{
+        Socket socket;
+
+        public Receiver(Socket socket) {
+            this.socket = socket;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            int data = Integer.parseInt(values[0].substring(13,28));
+
+            if(values[0].substring(4,12).equals("00020040")) {
+                seekBar8.setProgress(data);
+                int temp = data - 40;
+                textViewTemperature.setText(temp + "");
+            }
+    }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            try {
+                while(true){
+                    in = socket.getInputStream();
+                    DataInputStream din = new DataInputStream(in);
+
+                    String Msg = din.readUTF();
+                    Log.i("IoT",socket.getInetAddress()+" is send "+Msg);
+
+                    publishProgress(Msg);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 
 
 }

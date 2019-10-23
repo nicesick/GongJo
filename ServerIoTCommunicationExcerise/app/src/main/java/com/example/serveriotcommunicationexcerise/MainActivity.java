@@ -118,6 +118,27 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private class TestSender extends Thread {
+        private Socket socket;
+
+        public TestSender(Socket socket) {
+            this.socket = socket;
+        }
+
+        @Override
+        public void run() {
+            try {
+                OutputStream out = socket.getOutputStream();
+                DataOutputStream dout = new DataOutputStream(out);
+
+                dout.writeUTF("HaHa");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     void openSocket(){
         socketList = new ArrayList<Socket>();
 
@@ -134,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View v){
         setButtonClickable(clickedButton);
+
         switch (v.getId()){
             case R.id.mapFragmentButton:
                 Log.d("button","map");
