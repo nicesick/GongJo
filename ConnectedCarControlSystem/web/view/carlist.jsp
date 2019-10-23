@@ -17,8 +17,8 @@
                                 <div class="el-card-avatar el-overlay-1"> <img alt="user" src="assets/images/thecar.png">
                                     <div class="el-overlay">
                                         <ul class="list-style-none el-info">
-                                            <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="assets/images/big/img1.jpg"><i class="mdi mdi-magnify-plus"></i></a></li>
-                                            <li class="el-item"><a class="btn default btn-outline el-link" href="selectcar.mc?id=${car.car_id}"><i class="mdi mdi-link"></i></a></li>
+                                            <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="getDataFromHive.mc?car_id=${car.car_id }"><i class="mdi mdi-check-circle-outline"></i></a></li>
+                                            <li class="el-item"><a class="btn default btn-outline el-link" href="selectcar.mc?id=${car.car_id}"><i class="mdi mdi-close-circle-outline"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
