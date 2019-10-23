@@ -124,13 +124,15 @@ public class ConsumableFragment extends Fragment {
             }
             return null;
         }
+
         public void setViews(){
-            setRemainView(filterRemainView,consumableController.getAirFilter());
-            setRemainView(engineOilRemainView,consumableController.getEngineOil());
-            setRemainView(breakOilRemainView,consumableController.getBreakOil());
-            setRemainView(gearOilRemainView,consumableController.getGearOil());
-            setRemainView(coolingWaterRemainView,consumableController.getCoolingWater());
+            setRemainView(filterRemainView,consumableController.getCar_filter());
+            setRemainView(engineOilRemainView,consumableController.getCar_eng_oil());
+            setRemainView(breakOilRemainView,consumableController.getCar_brakeoil());
+            setRemainView(gearOilRemainView,consumableController.getCar_accoil());
+            setRemainView(coolingWaterRemainView,consumableController.getCar_coolwat());
         }
+
         public void setRemainView(TextView textView,String value){
             if(textView!=null){
                 remainTemp = textView.getText().toString();

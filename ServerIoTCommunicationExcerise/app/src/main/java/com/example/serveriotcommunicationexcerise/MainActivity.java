@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     ChangeTimeInRealTime changeTimeInRealTime;
     SendStateWithHttp sendStateWithHttp;
     RealTimeController realTimeController;
+    ConsumableController consumableController;
 
     Button mapFragmentButton,settingFragmentButton,realTimeFragmentButton,consumableFragmentButton;
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
     void setURL(){
         try {
-            url = new URL("http://70.12.60.95/ConnectedCarControlSystem/sendData.mc");
+            url = new URL("http://70.12.60.99/sendData.mc");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         realTimeFragment = new RealTimeFragment();
 
         realTimeController = new RealTimeController();
+        consumableController = new ConsumableController();
 
         transaction.replace(R.id.FragmentLayout,comsumableFragment).commit();
         clickedButton = R.id.csmFragmentButton;
@@ -147,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         if(connectIoTTask !=null) {
             connectIoTTask.acceptSocket();
             Log.i("IoT","client is ready");
@@ -196,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
+
     void setButtonUI(Button button){
         realTimeFragmentButton.setSelected(false);
         consumableFragmentButton.setSelected(false);
@@ -206,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
         button.setSelected(true);
 
     }
+
     void setButtonClickable(int id){
         switch (id) {
             case R.id.mapFragmentButton:

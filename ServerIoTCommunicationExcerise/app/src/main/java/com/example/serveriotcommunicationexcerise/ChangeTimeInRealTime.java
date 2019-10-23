@@ -10,11 +10,13 @@ public class ChangeTimeInRealTime {
     TextView timeView;
     boolean flag;
     ChangeTimeAsyncTask changeTimeAsyncTask;
+    RealTimeController realTimeController;
 
     public ChangeTimeInRealTime(TextView timeView) {
         this.timeView = timeView;
         changeTimeAsyncTask = new ChangeTimeAsyncTask();
         flag = true;
+        realTimeController = new RealTimeController();
     }
 
     public void start(){

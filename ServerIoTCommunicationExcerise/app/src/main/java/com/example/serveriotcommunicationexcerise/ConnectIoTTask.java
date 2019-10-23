@@ -38,6 +38,7 @@ public class ConnectIoTTask {
         realTimeController = new RealTimeController();
         consumableController = new ConsumableController();
     }
+
     protected void acceptSocket(){
         Thread accept = new Thread(new Runnable() {
             Socket newSocket;
@@ -113,6 +114,7 @@ public class ConnectIoTTask {
                     din = new DataInputStream(in);
                     String Msg = din.readUTF();
                     Log.i("IoT",mySocket.getInetAddress()+" is send "+Msg);
+
                     if(!serverSocket.isConnected()){
                         connectServerTask.makeSocket();
                         connectServerTask.startServerSocket();;
