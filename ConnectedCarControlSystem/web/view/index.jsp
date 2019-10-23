@@ -101,12 +101,6 @@
                         	<a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i>
                         	</a>
                         </li>
-                        
-                        <li class="nav-item d-none d-md-block">
-                            <a class="nav-link waves-effect waves-dark" href="registercar.mc" id="navbarDropdown" role="button">
-                             	Register New Car
-                            </a>
-                        </li>
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
@@ -127,7 +121,7 @@
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu user-dd animated">
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> ${userInfo.user_id } 님</a>
-                                <a class="dropdown-item" href="editmyinfo.mc"><i class="ti-user m-r-5 m-l-5"></i> 정보 수정</a>
+                                <a class="dropdown-item" href="editmyinfo.mc"><i class="far fa-edit"></i> 정보 수정</a>
                                 <a class="dropdown-item" href="logout.mc"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                                 <a class="dropdown-item" href="removeMember.mc"><i class="fa fa-power-off m-r-5 m-l-5"></i> 회원 탈퇴</a>
                             </div>
@@ -148,13 +142,14 @@
 	                            <c:choose>
 	                            	<c:when test="${carInfo != null }">
 			                            <c:forEach var="car" items="${carInfo}">
-			                            	<a class="dropdown-item" href="selectcar.mc?id=${car.car_id}">${car.car_name} / ${car.car_id}</a>
+			                            	<a class="dropdown-item" href="selectcar.mc?id=${car.car_id}"><i class="fas fa-car"></i>${car.car_name} / ${car.car_id}</a>
 			                            </c:forEach>
 	                            	</c:when>
 	                            	<c:otherwise>
 	                            		<a class="dropdown-item" href="#">등록된 차량 없음</a>
 	                            	</c:otherwise>
 	                            </c:choose>
+	                            <a class="dropdown-item" href="registercar.mc" id="navbarDropdown" role="button"><i class="fas fa-plus-circle"></i>Register New Car </a>
                             </div>
                         </li>
                     </ul>
