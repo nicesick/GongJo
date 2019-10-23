@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -123,7 +122,6 @@
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> ${userInfo.user_id } 님</a>
                                 <a class="dropdown-item" href="editmyinfo.mc"><i class="far fa-edit"></i> 정보 수정</a>
                                 <a class="dropdown-item" href="logout.mc"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                <a class="dropdown-item" href="removeMember.mc"><i class="fa fa-power-off m-r-5 m-l-5"></i> 회원 탈퇴</a>
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -142,7 +140,7 @@
 	                            <c:choose>
 	                            	<c:when test="${carInfo != null }">
 			                            <c:forEach var="car" items="${carInfo}">
-			                            	<a class="dropdown-item" href="selectcar.mc?id=${car.car_id}"><i class="fas fa-car"></i>${car.car_name} / ${car.car_id}</a>
+			                            	<a class="dropdown-item" href="selectcar.mc?id=${car.car_id}"><i class="mdi mdi-car-connected"></i>${car.car_name} / ${car.car_id}</a>
 			                            </c:forEach>
 	                            	</c:when>
 	                            	<c:otherwise>
@@ -168,7 +166,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Home</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="main.mc" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Home</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="charts.html" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">차량 정보</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="widgets.html" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">운행 기록</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">실시간 상태</span></a></li>

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 
 <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
@@ -552,7 +551,7 @@
 								</div>
 								<div class="chat-content">
 									<h6 class="font-medium">Bianca Doe</h6>
-									<div class="box bg-light-info">It¡¯s Great opportunity to
+									<div class="box bg-light-info">Itâ€™s Great opportunity to
 										work.</div>
 								</div>
 								<div class="chat-time">10:57 am</div>

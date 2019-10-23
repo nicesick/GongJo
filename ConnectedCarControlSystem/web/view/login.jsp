@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html dir="ltr">
@@ -55,7 +54,7 @@
                             <img src="assets/images/logo-sample.PNG" alt="homepage" class="light-logo" />
                         </b>
 						<span class="text-white p-l-10">ConnectedCarControlSystem</span>
-						<span class="text-white p-l-10">·Î±×ÀÎ</span>
+						<span class="text-white p-l-10">ë¡œê·¸ì¸</span>
 					</div>
 					
 					<div class="row p-b-20">
@@ -66,7 +65,7 @@
 										id="basic-addon1"><i class="ti-user"></i></span>
 								</div>
 								<input type="text" id="user_id" class="form-control"
-									placeholder="¾ÆÀÌµð" aria-label="Username"
+									placeholder="ì•„ì´ë””" aria-label="Username"
 									aria-describedby="basic-addon1" required>
 							</div>
 							<div class="input-group mb-2">
@@ -75,7 +74,7 @@
 										id="basic-addon2"><i class="ti-pencil"></i></span>
 								</div>
 								<input type="password" id="user_pwd" class="form-control"
-									placeholder="ºñ¹Ð¹øÈ£" aria-label="Password"
+									placeholder="ë¹„ë°€ë²ˆí˜¸" aria-label="Password"
 									aria-describedby="basic-addon1" required>
 							</div>
 						</div>
@@ -154,14 +153,14 @@
 						}
 						
 						else {
-							alert('»ç¿ëÀÚ Á¤º¸°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù');
+							alert('ì‚¬ìš©ìž ì •ë³´ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤');
 						}
 					}
 				});
 			}
 			
 			else {
-				alert('»ç¿ëÀÚ Á¤º¸¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
+				alert('ì‚¬ìš©ìž ì •ë³´ë¥¼ ìž…ë ¥í•´ ì£¼ì„¸ìš”');
 			}
 		});
 	</script>

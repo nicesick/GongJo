@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -57,7 +56,7 @@
 							<!-- Dark Logo icon --> <img src="assets/images/logo-sample.PNG"
 							alt="homepage" class="light-logo" />
 						</b> <span class="text-white p-l-10">ConnectedCarControlSystem</span>
-						<span class="text-white p-l-10">È¸¿ø Å»Åğ</span>
+						<span class="text-white p-l-10">íšŒì› ì •ë³´ ìˆ˜ì •</span>
 					</div>
 
 					<!-- Form -->
@@ -65,7 +64,7 @@
 						<div class="row p-b-20">
 							<div class="col-12">
 								<div class="mb-2">
-									<span class="text-white">±âº»</span>
+									<span class="text-white">ê¸°ë³¸</span>
 								</div>
 
 								<!-- id -->
@@ -77,10 +76,11 @@
 										<span class="input-group-text bg-success text-white"
 											id="basic-addon1"><i class="ti-user"></i></span>
 									</div>
-									<div class="form-control">${userInfo.user_id }</div>
+									<input type="text" id="user_id" name="user_id" value="${userInfo.user_id }" class="form-control" 
+									placeholder="ì•„ì´ë””" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
 								</div>
 
-								<!-- pwd check -->
+								<!-- old pwd -->
 								<div class="text-left p-l-10">
 									<span id="user_old_pwd_check_msg"></span>
 								</div>
@@ -91,7 +91,37 @@
 									</div>
 									<input type="password" id="user_old_pwd_check"
 										name="old_pwd_check" class="form-control"
-										placeholder="±âÁ¸ ºñ¹Ğ¹øÈ£ " aria-label="Password_Check"
+										placeholder="ê¸°ì¡´ ë¹„ë°€ë²ˆí˜¸ " aria-label="Password_Check"
+										aria-describedby="basic-addon1" required>
+								</div>
+
+								<!-- new pwd -->
+								<div class="text-left p-l-10">
+									<span id="user_pwd_msg"></span>
+								</div>
+
+								<div class="input-group mb-2">
+									<div class="input-group-prepend">
+										<span class="input-group-text bg-warning text-white"
+											id="basic-addon2"><i class="ti-pencil"></i></span>
+									</div>
+									<input type="password" id="user_pwd" name="user_pwd"
+										class="form-control" placeholder="ìƒˆ ë¹„ë°€ë²ˆí˜¸"
+										aria-label="Password" aria-describedby="basic-addon1" required>
+								</div>
+
+								<!-- new pwd_check -->
+								<div class="text-left p-l-10">
+									<span id="user_pwd_check_msg"></span>
+								</div>
+								<div class="input-group mb-2">
+									<div class="input-group-prepend">
+										<span class="input-group-text bg-info text-white"
+											id="basic-addon2"><i class="ti-pencil"></i></span>
+									</div>
+									<input type="password" id="user_pwd_check"
+										name="pwd_check" class="form-control"
+										placeholder="ìƒˆ ë¹„ë°€ë²ˆí˜¸ í™•ì¸" aria-label="Password_Check"
 										aria-describedby="basic-addon1" required>
 								</div>
 							</div>
@@ -100,7 +130,7 @@
 						<div class="row border-top border-secondary p-t-20 p-b-20">
 							<div class="col-12">
 								<div class="mb-2">
-									<span class="text-white">ÀÎÀû»çÇ×</span>
+									<span class="text-white">ì¸ì ì‚¬í•­</span>
 								</div>
 
 								<!-- name -->
@@ -112,8 +142,8 @@
 										<span class="input-group-text bg-success text-white"
 											id="basic-addon1"><i class="ti-user"></i></span>
 									</div>
-									<div class="form-control">${userInfo.user_name }</div>
-									<!-- <input type="text" id="user_name" name="user_name" class="form-control" placeholder="ÀÌ¸§" aria-label="Email" aria-describedby="basic-addon1" required> -->
+									<input type="text" id="user_name" name="user_name" value="${userInfo.user_name }" class="form-control" 
+									placeholder="ì´ë¦„" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
 								</div>
 
 								<!-- email -->
@@ -125,8 +155,8 @@
 										<span class="input-group-text bg-danger text-white"
 											id="basic-addon1"><i class="ti-email"></i></span>
 									</div>
-									<input type="text" id="user_email" name="user_email"
-										class="form-control" placeholder="ÀÌ¸ŞÀÏ" aria-label="Email"
+									<input type="text" id="user_email" name="user_email" value="${userInfo.user_email }"
+										class="form-control" placeholder="ì´ë©”ì¼" aria-label="Email"
 										aria-describedby="basic-addon1" required>
 								</div>
 
@@ -140,7 +170,7 @@
 											id="basic-addon2"><i class="mdi mdi-cellphone"></i></span>
 									</div>
 									<input type="text" id="user_phone" name="user_phone"
-										class="form-control" placeholder="ÀüÈ­¹øÈ£" aria-label="Phone"
+										class="form-control" placeholder="ì „í™”ë²ˆí˜¸" aria-label="Phone" value="${userInfo.user_phone }"
 										aria-describedby="basic-addon1" required>
 								</div>
 
@@ -149,7 +179,7 @@
 									<span id="user_gender_msg"></span>
 								</div>
 								<div class="form-group row mb-2">
-									<label class="text-white col-md-3">¼ºº°</label>
+									<label class="text-white col-md-3">ì„±ë³„</label>
 									<div class="col-md-9">
 										<c:choose>
 											<c:when test="${userInfo.user_gender == 'male'}">
@@ -157,13 +187,13 @@
 													<input type="radio" class="custom-control-input"
 														id="user_gender1" name="user_gender" value="male" checked>
 													<label class="text-white custom-control-label"
-														for="user_gender1">³²</label>
+														for="user_gender1">ë‚¨</label>
 												</div>
 												<div class="custom-control custom-radio">
 													<input type="radio" class="custom-control-input"
 														id="user_gender2" name="user_gender" value="female"
 														disabled> <label
-														class="text-white custom-control-label" for="user_gender2">¿©</label>
+														class="text-white custom-control-label" for="user_gender2">ì—¬</label>
 												</div>
 											</c:when>
 											<c:otherwise>
@@ -171,13 +201,13 @@
 													<input type="radio" class="custom-control-input"
 														id="user_gender1" name="user_gender" value="male" disabled>
 													<label class="text-white custom-control-label"
-														for="user_gender1">³²</label>
+														for="user_gender1">ë‚¨</label>
 												</div>
 												<div class="custom-control custom-radio">
 													<input type="radio" class="custom-control-input"
 														id="user_gender2" name="user_gender" value="female"
 														checked> <label
-														class="text-white custom-control-label" for="user_gender2">¿©</label>
+														class="text-white custom-control-label" for="user_gender2">ì—¬</label>
 												</div>
 											</c:otherwise>
 										</c:choose>
@@ -190,60 +220,60 @@
 									<span id="user_add_msg"></span>
 								</div>
 								<div class="form-group row mb-2">
-									<label class="text-white col-md-3">ÁÖ¼Ò</label>
+									<label class="text-white col-md-3">ì£¼ì†Œ</label>
 									<div class="col-md-9">
 										<select class="form-control" id="user_add" name="user_add">
 											<option>${userInfo.user_add }</option>
-											<optgroup label="¼­¿ïÆ¯º°½Ã">
-												<option value="Seoul">¼­¿ï</option>
+											<optgroup label="ì„œìš¸íŠ¹ë³„ì‹œ">
+												<option value="Seoul">ì„œìš¸</option>
 											</optgroup>
-											<optgroup label="ºÎ»ê±¤¿ª½Ã">
-												<option value="Busan">ºÎ»ê</option>
+											<optgroup label="ë¶€ì‚°ê´‘ì—­ì‹œ">
+												<option value="Busan">ë¶€ì‚°</option>
 											</optgroup>
-											<optgroup label="´ë±¸±¤¿ª½Ã">
-												<option value="Daegu">´ë±¸</option>
+											<optgroup label="ëŒ€êµ¬ê´‘ì—­ì‹œ">
+												<option value="Daegu">ëŒ€êµ¬</option>
 											</optgroup>
-											<optgroup label="ÀÎÃµ±¤¿ª½Ã">
-												<option value="Incheon">ÀÎÃµ</option>
+											<optgroup label="ì¸ì²œê´‘ì—­ì‹œ">
+												<option value="Incheon">ì¸ì²œ</option>
 											</optgroup>
-											<optgroup label="±¤ÁÖ±¤¿ª½Ã">
-												<option value="Gwangju">±¤ÁÖ</option>
+											<optgroup label="ê´‘ì£¼ê´‘ì—­ì‹œ">
+												<option value="Gwangju">ê´‘ì£¼</option>
 											</optgroup>
-											<optgroup label="´ëÀü±¤¿ª½Ã">
-												<option value="Daegeon">´ëÀü</option>
+											<optgroup label="ëŒ€ì „ê´‘ì—­ì‹œ">
+												<option value="Daegeon">ëŒ€ì „</option>
 											</optgroup>
-											<optgroup label="¿ï»ê±¤¿ª½Ã">
-												<option value="Ulsan">¿ï»ê</option>
+											<optgroup label="ìš¸ì‚°ê´‘ì—­ì‹œ">
+												<option value="Ulsan">ìš¸ì‚°</option>
 											</optgroup>
-											<optgroup label="¼¼Á¾Æ¯º°ÀÚÄ¡½Ã">
-												<option value="Sejong">¼¼Á¾</option>
+											<optgroup label="ì„¸ì¢…íŠ¹ë³„ìì¹˜ì‹œ">
+												<option value="Sejong">ì„¸ì¢…</option>
 											</optgroup>
-											<optgroup label="°æ±âµµ">
-												<option value="Gyeonggi">°æ±â</option>
+											<optgroup label="ê²½ê¸°ë„">
+												<option value="Gyeonggi">ê²½ê¸°</option>
 											</optgroup>
-											<optgroup label="°­¿øµµ">
-												<option value="Gangwon">°­¿ø</option>
+											<optgroup label="ê°•ì›ë„">
+												<option value="Gangwon">ê°•ì›</option>
 											</optgroup>
-											<optgroup label="ÃæÃ»ºÏµµ">
-												<option value="Chungbuk">ÃæºÏ</option>
+											<optgroup label="ì¶©ì²­ë¶ë„">
+												<option value="Chungbuk">ì¶©ë¶</option>
 											</optgroup>
-											<optgroup label="ÃæÃ»³²µµ">
-												<option value="Chungnam">Ãæ³²</option>
+											<optgroup label="ì¶©ì²­ë‚¨ë„">
+												<option value="Chungnam">ì¶©ë‚¨</option>
 											</optgroup>
-											<optgroup label="Àü¶óºÏµµ">
-												<option value="Jeonbuk">ÀüºÏ</option>
+											<optgroup label="ì „ë¼ë¶ë„">
+												<option value="Jeonbuk">ì „ë¶</option>
 											</optgroup>
-											<optgroup label="Àü¶ó³²µµ">
-												<option value="Jeonnam">Àü³²</option>
+											<optgroup label="ì „ë¼ë‚¨ë„">
+												<option value="Jeonnam">ì „ë‚¨</option>
 											</optgroup>
-											<optgroup label="°æ»óºÏµµ">
-												<option value="Gyeongbuk">°æºÏ</option>
+											<optgroup label="ê²½ìƒë¶ë„">
+												<option value="Gyeongbuk">ê²½ë¶</option>
 											</optgroup>
-											<optgroup label="°æ»ó³²µµ">
-												<option value="Gyeongnam">°æ³²</option>
+											<optgroup label="ê²½ìƒë‚¨ë„">
+												<option value="Gyeongnam">ê²½ë‚¨</option>
 											</optgroup>
-											<optgroup label="Á¦ÁÖÆ¯º°ÀÚÄ¡µµ">
-												<option value="Jeju">Á¦ÁÖ</option>
+											<optgroup label="ì œì£¼íŠ¹ë³„ìì¹˜ë„">
+												<option value="Jeju">ì œì£¼</option>
 											</optgroup>
 										</select>
 									</div>
@@ -254,12 +284,11 @@
 									<span id="user_birthdate_msg"></span>
 								</div>
 								<div class="form-group row">
-									<label class="text-white col-md-3">»ıÀÏ</label>
+									<label class="text-white col-md-3">ìƒì¼</label>
 
 									<div class="col-md-9">
-										<div class="form-control">${userInfo.user_birthdate }</div>
-										<!-- <input type="text" name="user_birthdate" class="form-control"
-											id="datepicker-autoclose" placeholder="mm/dd/yyyy"> -->
+										<input type="text" id="user_birthdate" name="user_birthdate" value="${userInfo.user_birthdate }"
+										class="form-control" placeholder="ìƒì¼" aria-label="Phone" readonly="readonly">
 									</div>
 								</div>
 
@@ -334,24 +363,8 @@
 			$(id).css('font-weight', 'bold');
 		};
 
-		function checkBirthdate(birthdate) {
-			if (birthdate != '') {
-				$('#user_birthdate_msg').html('');
-				changeStyleOk('#user_birthdate_msg');
-
-				return true;
-			}
-
-			else {
-				$('#user_birthdate_msg').html('»ıÀÏÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
-				changeStyleNo('#user_birthdate_msg');
-
-				return false;
-			}
-		};
-
 		function checkAdd(add) {
-			if (add != 'ÁÖ¼Ò') {
+			if (add != 'ì£¼ì†Œ') {
 				$('#user_add_msg').html('');
 				changeStyleOk('#user_add_msg');
 
@@ -359,24 +372,8 @@
 			}
 
 			else {
-				$('#user_add_msg').html('ÁÖ¼Ò¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
+				$('#user_add_msg').html('ì£¼ì†Œë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”');
 				changeStyleNo('#user_add_msg');
-
-				return false;
-			}
-		};
-
-		function checkGender(gender) {
-			if (gender != '') {
-				$('#user_gender_msg').html('');
-				changeStyleOk('#user_gender_msg');
-
-				return true;
-			}
-
-			else {
-				$('#user_gender_msg').html('¼ºº°À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
-				changeStyleNo('#user_gender_msg');
 
 				return false;
 			}
@@ -386,14 +383,14 @@
 			var cellphonePattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
 			if (cellphonePattern.test(cellphone)) {
-				$('#user_phone_msg').html('ÀûÀıÇÑ ÀüÈ­¹øÈ£ ÀÔ´Ï´Ù');
+				$('#user_phone_msg').html('ì ì ˆí•œ ì „í™”ë²ˆí˜¸ ì…ë‹ˆë‹¤');
 				changeStyleOk('#user_phone_msg');
 
 				return true;
 			}
 
 			else {
-				$('#user_phone_msg').html('ÀûÀıÇÏÁö ¾ÊÀº ÀüÈ­¹øÈ£ ÀÔ´Ï´Ù');
+				$('#user_phone_msg').html('ì ì ˆí•˜ì§€ ì•Šì€ ì „í™”ë²ˆí˜¸ ì…ë‹ˆë‹¤');
 				changeStyleNo('#user_phone_msg');
 
 				return false;
@@ -404,31 +401,15 @@
 			var emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 
 			if (emailPattern.test(email)) {
-				$('#user_email_msg').html('ÀûÀıÇÑ ÀÌ¸ŞÀÏ ÀÔ´Ï´Ù');
+				$('#user_email_msg').html('ì ì ˆí•œ ì´ë©”ì¼ ì…ë‹ˆë‹¤');
 				changeStyleOk('#user_email_msg');
 
 				return true;
 			}
 
 			else {
-				$('#user_email_msg').html('ÀûÀıÇÏÁö ¾ÊÀº ÀÌ¸ŞÀÏ ÀÔ´Ï´Ù');
+				$('#user_email_msg').html('ì ì ˆí•˜ì§€ ì•Šì€ ì´ë©”ì¼ ì…ë‹ˆë‹¤');
 				changeStyleNo('#user_email_msg');
-
-				return false;
-			}
-		};
-
-		function checkName(name) {
-			if (name != '') {
-				$('#user_name_msg').html('ÀûÀıÇÑ ÀÌ¸§ÀÔ´Ï´Ù');
-				changeStyleOk('#user_name_msg');
-
-				return true;
-			}
-
-			else {
-				$('#user_name_msg').html('ÀÌ¸§À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
-				changeStyleNo('#user_name_msg');
 
 				return false;
 			}
@@ -443,21 +424,21 @@
 			if (pwd != '') {
 				if (!numPattern.test(pwd) || !lowerPattern.test(pwd)
 						|| !upperPattern.test(pwd) || !specialPattern.test(pwd)) {
-					$('#user_pwd_msg').html('´ë¹®ÀÚ + ¼Ò¹®ÀÚ + ¼ıÀÚ + Æ¯¼ö±âÈ£¸¦ Æ÷ÇÔÇØ ÁÖ¼¼¿ä');
+					$('#user_pwd_msg').html('ëŒ€ë¬¸ì + ì†Œë¬¸ì + ìˆ«ì + íŠ¹ìˆ˜ê¸°í˜¸ë¥¼ í¬í•¨í•´ ì£¼ì„¸ìš”');
 					changeStyleNo('#user_pwd_msg');
 
 					return false;
 				}
 
 				else if (pwd.length < 8) {
-					$('#user_pwd_msg').html('8 ÀÚ¸® ÀÌ»ó ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
+					$('#user_pwd_msg').html('8 ìë¦¬ ì´ìƒ ì…ë ¥í•´ ì£¼ì„¸ìš”');
 					changeStyleNo('#user_pwd_msg');
 
 					return false;
 				}
 
 				else {
-					$('#user_pwd_msg').html('»ç¿ë °¡´ÉÇÑ ºñ¹Ğ¹øÈ£ ÀÔ´Ï´Ù');
+					$('#user_pwd_msg').html('ì‚¬ìš© ê°€ëŠ¥í•œ ë¹„ë°€ë²ˆí˜¸ ì…ë‹ˆë‹¤');
 					changeStyleOk('#user_pwd_msg');
 
 					return true;
@@ -465,7 +446,7 @@
 			}
 
 			else {
-				$('#user_pwd_msg').html('ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
+				$('#user_pwd_msg').html('ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”');
 				changeStyleNo('#user_pwd_msg');
 
 				return false;
@@ -474,89 +455,40 @@
 
 		function checkOldPwd(old_pwd, old_pwd_check) {
 			if (old_pwd == old_pwd_check) {
-				$('#user_old_pwd_check_msg').html('ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÕ´Ï´Ù');
+				$('#user_old_pwd_check_msg').html('íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•©ë‹ˆë‹¤');
 				changeStyleOk('#user_old_pwd_check_msg');
 				return true;
 			} else {
-				$('#user_old_pwd_check_msg').html('ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù');
+				$('#user_old_pwd_check_msg').html('íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤');
 				changeStyleNo('#user_old_pwd_check_msg');
 			}
 		};
 
 		function checkPwdCheck(pwd, pwdCheck) {
 			if (pwd != pwdCheck) {
-				$('#user_pwd_check_msg').html('ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù');
+				$('#user_pwd_check_msg').html('íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤');
 				changeStyleNo('#user_pwd_check_msg');
 
 				return false;
 			}
 
 			else {
-				$('#user_pwd_check_msg').html('ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÕ´Ï´Ù');
+				$('#user_pwd_check_msg').html('íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•©ë‹ˆë‹¤');
 				changeStyleOk('#user_pwd_check_msg');
 
 				return true;
 			}
 		};
 
-		function checkId(id) {
-			if (id != '') {
-				$.ajax({
-					url : 'checkId.mc',
-					method : 'POST',
-					data : {
-						'id' : id
-					},
-
-					success : function(data) {
-						if (data == 'OK') {
-							$('#user_id_msg').html('»ç¿ë °¡´ÉÇÑ ¾ÆÀÌµğÀÔ´Ï´Ù');
-							changeStyleOk('#user_id_msg');
-						}
-
-						else {
-							$('#user_id_msg').html('ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù');
-							changeStyleNo('#user_id_msg');
-						}
-					}
-				});
-			}
-
-			else {
-				$('#user_id_msg').html('¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä');
-				changeStyleNo('#user_id_msg');
-
-				return false;
-			}
-		};
-
-		function checkIdFinal(id) {
-			var idSpan = $('#user_id_msg').html();
-
-			if (idSpan == '»ç¿ë °¡´ÉÇÑ ¾ÆÀÌµğÀÔ´Ï´Ù') {
-				return true;
-			}
-
-			else {
-				return false;
-			}
-		}
-
-		function checkTotal(id, pwd, pwd_check, name, email, phone, add,
-				birthdate) {
-			var check_id = checkIdFinal(id);
+		function checkTotal(pwd, pwd_check, email, phone, add) {
 			var check_pwd = checkPwd(pwd);
 			var check_pwd_check = checkPwdCheck(pwd, pwd_check);
-			var check_name = checkName(name);
 			var check_email = checkEmail(email);
 			var check_phone = checkCellphone(phone);
 			var check_add = checkAdd(add);
-			var check_birthdate = checkBirthdate(birthdate);
 
-			if (check_id == true && check_pwd == true
-					&& check_pwd_check == true && check_name == true
-					&& check_email == true && check_phone == true
-					&& check_add == true && check_birthdate == true) {
+			if (check_pwd == true && check_pwd_check == true && check_email == true 
+					&& check_phone == true && check_add == true) {
 				return true;
 			}
 
@@ -575,11 +507,6 @@
 			checkPwd(pwd);
 		});
 
-		$('#user_new_pwd').keyup(function() {
-			var new_pwd = $('#user_new_pwd').val();
-			checkPwd(new_pwd);
-		});
-
 		$('#user_pwd_check').keyup(function() {
 			var pwd = $('#user_pwd').val();
 			var pwd_check = $('#user_pwd_check').val();
@@ -587,18 +514,9 @@
 			checkPwdCheck(pwd, pwd_check);
 		});
 
-		$('#user_new_pwd_check').keyup(function() {
-			var pwd = $('#user_new_pwd').val();
-			var pwd_check = $('#user_new_pwd_check').val();
-
-			checkPwdCheck(pwd, pwd_check);
-		});
-
 		$('#user_old_pwd_check').keyup(function() {
 			var old_pwd = $('#user_old_pwd_check').val();
 			var old_pwd_check = '${userInfo.user_pwd }';
-			/* ${userInfo.user_id } */
-			/* var old_pwd_check = $('#user_old_pwd_check').val(); */
 
 			checkOldPwd(old_pwd, old_pwd_check);
 		});
@@ -620,26 +538,17 @@
 
 		$('#UpdateButton').click(
 				function() {
-					/* var id = $('#user_id').val(); */
-					var pwd = $('#user_new_pwd').val();
-					var pwd_check = $('#user_new_pwd_check').val();
-					/* var name = $('#user_name').val(); */
+					var id = '${userInfo.user_pwd }';
+					var pwd = $('#user_pwd').val();
+					var pwd_check = $('#user_pwd_check').val();
 					var email = $('#user_email').val();
 					var phone = $('#user_phone').val();
-					/* var gender = $('#user_gender').val(); */
 					var add = $('#user_add option:selected').val();
-					/* var birthdate = $('#datepicker-autoclose').val(); */
 
-					/* if (checkTotal(id, pwd, pwd_check, name, email, phone, add, birthdate)) { */
 					if (checkTotal(pwd, pwd_check, email, phone, add)) {
 						console.log('condition passed');
 
-						var dateFormat = birthdate.split('/');
-						$('#datepicker-autoclose').val(
-								dateFormat[2] + '-' + dateFormat[0] + '-'
-										+ dateFormat[1]);
-
-						$('#update_form').attr('action', 'updateImpl.mc');
+						$('#update_form').attr('action', 'editmyinfoImpl.mc');
 						$('#update_form').attr('method', 'POST');
 						$('#update_form').submit();
 					}

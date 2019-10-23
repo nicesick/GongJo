@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 img {
@@ -30,13 +29,13 @@ img {
 		<div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title m-b-0">°ü¸®ÀÚ¸ðµå Â÷·®Á¦¾î</h5>
+                    <h5 class="card-title m-b-0">ê´€ë¦¬ìžëª¨ë“œ ì°¨ëŸ‰ì œì–´</h5>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Â÷·® ÀÌ¸§</th>  <!-- Â÷·® ÀÌ¸§°ú »çÁø(ÀÛÀº »çÁø) ³Ö±â  -->
-                            <th scope="col">Â÷·® Á¦¾î</th>
+                            <th scope="col">ì°¨ëŸ‰ ì´ë¦„</th>  <!-- ì°¨ëŸ‰ ì´ë¦„ê³¼ ì‚¬ì§„(ìž‘ì€ ì‚¬ì§„) ë„£ê¸°  -->
+                            <th scope="col">ì°¨ëŸ‰ ì œì–´</th>
                         </tr>
                     </thead>
                     <tbody>
