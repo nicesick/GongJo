@@ -57,7 +57,7 @@
 							<!-- Dark Logo icon --> <img src="assets/images/logo-sample.PNG"
 							alt="homepage" class="light-logo" />
 						</b> <span class="text-white p-l-10">ConnectedCarControlSystem</span>
-						<span class="text-white p-l-10">회원 정보 수정</span>
+						<span class="text-white p-l-10">회원 탈퇴</span>
 					</div>
 
 					<!-- Form -->
@@ -77,11 +77,10 @@
 										<span class="input-group-text bg-success text-white"
 											id="basic-addon1"><i class="ti-user"></i></span>
 									</div>
-									<input type="text" id="user_id" name="user_id" value="${userInfo.user_id }" class="form-control" 
-									placeholder="아이디" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+									<div class="form-control">${userInfo.user_id }</div>
 								</div>
 
-								<!-- old pwd -->
+								<!-- pwd check -->
 								<div class="text-left p-l-10">
 									<span id="user_old_pwd_check_msg"></span>
 								</div>
@@ -93,36 +92,6 @@
 									<input type="password" id="user_old_pwd_check"
 										name="old_pwd_check" class="form-control"
 										placeholder="기존 비밀번호 " aria-label="Password_Check"
-										aria-describedby="basic-addon1" required>
-								</div>
-
-								<!-- new pwd -->
-								<div class="text-left p-l-10">
-									<span id="user_pwd_msg"></span>
-								</div>
-
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<span class="input-group-text bg-warning text-white"
-											id="basic-addon2"><i class="ti-pencil"></i></span>
-									</div>
-									<input type="password" id="user_pwd" name="user_pwd"
-										class="form-control" placeholder="새 비밀번호"
-										aria-label="Password" aria-describedby="basic-addon1" required>
-								</div>
-
-								<!-- new pwd_check -->
-								<div class="text-left p-l-10">
-									<span id="user_pwd_check_msg"></span>
-								</div>
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<span class="input-group-text bg-info text-white"
-											id="basic-addon2"><i class="ti-pencil"></i></span>
-									</div>
-									<input type="password" id="user_pwd_check"
-										name="pwd_check" class="form-control"
-										placeholder="새 비밀번호 확인" aria-label="Password_Check"
 										aria-describedby="basic-addon1" required>
 								</div>
 							</div>
@@ -143,8 +112,8 @@
 										<span class="input-group-text bg-success text-white"
 											id="basic-addon1"><i class="ti-user"></i></span>
 									</div>
-									<input type="text" id="user_name" name="user_name" value="${userInfo.user_name }" class="form-control" 
-									placeholder="이름" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+									<div class="form-control">${userInfo.user_name }</div>
+									<!-- <input type="text" id="user_name" name="user_name" class="form-control" placeholder="이름" aria-label="Email" aria-describedby="basic-addon1" required> -->
 								</div>
 
 								<!-- email -->
@@ -156,7 +125,7 @@
 										<span class="input-group-text bg-danger text-white"
 											id="basic-addon1"><i class="ti-email"></i></span>
 									</div>
-									<input type="text" id="user_email" name="user_email" value="${userInfo.user_email }"
+									<input type="text" id="user_email" name="user_email"
 										class="form-control" placeholder="이메일" aria-label="Email"
 										aria-describedby="basic-addon1" required>
 								</div>
@@ -171,7 +140,7 @@
 											id="basic-addon2"><i class="mdi mdi-cellphone"></i></span>
 									</div>
 									<input type="text" id="user_phone" name="user_phone"
-										class="form-control" placeholder="전화번호" aria-label="Phone" value="${userInfo.user_phone }"
+										class="form-control" placeholder="전화번호" aria-label="Phone"
 										aria-describedby="basic-addon1" required>
 								</div>
 
@@ -288,8 +257,9 @@
 									<label class="text-white col-md-3">생일</label>
 
 									<div class="col-md-9">
-										<input type="text" id="user_birthdate" name="user_birthdate" value="${userInfo.user_birthdate }"
-										class="form-control" placeholder="생일" aria-label="Phone" readonly="readonly">
+										<div class="form-control">${userInfo.user_birthdate }</div>
+										<!-- <input type="text" name="user_birthdate" class="form-control"
+											id="datepicker-autoclose" placeholder="mm/dd/yyyy"> -->
 									</div>
 								</div>
 
@@ -364,6 +334,22 @@
 			$(id).css('font-weight', 'bold');
 		};
 
+		function checkBirthdate(birthdate) {
+			if (birthdate != '') {
+				$('#user_birthdate_msg').html('');
+				changeStyleOk('#user_birthdate_msg');
+
+				return true;
+			}
+
+			else {
+				$('#user_birthdate_msg').html('생일을 입력해 주세요');
+				changeStyleNo('#user_birthdate_msg');
+
+				return false;
+			}
+		};
+
 		function checkAdd(add) {
 			if (add != '주소') {
 				$('#user_add_msg').html('');
@@ -375,6 +361,22 @@
 			else {
 				$('#user_add_msg').html('주소를 입력해 주세요');
 				changeStyleNo('#user_add_msg');
+
+				return false;
+			}
+		};
+
+		function checkGender(gender) {
+			if (gender != '') {
+				$('#user_gender_msg').html('');
+				changeStyleOk('#user_gender_msg');
+
+				return true;
+			}
+
+			else {
+				$('#user_gender_msg').html('성별을 입력해 주세요');
+				changeStyleNo('#user_gender_msg');
 
 				return false;
 			}
@@ -411,6 +413,22 @@
 			else {
 				$('#user_email_msg').html('적절하지 않은 이메일 입니다');
 				changeStyleNo('#user_email_msg');
+
+				return false;
+			}
+		};
+
+		function checkName(name) {
+			if (name != '') {
+				$('#user_name_msg').html('적절한 이름입니다');
+				changeStyleOk('#user_name_msg');
+
+				return true;
+			}
+
+			else {
+				$('#user_name_msg').html('이름을 입력해 주세요');
+				changeStyleNo('#user_name_msg');
 
 				return false;
 			}
@@ -481,15 +499,64 @@
 			}
 		};
 
-		function checkTotal(pwd, pwd_check, email, phone, add) {
+		function checkId(id) {
+			if (id != '') {
+				$.ajax({
+					url : 'checkId.mc',
+					method : 'POST',
+					data : {
+						'id' : id
+					},
+
+					success : function(data) {
+						if (data == 'OK') {
+							$('#user_id_msg').html('사용 가능한 아이디입니다');
+							changeStyleOk('#user_id_msg');
+						}
+
+						else {
+							$('#user_id_msg').html('이미 존재하는 아이디입니다');
+							changeStyleNo('#user_id_msg');
+						}
+					}
+				});
+			}
+
+			else {
+				$('#user_id_msg').html('아이디를 입력해 주세요');
+				changeStyleNo('#user_id_msg');
+
+				return false;
+			}
+		};
+
+		function checkIdFinal(id) {
+			var idSpan = $('#user_id_msg').html();
+
+			if (idSpan == '사용 가능한 아이디입니다') {
+				return true;
+			}
+
+			else {
+				return false;
+			}
+		}
+
+		function checkTotal(id, pwd, pwd_check, name, email, phone, add,
+				birthdate) {
+			var check_id = checkIdFinal(id);
 			var check_pwd = checkPwd(pwd);
 			var check_pwd_check = checkPwdCheck(pwd, pwd_check);
+			var check_name = checkName(name);
 			var check_email = checkEmail(email);
 			var check_phone = checkCellphone(phone);
 			var check_add = checkAdd(add);
+			var check_birthdate = checkBirthdate(birthdate);
 
-			if (check_pwd == true && check_pwd_check == true && check_email == true 
-					&& check_phone == true && check_add == true) {
+			if (check_id == true && check_pwd == true
+					&& check_pwd_check == true && check_name == true
+					&& check_email == true && check_phone == true
+					&& check_add == true && check_birthdate == true) {
 				return true;
 			}
 
@@ -508,6 +575,11 @@
 			checkPwd(pwd);
 		});
 
+		$('#user_new_pwd').keyup(function() {
+			var new_pwd = $('#user_new_pwd').val();
+			checkPwd(new_pwd);
+		});
+
 		$('#user_pwd_check').keyup(function() {
 			var pwd = $('#user_pwd').val();
 			var pwd_check = $('#user_pwd_check').val();
@@ -515,9 +587,18 @@
 			checkPwdCheck(pwd, pwd_check);
 		});
 
+		$('#user_new_pwd_check').keyup(function() {
+			var pwd = $('#user_new_pwd').val();
+			var pwd_check = $('#user_new_pwd_check').val();
+
+			checkPwdCheck(pwd, pwd_check);
+		});
+
 		$('#user_old_pwd_check').keyup(function() {
 			var old_pwd = $('#user_old_pwd_check').val();
 			var old_pwd_check = '${userInfo.user_pwd }';
+			/* ${userInfo.user_id } */
+			/* var old_pwd_check = $('#user_old_pwd_check').val(); */
 
 			checkOldPwd(old_pwd, old_pwd_check);
 		});
@@ -539,17 +620,26 @@
 
 		$('#UpdateButton').click(
 				function() {
-					var id = '${userInfo.user_pwd }';
-					var pwd = $('#user_pwd').val();
-					var pwd_check = $('#user_pwd_check').val();
+					/* var id = $('#user_id').val(); */
+					var pwd = $('#user_new_pwd').val();
+					var pwd_check = $('#user_new_pwd_check').val();
+					/* var name = $('#user_name').val(); */
 					var email = $('#user_email').val();
 					var phone = $('#user_phone').val();
+					/* var gender = $('#user_gender').val(); */
 					var add = $('#user_add option:selected').val();
+					/* var birthdate = $('#datepicker-autoclose').val(); */
 
+					/* if (checkTotal(id, pwd, pwd_check, name, email, phone, add, birthdate)) { */
 					if (checkTotal(pwd, pwd_check, email, phone, add)) {
 						console.log('condition passed');
 
-						$('#update_form').attr('action', 'editmyinfoImpl.mc');
+						var dateFormat = birthdate.split('/');
+						$('#datepicker-autoclose').val(
+								dateFormat[2] + '-' + dateFormat[0] + '-'
+										+ dateFormat[1]);
+
+						$('#update_form').attr('action', 'updateImpl.mc');
 						$('#update_form').attr('method', 'POST');
 						$('#update_form').submit();
 					}

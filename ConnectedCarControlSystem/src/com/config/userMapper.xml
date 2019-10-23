@@ -15,7 +15,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</insert>
 	
 	<update id="update" parameterType="user">
-		UPDATE USER_TABLE SET USER_PWD=#{user_pwd}, USER_NAME=#{user_name}, USER_GENDER=#{user_gender}, USER_BIRTHDATE=#{user_birthdate}, USER_PHONE=#{user_phone}, USER_ADD=#{user_add}, USER_EMAIL=#{user_email}, USER_TYPE=#{user_type} WHERE USER_ID=#{user_id}
+		<!-- UPDATE USER_TABLE SET USER_PWD=#{user_pwd}, USER_NAME=#{user_name}, USER_GENDER=#{user_gender}, USER_BIRTHDATE=#{user_birthdate}, USER_PHONE=#{user_phone}, USER_ADD=#{user_add}, USER_EMAIL=#{user_email}, USER_TYPE=#{user_type} WHERE USER_ID=#{user_id} -->
+		UPDATE USER_TABLE SET USER_PWD=#{user_pwd}, USER_PHONE=#{user_phone}, USER_ADD=#{user_add}, USER_EMAIL=#{user_email} WHERE USER_ID=#{user_id}
 	</update>
 	
 	<delete id="delete" parameterType="String">

@@ -15,28 +15,25 @@ import com.test.PrintLog;
 import com.vo.User;
 
 @Controller
-public class UpdateController {
+public class RemoveController {
 
 	@Resource(name="UserBiz")
 	Biz<String, User> userBiz;
 	
-	@RequestMapping("editmyinfo.mc")
+	@RequestMapping("removeMember.mc")
 	public ModelAndView registerPage(ModelAndView mv) {
-		mv.setViewName("editmyinfo");
+		mv.setViewName("removeMember");
 		
 		return mv;
 	}
 	
-	@RequestMapping("editmyinfoImpl.mc")
-	public void registercarImpl(User user, HttpSession session, HttpServletResponse response) {
-		PrintLog.printLog("editmyinfo", user.toString());
-		userBiz.update(user);		
-		try {
-			response.sendRedirect("main.mc");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	/*
+	 * @RequestMapping("editmyinfoImpl.mc") public void registercarImpl(User user,
+	 * HttpSession session, HttpServletResponse response) {
+	 * PrintLog.printLog("editmyinfo", user.toString()); userBiz.update(user); try {
+	 * response.sendRedirect("main.mc"); } catch (IOException e) {
+	 * e.printStackTrace(); } }
+	 */
 	
 	
 }
