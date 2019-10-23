@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<style>
 
-</style>
 <head>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"

@@ -44,12 +44,20 @@ public class LoginController {
 	}
 	
 	@RequestMapping("login.mc")
-	public ModelAndView loginPage(ModelAndView mv, HttpSession session) {
-		mv.setViewName("login");
+	public ModelAndView loginPage(ModelAndView mv, HttpServletResponse response, HttpSession session) {
+		User user = (User)session.getAttribute("userInfo");
 		
-		if (session != null) {
-			session.invalidate();
+		if (user != null) {
+			try {
+				response.sendRedirect("main.mc");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return null;
 		}
+		
+		mv.setViewName("login");
 		
 		return mv;
 	}

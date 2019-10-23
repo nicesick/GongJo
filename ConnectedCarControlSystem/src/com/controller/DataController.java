@@ -117,27 +117,42 @@ public class DataController {
 		if (car_id != null && !car_id.equals("")) {
 			carConsumable = carConsumableBiz.select(car_id);
 			carStatus = carStatusBiz.select(car_id);
-		}
-
-		PrintLog.printLog("DataController", carConsumable.toString());
-		PrintLog.printLog("DataController", carStatus.toString());
-		
-		if (carConsumable != null) {
-			mv.addObject("center", "carConsumableList");
-			mv.addObject("carConsumable", carConsumable);
-			mv.addObject("carStatus", carStatus);
+			
+			if (carConsumable != null && carStatus != null) {
+				PrintLog.printLog("DataController", carConsumable.toString());
+				PrintLog.printLog("DataController", carStatus.toString());
+				
+				mv.addObject("center", "carConsumableList");
+				mv.addObject("carConsumable", carConsumable);
+				mv.addObject("carStatus", carStatus);
+			}
+			
+			else {
+				try {
+					response.sendRedirect("main.mc");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				return null;
+			}
 		}
 		
 		else {
 			try {
 				response.sendRedirect("main.mc");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return null;
 		}
-			
+
+		return mv;
+	}
+	
+	@RequestMapping("getDrivingRecordData.mc")
+	public ModelAndView getDrivingRecordData(ModelAndView mv) {
+		mv.setViewName("index");
+		mv.addObject("center", "drivingRecordList");
 		
 		return mv;
 	}
