@@ -30,7 +30,7 @@ public class RealTimeFragment extends Fragment {
     }
 
 
-    private mapFragment.OnFragmentInteractionListener mListener;
+    private MapFragment.OnFragmentInteractionListener mListener;
 
     void setViewControl(){
          inFreshView = RealTimeRootView.findViewById(R.id.InFreshView);
@@ -134,8 +134,8 @@ public class RealTimeFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof mapFragment.OnFragmentInteractionListener) {
-            mListener = (mapFragment.OnFragmentInteractionListener) context;
+        if (context instanceof MapFragment.OnFragmentInteractionListener) {
+            mListener = (MapFragment.OnFragmentInteractionListener) context;
         }
     }
 

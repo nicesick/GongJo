@@ -20,15 +20,19 @@ public class ConnectIoTTask {
     TextView textView;
     ServerSocket socketServer;
     Handler addSocketHandler;
+    ConnectServerTask connectServerTask;
 
     static RealTimeController realTimeController;
     static ConsumableController consumableController;
 
-    public ConnectIoTTask(ArrayList<Socket> list, Socket serverSocket, TextView textView) throws IOException {
+    public ConnectIoTTask(ArrayList<Socket> list, TextView textView,String ip,int port) throws IOException {
         this.list = list;
-        this.serverSocket = serverSocket;
         this.textView = textView;
         socketServer = new ServerSocket(8888);
+        connectServerTask = new ConnectServerTask(port,ip,list,textView);
+
+        serverSocket = connectServerTask.getSocket();
+
         addSocketHandler = new Handler();
 
         realTimeController = new RealTimeController();
@@ -109,6 +113,11 @@ public class ConnectIoTTask {
                     din = new DataInputStream(in);
                     String Msg = din.readUTF();
                     Log.i("IoT",mySocket.getInetAddress()+" is send "+Msg);
+                    if(!serverSocket.isConnected()){
+                        connectServerTask.makeSocket();
+                        connectServerTask.startServerSocket();;
+                        serverSocket = connectServerTask.getSocket();
+                    }
                     publishProgress(Msg);
                 }
             } catch (IOException e) {
@@ -117,6 +126,5 @@ public class ConnectIoTTask {
             return null;
         }
     }
-
 }
 
