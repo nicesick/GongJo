@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         sendStateWithHttp = new SendStateWithHttp(url);
         checkPermission();
         openSocket();
+
     }
     void checkPermission(){
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
     void setURL(){
         try {
-            url = new URL("http://70.12.60.99/sendData.mc?id=temp");
+            url = new URL("http://70.12.60.95/ConnectedCarControlSystem/sendData.mc");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
     void openSocket(){
         socketList = new ArrayList<Socket>();
 
-        connectServerTask = new ConnectServerTask(8888, "70.12.60.99",socketList,textView);
+        connectServerTask = new ConnectServerTask(8890, "70.12.60.99",socketList,textView);
         serverSocket = connectServerTask.getSocket();
 
         TestSender testSender = new TestSender(serverSocket);
@@ -173,13 +174,7 @@ public class MainActivity extends AppCompatActivity {
         switch (v.getId()){
             case R.id.mapFragmentButton:
                 Log.d("button","map");
-                mapFragmentButton.setClickable(false);
-                mapFragmentButton.setTextColor(Color.BLACK);
-                mapFragmentButton.setSelected(true);
-                realTimeFragmentButton.setSelected(false);
-                consumableFragmentButton.setSelected(false);
-                settingFragmentButton.setSelected(false);
-
+                setButtonUI(mapFragmentButton);
                 clickedButton = R.id.mapFragmentButton;
                 int permission = PermissionChecker.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
                 if(permission == PackageManager.PERMISSION_GRANTED){
@@ -188,47 +183,43 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.envFragmentButton:
                 Log.d("button","environment");
-                realTimeFragmentButton.setClickable(false);
                 clickedButton = R.id.envFragmentButton;
-                realTimeFragmentButton.setTextColor(Color.BLACK);
-                mapFragmentButton.setSelected(false);
-                realTimeFragmentButton.setSelected(true);
-                consumableFragmentButton.setSelected(false);
-                settingFragmentButton.setSelected(false);
-
+                setButtonUI(realTimeFragmentButton);
                 getSupportFragmentManager().beginTransaction().replace(R.id.FragmentLayout,realTimeFragment).commit();
                 break;
             case R.id.csmFragmentButton:
                 Log.d("button","consumable");
-                consumableFragmentButton.setClickable(false);
-                consumableFragmentButton.setTextColor(Color.BLACK);
-                mapFragmentButton.setSelected(false);
-                realTimeFragmentButton.setSelected(false);
-                consumableFragmentButton.setSelected(true);
-                settingFragmentButton.setSelected(false);
-
+                setButtonUI(consumableFragmentButton);
                 clickedButton = R.id.csmFragmentButton;
                 getSupportFragmentManager().beginTransaction().replace(R.id.FragmentLayout,comsumableFragment).commit();
 
                 break;
             case R.id.settingFragmentButton:
                 Log.d("button","setting");
-                settingFragmentButton.setClickable(false);
-                settingFragmentButton.setTextColor(Color.BLACK);
-                mapFragmentButton.setSelected(false);
-                realTimeFragmentButton.setSelected(false);
-                consumableFragmentButton.setSelected(false);
-                settingFragmentButton.setSelected(true);
-
+                setButtonUI(settingFragmentButton);
                 clickedButton = R.id.settingFragmentButton;
                 realTimeController.setInTpt(index+"");
                 index++;
                 getSupportFragmentManager().beginTransaction().replace(R.id.FragmentLayout,settingFragment).commit();
-
+                try {
+                    sendStateWithHttp.sendMsg("aaa");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
+    }
+    void setButtonUI(Button button){
+        realTimeFragmentButton.setSelected(false);
+        consumableFragmentButton.setSelected(false);
+        settingFragmentButton.setSelected(false);
+        mapFragmentButton.setSelected(false);
+        button.setClickable(false);
+        button.setTextColor(Color.BLACK);
+        button.setSelected(true);
+
     }
     void setButtonClickable(int id){
         switch (id) {

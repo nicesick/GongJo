@@ -22,6 +22,7 @@ public class ConnectIoTTask {
     Handler addSocketHandler;
 
     static RealTimeController realTimeController;
+    static ConsumableController consumableController;
 
     public ConnectIoTTask(ArrayList<Socket> list, Socket serverSocket, TextView textView) throws IOException {
         this.list = list;
@@ -31,6 +32,7 @@ public class ConnectIoTTask {
         addSocketHandler = new Handler();
 
         realTimeController = new RealTimeController();
+        consumableController = new ConsumableController();
     }
     protected void acceptSocket(){
         Thread accept = new Thread(new Runnable() {
@@ -94,6 +96,7 @@ public class ConnectIoTTask {
             System.out.println("data : " + data);
 
             realTimeController.setValues(id, data);
+            consumableController.setValues(id,data);
         }
 
 
