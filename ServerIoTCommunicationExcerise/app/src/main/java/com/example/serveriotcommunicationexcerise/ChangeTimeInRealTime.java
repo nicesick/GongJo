@@ -21,9 +21,10 @@ public class ChangeTimeInRealTime {
         changeTimeAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
     void endProcess(){
+
         flag =false;
     }
-        class ChangeTimeAsyncTask extends AsyncTask<Void,String,Void>{
+    class ChangeTimeAsyncTask extends AsyncTask<Void,String,Void>{
 
 
         @Override
