@@ -33,7 +33,15 @@ public class MainController {
 			ArrayList<Car> cars = carBiz.selects(user.getUser_id());
 			PrintLog.printLog("[MainController]", cars.toString());
 			
-			if(cars.size() > 0) {
+			
+		
+			if(user.getUser_type().equals("1")) { //Admin
+				
+				ArrayList<Car> allcar = carBiz.selectAll();
+				session.setAttribute("admincars", allcar);
+				mv.addObject("center", "admincarlist");
+				
+			}else if(cars.size() > 0) {	//Normal Users
 				session.setAttribute("carInfo", cars);
 				mv.addObject("center", "carlist");
 			}

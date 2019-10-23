@@ -22,16 +22,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/student/Desktop/hivelibs/commons-logging-1.1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/student/Desktop/hivelibs/hadoop-core-1.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/student/Desktop/hivelibs/hive-exec-1.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/student/Desktop/hivelibs/hive-jdbc-1.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/student/Desktop/hivelibs/hive-jdbc-1.0.1-standalone.jar"/>
-	<classpathentry kind="lib" path="C:/Users/student/Desktop/hivelibs/hive-metastore-1.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/student/Desktop/hivelibs/hive-service-1.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/student/Desktop/hivelibs/libfb303-0.9.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/student/Desktop/hivelibs/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="C:/Users/student/Desktop/hivelibs/slf4j-api-1.7.27.jar"/>
-	<classpathentry kind="lib" path="C:/Users/student/Desktop/hivelibs/slf4j-log4j12-1.7.27.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
