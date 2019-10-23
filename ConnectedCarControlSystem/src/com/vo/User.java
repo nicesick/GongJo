@@ -104,7 +104,7 @@ public class User {
 		this.user_type = user_type;
 	}
 
-	@Override
+	@Override 
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name=" + user_name + ", user_gender="
 				+ user_gender + ", user_birthdate=" + user_birthdate + ", user_phone=" + user_phone + ", user_add="

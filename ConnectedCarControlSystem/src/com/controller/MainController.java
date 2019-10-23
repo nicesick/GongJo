@@ -35,9 +35,18 @@ public class MainController {
 			
 			if(cars.size() > 0) {
 				session.setAttribute("carInfo", cars);
+				mv.addObject("center", "carlist");
 			}
 			
-			mv.addObject("center", "carlist");
+			else {
+				try {
+					response.sendRedirect("registercar.mc");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return null;
+			}
 		}
 		
 		else {

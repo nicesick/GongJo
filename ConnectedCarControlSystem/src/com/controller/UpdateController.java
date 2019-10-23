@@ -12,8 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.frame.Biz;
 import com.test.PrintLog;
-import com.vo.Car;
-import com.vo.CarGroup;
 import com.vo.User;
 
 @Controller

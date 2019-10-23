@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="page-breadcrumb">
@@ -44,6 +44,21 @@
                         </div>
                     </div>
 		</c:forEach>
+		<div class="col-lg-3 col-md-6">
+			<div class="card">
+				<div class="el-card-item">
+					<div class="el-card-avatar el-overlay-1">
+						<a href="registercar.mc"><img alt="user"
+							src="assets/images/addcar.png"></a>
+						<!-- <div class="el-overlay"  >
+                                    </div> -->
+					</div>
+					<!-- <div class="el-card-content">
+                                    <h4 class="m-b-0">차량 추가</h4>
+                                </div> -->
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- ============================================================== -->
 	<!-- Recent comment and chats -->

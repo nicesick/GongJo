@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -50,6 +49,7 @@
 	<!-- ============================================================== -->
 
 	<div id="main-wrapper">
+<<<<<<< HEAD
 		<!-- ============================================================== -->
 		<!-- Topbar header - style you can find in pages.scss -->
 		<!-- ============================================================== -->
@@ -159,6 +159,7 @@
 									<c:otherwise>
 										<a class="dropdown-item" href="#">등록된 차량 없음</a>
 									</c:otherwise>
+									<a class="dropdown-item" href="registercar.mc" id="navbarDropdown" role="button"><i class="fas fa-plus-circle"></i>Register New Car </a>
 								</c:choose>
 							</div></li>
 					</ul>
