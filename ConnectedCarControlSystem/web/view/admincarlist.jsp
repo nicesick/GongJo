@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 img {
   width: auto;
   height: 60px;
-  border: 1px solid red;
+  border: 5px solid black;
 }
 </style>
 <head>
@@ -17,6 +18,42 @@ img {
 <link href="../assets/libs/flot/css/float-chart.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="../dist/css/style.min.css" rel="stylesheet">
+<!-- T-map -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+        <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&format=javascript&appkey=dbd0828d-01af-45cb-956b-a170291f8d2b"></script>
+        <script>
+        var map;
+    	// ∆‰¿Ã¡ˆ∞° ∑Œµ˘¿Ã µ» »ƒ »£√‚«œ¥¬ «‘ºˆ¿‘¥œ¥Ÿ.
+    	function initTmap(){
+    		// map ª˝º∫
+    		// Tmapv2.Map¿ª ¿ÃøÎ«œø©, ¡ˆµµ∞° µÈæÓ∞• div, ≥–¿Ã, ≥Ù¿Ã∏¶ º≥¡§«’¥œ¥Ÿ.
+    		map = new Tmapv2.Map("map_div",  // "map_div" : ¡ˆµµ∞° «•Ω√µ… div¿« id
+    		{
+    			center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841), // ¡ˆµµ √ ±‚ ¡¬«•
+    			width: "100%", // map¿« width º≥¡§
+    			height: "400px" // map¿« height º≥¡§
+    		});
+    		 
+    		var marker = new Tmapv2.Marker({
+    			position: new Tmapv2.LatLng(37.566481622437934,126.98452302169841),
+    			map: map
+    		});
+    		var marker = new Tmapv2.Marker({
+    			position: new Tmapv2.LatLng(37.566481622437934,126.98502302169841),
+    			map: map
+    		});
+    		var marker = new Tmapv2.Marker({
+    			position: new Tmapv2.LatLng(37.566481622437934,126.98552302169841),
+    			map: map
+    		});
+    		
+    	}
+    	// ∏  ª˝º∫ Ω««‡
+    	initTmap();
+</script>
+		
+		
 </head>
 <!-- ============================================================== -->
 <!-- Container fluid  -->
@@ -26,71 +63,46 @@ img {
 	<!-- Sales Cards  -->
 	<!-- ============================================================== -->
 	<div class="row el-element-overlay">
-		<div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title m-b-0">Í¥ÄÎ¶¨ÏûêÎ™®Îìú Ï∞®ÎüâÏ†úÏñ¥</h5>
+<div class="col-12">
+     <div class="card">
+         <nav aria-label="breadcrumb">
+             <ol class="breadcrumb">
+                 <li class="breadcrumb-item"><a href="admincarlist.mc">∞¸∏Æ¿⁄∏µÂ ¬˜∑Æ¡∂»∏</a></li>
+                 <li class="breadcrumb-item"><a href="adminuserlist.mc">∞¸∏Æ¿⁄∏µÂ ¿Ø¿˙∞¸∏Æ</a></li>
+             </ol>
+         </nav>
+         
+         <body onload="initTmap()">
+        <div id="map_div">
+        </div>        
+    </body>     
+    		
+         
+         <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">¬˜∑Æ ∏Ò∑œ</h5>
+                            <div class="row">
+                               <%--  <c:forEach var="car" items="#{carInfo}"> --%>
+                                <div class="col-md-3 col-sm-12">
+                                    <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button">Car1</button>
+                                </div>
+                                <%-- </c:forEach> --%>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Ï∞®Îüâ Ïù¥Î¶Ñ</th>  <!-- Ï∞®Îüâ Ïù¥Î¶ÑÍ≥º ÏÇ¨ÏßÑ(ÏûëÏùÄ ÏÇ¨ÏßÑ) ÎÑ£Í∏∞  -->
-                            <th scope="col">Ï∞®Îüâ Ï†úÏñ¥</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <img href="web/assets/images/thecar.png"><span class="badge badge-dark">CAR 1</span>
-                            </td>
-                            <td>
-                                <i class="fas fa-chevron-up"></i>
-                                <button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                                  CONTROL 1 : STATUS
-                                </button><i class="fas fa-chevron-down"></i>&nbsp&nbsp&nbsp
-                                <i class="fas fa-chevron-up"></i><button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                                  CONTROL 2 : STATUS
-                                </button><i class="fas fa-chevron-down"></i><br>
-                                <i class="fas fa-chevron-up"></i>
-                                <button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                                  CONTROL 3 : STATUS
-                                </button><i class="fas fa-chevron-down"></i>&nbsp&nbsp&nbsp
-                                <i class="fas fa-chevron-up"></i><button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                                  CONTROL 4 : STATUS
-                                </button><i class="fas fa-chevron-down"></i><br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="badge badge-dark">CAR 2</span>
-                            </td>
-                            <td>
-                                <i class="fas fa-chevron-up"></i>
-                                <button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                                  CONTROL 1 : STATUS
-                                </button><i class="fas fa-chevron-down"></i>&nbsp&nbsp&nbsp
-                                <i class="fas fa-chevron-up"></i><button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                                  CONTROL 2 : STATUS
-                                </button><i class="fas fa-chevron-down"></i><br>
-                                <i class="fas fa-chevron-up"></i>
-                                <button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                                  CONTROL 3 : STATUS
-                                </button><i class="fas fa-chevron-down"></i>&nbsp&nbsp&nbsp
-                                <i class="fas fa-chevron-up"></i><button title="" class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">
-                                  CONTROL 4 : STATUS
-                                </button><i class="fas fa-chevron-down"></i><br>
-                            </td>
-                        </tr>
-                       
-                  </tbody>
-                </table>
-                
-                
-            </div>
-        </div>
-        
-        
-                                
+		 
+		
+         
+           
+	
+	
+     </div>
+ </div>
+ 
+ 
+                         
 	<!-- ============================================================== -->
 	<!-- Recent comment and chats -->
 	<!-- ============================================================== -->
