@@ -2,6 +2,8 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +18,7 @@ import com.frame.Biz;
 import com.test.PrintLog;
 import com.vo.Car;
 import com.vo.CarGroup;
+import com.vo.CarStatus;
 import com.vo.User;
 
 @Controller
@@ -30,6 +33,8 @@ public class RegisterController {
 	@Resource(name="CarGroupBiz")
 	Biz<String,CarGroup> carGroupBiz;
 	
+	@Resource(name="CarStatusBiz")
+	Biz<String,CarStatus> carStatus;
 	
 	@RequestMapping("register.mc")
 	public ModelAndView registerPage(ModelAndView mv) {
@@ -85,7 +90,9 @@ public class RegisterController {
 		
 		User user = (User) session.getAttribute("userInfo");
 		CarGroup carGroup = new CarGroup (user.getUser_id(), car.getCar_id());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		
+		CarStatus carstatus = new CarStatus(car.getCar_id(),80,20000,700,120,100,26,17,200,150,50,15,80,Date.valueOf(sdf.format(new java.util.Date())),"0",123.1234f,36.5678f,100,100,100,100,100,0,30)
 		carGroupBiz.insert(carGroup);
 		
 		try {
