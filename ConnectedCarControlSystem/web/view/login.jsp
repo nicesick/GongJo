@@ -88,6 +88,8 @@
 									<button class="btn btn-info" id="registerButton" type="button">
 										<i class="fa fa-lock m-r-5"></i> Register
 									</button>
+					
+									
 									<button id="loginimpl" class="btn btn-success float-right" type="button">Login</button>
 								</div>
 							</div>
@@ -133,6 +135,7 @@
 		$('#registerButton').click(function(){
 			location.href = "register.mc";
 		});
+		
 		
 		$('#loginimpl').click(function(){
 			var id = $('#user_id').val();
