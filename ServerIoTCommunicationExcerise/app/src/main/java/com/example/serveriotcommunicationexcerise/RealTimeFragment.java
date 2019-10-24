@@ -73,6 +73,7 @@ public class RealTimeFragment extends Fragment {
                 setView(humidityView,realTimeController.getHumidity());
                 setView(totalAirView,realTimeController.getTotal());
             }
+
             public void setView(TextView textView,String string){
                 if(textView!=null){
                     if(string.charAt(0)=='G'){
@@ -94,10 +95,11 @@ public class RealTimeFragment extends Fragment {
                         textView.setTextColor(Color.RED);
                     }
 
-                    textView.setText(string.substring(2));
+                    textView.setText(string.substring(1));
                 }
             }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

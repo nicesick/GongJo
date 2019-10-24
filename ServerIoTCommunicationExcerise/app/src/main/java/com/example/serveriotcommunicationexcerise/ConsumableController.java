@@ -7,11 +7,11 @@ public class ConsumableController {
     private static String car_accoil="0";
     private static String car_coolwat="0";
 
-    private final String CAR_FILTER_ID = "1";
-    private final String CAR_ENG_OIL_ID = "2";
-    private final String CAR_BRAKEOIL_ID = "3";
-    private final String CAR_ACCOIL_ID = "4";
-    private final String CAR_COOLWAT_ID = "5";
+    private final String CAR_FILTER_ID = "00030060";
+    private final String CAR_ENG_OIL_ID = "00030070";
+    private final String CAR_BRAKEOIL_ID = "00030075";
+    private final String CAR_ACCOIL_ID = "00030080";
+    private final String CAR_COOLWAT_ID = "00030085";
 
     public String getCar_filter() {
         return car_filter;
@@ -56,19 +56,19 @@ public class ConsumableController {
     public void setValues(String id, String data){
         switch (id){
             case CAR_FILTER_ID:
-                setCar_filter(data);
+                setCar_filter(String.valueOf(Integer.parseInt(data)));
                 break;
             case CAR_ENG_OIL_ID:
-                setCar_eng_oil(data);
+                setCar_eng_oil(String.valueOf(Integer.parseInt(data)));
                 break;
             case CAR_BRAKEOIL_ID:
-                setCar_brakeoil(data);
+                setCar_brakeoil(String.valueOf(Integer.parseInt(data)));
                 break;
             case CAR_ACCOIL_ID:
-                setCar_accoil(data);
+                setCar_accoil(String.valueOf(Integer.parseInt(data)));
                 break;
             case CAR_COOLWAT_ID:
-                setCar_coolwat(data);
+                setCar_coolwat(String.valueOf(Integer.parseInt(data)));
                 break;
         }
     }

@@ -62,17 +62,16 @@ public class MainActivity extends AppCompatActivity {
         setFragment();
         changeTimeInRealTime = new ChangeTimeInRealTime(timeTextView);
         changeTimeInRealTime.start();
-        setURL();
         index = 0;
-        sendStateWithHttp = new SendStateWithHttp(url);
         checkPermission();
         openSocket();
-
     }
+
     void checkPermission(){
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}
                 ,101);//실제로 물어보는 코드
     }
+
     void setURL(){
         try {
             url = new URL("http://70.12.60.99/sendData.mc");
@@ -189,11 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 realTimeController.setInTpt(index+"");
                 index++;
                 getSupportFragmentManager().beginTransaction().replace(R.id.FragmentLayout,settingFragment).commit();
-                try {
-                    sendStateWithHttp.sendMsg("aaa");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());

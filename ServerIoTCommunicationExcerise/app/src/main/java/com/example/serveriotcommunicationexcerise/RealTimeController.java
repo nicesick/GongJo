@@ -5,6 +5,21 @@ import android.widget.TextView;
 import java.sql.Date;
 
 public class RealTimeController {
+    private static final String CAR_SPEED_ID = "00010010";
+    private static final String CAR_DISTANCE_ID = "00010015";
+    private static final String CAR_AIR_ID = "00020020";
+    private static final String CAR_DUST_ID = "00020030";
+    private static final String CAR_FINEDUST_ID = "00020035";
+    private static final String CAR_TEMP_ID = "00020040";
+    private static final String CAR_EXT_TEMPERATURE_ID = "00020060";
+    private static final String CAR_EXT_DUST_ID = "00020050";
+    private static final String CAR_EXT_FINEDUST_ID = "00020055";
+    private static final String CAR_HUMIDITY_ID = "00020045";
+    private static final String CAR_FUEL_ID = "00010050";
+    private static final String CAR_BAT_ID = "00010055";
+    private static final String CAR_ACCEL_PRESSURE_ID = "00030090";
+    private static final String CAR_BRAKE_PRESSURE_ID = "00030095";
+
 //    private static TextView inAirView,inTptView,outAirView,outTptView,dustView,ultraDustView,CO2View,humidityView;
     private static String inAir = "G 0";
     private static String inTpt = "Y 0";
@@ -39,15 +54,24 @@ public class RealTimeController {
     private static boolean startUp;
     private static boolean lightOn;
 
-    final int IN_AIR_STANDARD1 = 10,IN_AIR_STANDARD2 = 20;
-    final int OUT_AIR_STANDARD1 = 10,OUT_AIR_STANDARD2 = 20;
-    final int IN_TEMPERATURE_STANDARD1 = 10,IN_TEMPERATURE_STANDARD2 = 20;
-    final int OUT_TEMPERATURE_STANDARD1 = 10,OUT_TEMPERATURE_STANDARD2 = 20;
-    final int DUST_STANDARD1 = 10,DUST_STANDARD2 = 20;
-    final int ULTRA_DUST_STANDARD1 = 10,ULTRA_DUST_STANDARD2 = 20;
-    final int CO2_STANDARD1 = 10,CO2_STANDARD2 = 20;
-    final int HUMIDITY_STANDARD1 = 10,HUMIDITY_STANDARD2 = 20;
-    final int TOTAL_STANDARD1 = 10,TOTAL_STANDARD2 = 20;
+    private final int IN_AIR_STANDARD1 = 10;
+    private final int IN_AIR_STANDARD2 = 20;
+    private final int OUT_AIR_STANDARD1 = 10;
+    private final int OUT_AIR_STANDARD2 = 20;
+    private final int IN_TEMPERATURE_STANDARD1 = 10;
+    private final int IN_TEMPERATURE_STANDARD2 = 20;
+    private final int OUT_TEMPERATURE_STANDARD1 = 10;
+    private final int OUT_TEMPERATURE_STANDARD2 = 20;
+    private final int DUST_STANDARD1 = 10;
+    private final int DUST_STANDARD2 = 20;
+    private final int ULTRA_DUST_STANDARD1 = 10;
+    private final int ULTRA_DUST_STANDARD2 = 20;
+    private final int AIR_STANDARD1 = 10;
+    private final int AIR_STANDARD2 = 20;
+    private final int HUMIDITY_STANDARD1 = 10;
+    private final int HUMIDITY_STANDARD2 = 20;
+    private final int TOTAL_STANDARD1 = 10;
+    private final int TOTAL_STANDARD2 = 20;
 
     final String red = "R ", yellow = "Y ",green = "G " ;
 
@@ -126,7 +150,7 @@ public class RealTimeController {
         return car_id;
     }
 
-    public static void setCar_id(String car_id) {
+    public void setCar_id(String car_id) {
         RealTimeController.car_id = car_id;
     }
 
@@ -291,7 +315,68 @@ public class RealTimeController {
     }
 
     public void setValues(String id, String data) {
-        if (id.equals("00020020")) {
+        if (id.equals(CAR_SPEED_ID)) {
+            this.setCar_speed(String.valueOf(Integer.parseInt(data)));
+        }
+
+        else if (id.equals(CAR_DISTANCE_ID)) {
+            this.setCar_distance(String.valueOf(Integer.parseInt(data)));
+        }
+
+        else if (id.equals(CAR_AIR_ID)) {
+            this.setCar_air(String.valueOf(Integer.parseInt(data)));
+            this.setCO2(checkDanger(Integer.parseInt(data),AIR_STANDARD1,AIR_STANDARD2));
+        }
+
+        else if (id.equals(CAR_DUST_ID)) {
+            this.setCar_dust(String.valueOf(Integer.parseInt(data)));
+            this.setDust(checkDanger(Integer.parseInt(data),DUST_STANDARD1,DUST_STANDARD2));
+        }
+
+        else if (id.equals(CAR_FINEDUST_ID)) {
+            this.setCar_finedust(String.valueOf(Integer.parseInt(data)));
+            this.setUltraDust(checkDanger(Integer.parseInt(data),ULTRA_DUST_STANDARD1,ULTRA_DUST_STANDARD2));
+        }
+
+        else if (id.equals(CAR_TEMP_ID)) {
+            this.setCar_temp(String.valueOf(Integer.parseInt(data) - 40));
+            this.setInTpt(checkDanger(Integer.parseInt(data) - 40,IN_TEMPERATURE_STANDARD1,IN_TEMPERATURE_STANDARD2));
+        }
+
+        else if (id.equals(CAR_EXT_TEMPERATURE_ID)) {
+            this.setCar_ext_temperature(String.valueOf(Integer.parseInt(data)));
+        }
+
+        else if (id.equals(CAR_EXT_DUST_ID)) {
+            this.setCar_ext_dust(String.valueOf(Integer.parseInt(data)));
+        }
+
+        else if (id.equals(CAR_EXT_FINEDUST_ID)) {
+            this.setCar_ext_finedust(String.valueOf(Integer.parseInt(data)));
+        }
+
+        else if (id.equals(CAR_HUMIDITY_ID)) {
+            this.setCar_humidity(String.valueOf(Integer.parseInt(data)));
+            this.setHumidity(checkDanger(Integer.parseInt(data),HUMIDITY_STANDARD1,HUMIDITY_STANDARD2));
+        }
+
+        else if (id.equals(CAR_FUEL_ID)) {
+            this.setCar_fuel(String.valueOf(Integer.parseInt(data)));
+        }
+
+        else if (id.equals(CAR_BAT_ID)) {
+            this.setCar_bat(String.valueOf(Integer.parseInt(data)));
+        }
+
+        else if (id.equals(CAR_ACCEL_PRESSURE_ID)) {
+            this.setCar_accel_pressure(String.valueOf(Integer.parseInt(data)));
+        }
+
+        else if (id.equals(CAR_BRAKE_PRESSURE_ID)) {
+            this.setCar_brake_pressure(String.valueOf(Integer.parseInt(data)));
+        }
+
+/*        if (id.equals("00020020")) {
             this.setCO2(checkDanger(Integer.parseInt(data),CO2_STANDARD1,CO2_STANDARD2));
         }
 
@@ -309,19 +394,24 @@ public class RealTimeController {
 
         else if (id.equals("00020045")) {
             this.setHumidity(checkDanger(Integer.parseInt(data),HUMIDITY_STANDARD1,HUMIDITY_STANDARD2));
-        }
+        }*/
     }
 
     public String checkDanger(int data, int standard1,int standard2){
         String orderData;
+
         if(data > standard1){
             orderData = red;
-        }else if(data > standard2){
+        }
+        else if(data > standard2){
             orderData = yellow;
-        }else {
+        }
+        else {
             orderData = green;
         }
+
         orderData += data;
+
         return orderData;
     }
 }
