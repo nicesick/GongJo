@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     ChangeTimeInRealTime changeTimeInRealTime;
     SendStateWithHttp sendStateWithHttp;
     RealTimeController realTimeController;
+    ConsumableController consumableController;
 
     Button mapFragmentButton,settingFragmentButton,realTimeFragmentButton,consumableFragmentButton;
 
@@ -61,20 +62,19 @@ public class MainActivity extends AppCompatActivity {
         setFragment();
         changeTimeInRealTime = new ChangeTimeInRealTime(timeTextView);
         changeTimeInRealTime.start();
-        setURL();
         index = 0;
-        sendStateWithHttp = new SendStateWithHttp(url);
         checkPermission();
         openSocket();
-
     }
+
     void checkPermission(){
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}
                 ,101);//실제로 물어보는 코드
     }
+
     void setURL(){
         try {
-            url = new URL("http://70.12.60.95/ConnectedCarControlSystem/sendData.mc");
+            url = new URL("http://70.12.60.99/sendData.mc");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         realTimeFragment = new RealTimeFragment();
 
         realTimeController = new RealTimeController();
+        consumableController = new ConsumableController();
 
         transaction.replace(R.id.FragmentLayout,comsumableFragment).commit();
         clickedButton = R.id.csmFragmentButton;
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         if(connectIoTTask !=null) {
             connectIoTTask.acceptSocket();
             Log.i("IoT","client is ready");
@@ -186,16 +188,13 @@ public class MainActivity extends AppCompatActivity {
                 realTimeController.setInTpt(index+"");
                 index++;
                 getSupportFragmentManager().beginTransaction().replace(R.id.FragmentLayout,settingFragment).commit();
-                try {
-                    sendStateWithHttp.sendMsg("aaa");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
+
     void setButtonUI(Button button){
         realTimeFragmentButton.setSelected(false);
         consumableFragmentButton.setSelected(false);
@@ -206,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
         button.setSelected(true);
 
     }
+
     void setButtonClickable(int id){
         switch (id) {
             case R.id.mapFragmentButton:

@@ -1,63 +1,74 @@
 package com.example.serveriotcommunicationexcerise;
 
 public class ConsumableController {
-    private static String airFilter="20", engineOil="20",coolingWater="20",breakOil="20",gearOil="20";
-    final String AIR_FILTER_ID = "1", ENGINE_OIL_ID = "2",COOLING_WATER_ID = "3", BREAK_OIL_ID = "4",GEAR_OIL_ID = "5";
-    public String getAirFilter() {
-        return airFilter;
+    private static String car_filter="0";
+    private static String car_eng_oil="0";
+    private static String car_brakeoil="0";
+    private static String car_accoil="0";
+    private static String car_coolwat="0";
+
+    private final String CAR_FILTER_ID = "00030060";
+    private final String CAR_ENG_OIL_ID = "00030070";
+    private final String CAR_BRAKEOIL_ID = "00030075";
+    private final String CAR_ACCOIL_ID = "00030080";
+    private final String CAR_COOLWAT_ID = "00030085";
+
+    public String getCar_filter() {
+        return car_filter;
     }
 
-    public void setAirFilter(String airFilter) {
-        ConsumableController.airFilter = airFilter;
+    public void setCar_filter(String car_filter) {
+        ConsumableController.car_filter = car_filter;
     }
 
-    public String getEngineOil() {
-        return engineOil;
+    public String getCar_eng_oil() {
+        return car_eng_oil;
     }
 
-    public void setEngineOil(String engineOil) {
-        ConsumableController.engineOil = engineOil;
+    public void setCar_eng_oil(String car_eng_oil) {
+        ConsumableController.car_eng_oil = car_eng_oil;
     }
 
-    public String getCoolingWater() {
-        return coolingWater;
+    public String getCar_brakeoil() {
+        return car_brakeoil;
     }
 
-    public void setCoolingWater(String coolingWater) {
-        ConsumableController.coolingWater = coolingWater;
+    public void setCar_brakeoil(String car_brakeoil) {
+        ConsumableController.car_brakeoil = car_brakeoil;
     }
 
-    public String getBreakOil() {
-        return breakOil;
+    public String getCar_accoil() {
+        return car_accoil;
     }
 
-    public void setBreakOil(String breakOil) {
-        ConsumableController.breakOil = breakOil;
+    public void setCar_accoil(String car_accoil) {
+        ConsumableController.car_accoil = car_accoil;
     }
 
-    public  String getGearOil() {
-        return gearOil;
+    public String getCar_coolwat() {
+        return car_coolwat;
     }
 
-    public  void setGearOil(String gearOil) {
-        ConsumableController.gearOil = gearOil;
+    public void setCar_coolwat(String car_coolwat) {
+        ConsumableController.car_coolwat = car_coolwat;
     }
+
     public void setValues(String id, String data){
         switch (id){
-            case AIR_FILTER_ID:
-                setAirFilter(data);
+            case CAR_FILTER_ID:
+                setCar_filter(String.valueOf(Integer.parseInt(data)));
                 break;
-            case ENGINE_OIL_ID:
-                setEngineOil(data);
+            case CAR_ENG_OIL_ID:
+                setCar_eng_oil(String.valueOf(Integer.parseInt(data)));
                 break;
-            case GEAR_OIL_ID:
-                setGearOil(data);
+            case CAR_BRAKEOIL_ID:
+                setCar_brakeoil(String.valueOf(Integer.parseInt(data)));
                 break;
-            case BREAK_OIL_ID:
-                setBreakOil(data);
+            case CAR_ACCOIL_ID:
+                setCar_accoil(String.valueOf(Integer.parseInt(data)));
                 break;
-            case COOLING_WATER_ID:
-                setCoolingWater(data);
+            case CAR_COOLWAT_ID:
+                setCar_coolwat(String.valueOf(Integer.parseInt(data)));
                 break;
         }
     }

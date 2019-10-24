@@ -20,9 +20,11 @@ public class SendStateWithHttp {
     URL url;
     RealTimeController realTimeController;
     ConsumableController consumableController;
+
     public SendStateWithHttp(URL url) {
         this.url = url;
         realTimeController = new RealTimeController();
+        consumableController = new ConsumableController();
     }
 
     public void sendMsg(String string) throws IOException {
@@ -37,8 +39,34 @@ public class SendStateWithHttp {
 
                 try {
                     JSONObject postData = new JSONObject();
-                    postData.put("job", "leader");
-                    postData.put("CO2",realTimeController.getCO2());
+                    postData.put("car_id",realTimeController.getCar_id());
+                    postData.put("car_speed",realTimeController.getCar_speed());
+                    postData.put("car_distance",realTimeController.getCar_distance());
+                    postData.put("car_air",realTimeController.getCar_air());
+                    postData.put("car_dust",realTimeController.getCar_dust());
+                    postData.put("car_finedust",realTimeController.getCar_finedust());
+                    postData.put("car_temp",realTimeController.getCar_temp());
+                    postData.put("car_ext_temperature",realTimeController.getCar_ext_temperature());
+                    postData.put("car_ext_dust",realTimeController.getCar_ext_dust());
+                    postData.put("car_ext_finedust",realTimeController.getCar_ext_finedust());
+                    postData.put("car_humidity",realTimeController.getCar_humidity());
+                    postData.put("car_fuel",realTimeController.getCar_fuel());
+                    postData.put("car_bat",realTimeController.getCar_bat());
+                    postData.put("car_date",realTimeController.getCar_date());
+                    postData.put("car_hms",realTimeController.getCar_hms());
+                    postData.put("car_lat",realTimeController.getCar_lat());
+                    postData.put("car_log",realTimeController.getCar_log());
+
+                    postData.put("car_filter",consumableController.getCar_filter());
+                    postData.put("car_eng_oil",consumableController.getCar_eng_oil());
+                    postData.put("car_brakeoil",consumableController.getCar_brakeoil());
+                    postData.put("car_accoil",consumableController.getCar_accoil());
+                    postData.put("car_coolwat",consumableController.getCar_coolwat());
+
+                    postData.put("car_accel_pressure",realTimeController.getCar_accel_pressure());
+                    postData.put("car_brake_pressure",realTimeController.getCar_brake_pressure());
+
+                   /* postData.put("CO2",realTimeController.getCO2());
                     postData.put("dust",realTimeController.getDust());
                     postData.put("humidity",realTimeController.getHumidity());
                     postData.put("inAir",realTimeController.getInAir());
@@ -46,7 +74,7 @@ public class SendStateWithHttp {
                     postData.put("outAir",realTimeController.getOutAir());
                     postData.put("outTemperature",realTimeController.getOutTpt());
                     postData.put("ultraDust",realTimeController.getUltraDust());
-                    postData.put("Total",realTimeController.getTotal());
+                    postData.put("Total",realTimeController.getTotal());*/
 
                     urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestProperty("Content-Type", "application/json");
