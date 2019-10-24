@@ -48,8 +48,8 @@
 			<div class="card">
 				<div class="el-card-item">
 					<div class="el-card-avatar el-overlay-1">
-						<a href="registercar.mc"><img alt="user"
-							src="assets/images/addcar.png"></a>
+						<a href="neworshare.mc">
+						<img alt="user" src="assets/images/addcar.png"></a>
 						<!-- <div class="el-overlay"  >
                                     </div> -->
 					</div>

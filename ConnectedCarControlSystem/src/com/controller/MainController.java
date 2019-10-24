@@ -40,7 +40,7 @@ public class MainController {
 			
 			else {
 				try {
-					response.sendRedirect("registercar.mc");
+					response.sendRedirect("neworshare.mc");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
