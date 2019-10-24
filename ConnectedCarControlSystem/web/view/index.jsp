@@ -159,7 +159,7 @@
 									</c:otherwise>
 								</c:choose>
 								
-								<a class="dropdown-item" href="registercar.mc"
+								<a class="dropdown-item" href="neworshare.mc"
 										id="navbarDropdown" role="button"><i
 										class="fas fa-plus-circle"></i>Register New Car 
 								</a>
