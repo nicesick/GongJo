@@ -196,7 +196,7 @@
 									기록</span></a></li>
 						<li class="sidebar-item"><a
 							class="sidebar-link waves-effect waves-dark sidebar-link"
-							href="tables.html" aria-expanded="false"><i
+							href="getRealTimeDrivingData.mc" aria-expanded="false"><i
 								class="mdi mdi-border-inside"></i><span class="hide-menu">실시간
 									상태</span></a></li>
 					</ul>

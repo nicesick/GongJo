@@ -106,6 +106,7 @@ public class DataController {
 		System.out.println(data);
 	}
 	
+	//소모품 정보 확인
 	@RequestMapping("getConsumableData.mc")
 	public ModelAndView getConsumableData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		CarConsumable carConsumable = null;
@@ -149,6 +150,7 @@ public class DataController {
 		return mv;
 	}
 	
+	//운행기록 확인
 	@RequestMapping("getDrivingRecordData.mc")
 	public ModelAndView getDrivingRecordData(ModelAndView mv) {
 		mv.setViewName("index");
@@ -156,4 +158,20 @@ public class DataController {
 		
 		return mv;
 	}
+	
+	//실시간 상태 확인
+
+	@RequestMapping("getRealTimeDrivingData.mc")
+	public ModelAndView getRealTimeDrivingData(ModelAndView mv, HttpSession session) {
+		mv.setViewName("index");
+		CarStatus carStatus = null;
+		String car_id = (String) session.getAttribute("selectcar");
+		carStatus = carStatusBiz.select(car_id);
+		mv.addObject("carStatus", carStatus);
+		
+		mv.addObject("center", "realTimeDriving");
+		
+		return mv;
+	}
+	
 }
