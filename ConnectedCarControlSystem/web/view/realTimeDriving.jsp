@@ -47,50 +47,50 @@
 							<tbody>
 								<tr>
 									<td>속도</td>
-									<td>${carStatus.car_speed }</td>
+									<td id="car_speed"></td>
 								</tr>
 								<tr>
 									<td>운행 거리</td>
-									<td>${carStatus.car_distance }</td>
+									<td  id="car_distance"></td>
 								</tr>
 								<tr>
 									<td>실내 이산화탄소 농도</td>
-									<td>${carStatus.car_air }</td>
+									<td id="car_air"></td>
 								</tr>
 								<tr>
 									<td>실내 미세먼지 농도</td>
-									<td>${carStatus.car_dust }</td>								</tr>
+									<td id="car_dust"></td>								</tr>
 								<tr>
 									<td>실내 초 미세먼지 농도</td>
-									<td>${carStatus.car_finedust }</td>
+									<td id="car_finedust"></td>
 								</tr>
 								<tr>
 									<td>실내 온도</td>
-									<td>${carStatus.car_temp }</td>
+									<td id="car_temp"></td>
 								</tr>
 								<tr>
 									<td>실내 습도</td>
-									<td>${carStatus.car_humidity }</td>
+									<td id="car_humidity"></td>
 								</tr>
 								<tr>
 									<td>실외 미세먼지 농도</td>
-									<td>${carStatus.car_ext_dust }</td>
+									<td id="car_ext_dust"></td>
 								</tr>
 								<tr>
 									<td>실외 초 미세먼지 농도</td>
-									<td>${carStatus.car_ext_finedust }</td>
+									<td id="car_ext_finedust"></td>
 								</tr>
 								<tr>
 									<td>실외 온도</td>
-									<td>${carStatus.car_ext_temperature }</td>
+									<td id="car_ext_temperature"></td>
 								</tr>
 								<tr>
 									<td>연료 </td>
-									<td>${carStatus.car_fuel }</td>
+									<td id="car_fuel"></td>
 								</tr>
 								<tr>
 									<td>베터리</td>
-									<td>${carStatus.car_bat }</td>
+									<td id="car_bat"></td>
 								</tr>
 								
 							</tbody>
@@ -107,3 +107,58 @@
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
 <!-- ============================================================== -->
+   <!-- ============================================================== -->
+    <!-- All Required js -->
+    <!-- ============================================================== -->
+    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+    <!-- ============================================================== -->
+    <!-- This page Register scripts -->
+    <!-- ============================================================== -->
+    <script>
+
+    
+	function getData(car_id) {
+		if (car_id != '') {
+			$.ajax({
+    			url : 'getRealTimeData.mc',
+    			method : 'POST',
+    			data : {
+    				'car_id' : car_id
+    			},
+    			success : function(data){
+    			var obj = JSON.parse(data);	
+    				console.log(data);
+    				console.log(obj.speed);
+    					$('#car_speed').html(obj.speed);
+    					$('#car_distance').html(obj.distance);
+    					$('#car_air').html(obj.air);
+    					$('#car_dust').html(obj.dust);
+    					$('#car_finedust').html(obj.finedust);
+    					$('#car_temp').html(obj.temp);
+    					$('#car_ext_dust').html(obj.ext_dust);
+    					$('#car_ext_finedust').html(obj.ext_finedust);
+    					$('#car_ext_temperature').html(obj.ext_temperature);
+    					$('#car_humidity').html(obj.humidity);
+    					$('#car_bat').html(obj.bat);
+    					$('#car_fuel').html(obj.fuel);
+    					$('#car_lat').html(obj.lat);
+    					$('#car_log').html(obj.log);
+    				
+    			}
+    		});
+		}
+	};
+	
+    $(document).ready(function(){
+    	var car_id = '${carStatus.car_id }';
+    	getData(car_id);
+    	setInterval(getData(car_id),3000);
+    });
+    
+    </script>
