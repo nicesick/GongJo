@@ -1,10 +1,12 @@
 package com.controller;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -94,19 +98,61 @@ public class DataController {
 
 		try {
 			in = request.getInputStream();
-			BufferedInputStream bin = new BufferedInputStream(in);
-			StringBuilder sb = new StringBuilder();
-
-			while (bin.available() > 0) {
-				sb.append((char) bin.read());
-			}
-
-			data = sb.toString();
+			BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+			
+			data = br.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		System.out.println(data);
+		PrintLog.printLog("DataController", data);
+		CarStatus carStatus = null;
+		
+		JSONParser parser = new JSONParser();
+		JSONObject jo = null;
+		
+		try {
+			jo = (JSONObject) parser.parse(data);
+			
+			if (jo != null && !jo.isEmpty()) {
+				carStatus = new CarStatus(jo.get("car_id").toString(), 
+						Integer.parseInt(jo.get("car_speed").toString()), 
+						Integer.parseInt(jo.get("car_distance").toString()),
+						Integer.parseInt(jo.get("car_air").toString()),
+						Integer.parseInt(jo.get("car_dust").toString()),
+						Integer.parseInt(jo.get("car_finedust").toString()),
+						Integer.parseInt(jo.get("car_temp").toString()),
+						Integer.parseInt(jo.get("car_ext_temperature").toString()),
+						Integer.parseInt(jo.get("car_ext_dust").toString()),
+						Integer.parseInt(jo.get("car_ext_finedust").toString()),
+						Integer.parseInt(jo.get("car_humidity").toString()),
+						Integer.parseInt(jo.get("car_fuel").toString()),
+						Integer.parseInt(jo.get("car_bat").toString()),
+						Date.valueOf(jo.get("car_date").toString()),
+						jo.get("car_hms").toString(),
+						Float.parseFloat(jo.get("car_lat").toString()),
+						Float.parseFloat(jo.get("car_log").toString()),
+						Integer.parseInt(jo.get("car_filter").toString()),
+						Integer.parseInt(jo.get("car_eng_oil").toString()),
+						Integer.parseInt(jo.get("car_brakeoil").toString()),
+						Integer.parseInt(jo.get("car_accoil").toString()),
+						Integer.parseInt(jo.get("car_coolwat").toString()),
+						Integer.parseInt(jo.get("car_accel_pressure").toString()),
+						Integer.parseInt(jo.get("car_brake_pressure").toString()));
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		if (carStatus != null) {
+			if (carStatusBiz.select(carStatus.getCar_id()) != null) {
+				carStatusBiz.update(carStatus);
+			}
+			
+			else {
+				carStatusBiz.insert(carStatus);
+			}
+		}
 	}
 
 	// 소모품 정보 확인
