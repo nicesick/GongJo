@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
 
+</style>
 <head>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
@@ -23,14 +25,17 @@
 	<div class="row el-element-overlay">
 <div class="col-12">
      <div class="card">
-         <div class="card-body">
-             <h5 class="card-title m-b-0" href="admincarlist.mc" role="button">관리자모드 차량제어</h5>&nbsp&nbsp&nbsp&nbsp&nbsp<h5 class="card-title m-b-0">관리자모드 유저관리</h5>
-         </div>
+         <nav aria-label="breadcrumb">
+             <ol class="breadcrumb">
+                 <li class="breadcrumb-item"><a href="admincarlist.mc">관리자모드 차량조회</a></li>
+                 <li class="breadcrumb-item"><a href="adminuserlist.mc">관리자모드 유저관리</a></li>
+             </ol>
+         </nav>
          <table class="table">
          <thead>
              <tr>
                  <th scope="col">유저 ID</th>
-                 <th scope="col">유저선택</th>
+                 <th scope="col">유저관리</th>
              </tr>
          </thead>
          <tbody>
