@@ -5,8 +5,9 @@
 img {
   width: auto;
   height: 60px;
-  border: 5px solid black;	//사진 높이만 정해줘서 크기는 맞추면서 이미지는 안뭉개짐.
+  border: 5px solid black;
 }
+
 </style>
 <head>
 <!-- Favicon icon -->
@@ -22,6 +23,7 @@ img {
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         
         <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&format=javascript&appkey=dbd0828d-01af-45cb-956b-a170291f8d2b"></script>
+<<<<<<< HEAD
         <script type="text/javascript">
 			function initTmap(){
 				var map = new Tmapv2.Map("map_div",  
@@ -34,6 +36,39 @@ img {
 			}
 			
 		</script>
+=======
+        <script>
+        var map;
+    	// 페이지가 로딩이 된 후 호출하는 함수입니다.
+    	function initTmap(){
+    		// map 생성
+    		// Tmapv2.Map을 이용하여, 지도가 들어갈 div, 넓이, 높이를 설정합니다.
+    		map = new Tmapv2.Map("map_div",  // "map_div" : 지도가 표시될 div의 id
+    		{
+    			center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841), // 지도 초기 좌표
+    			width: "100%", // map의 width 설정
+    			height: "400px" // map의 height 설정
+    		});
+    		 
+    		var marker = new Tmapv2.Marker({
+    			position: new Tmapv2.LatLng(37.566481622437934,126.98452302169841),
+    			map: map
+    		});
+    		var marker = new Tmapv2.Marker({
+    			position: new Tmapv2.LatLng(37.566481622437934,126.98502302169841),
+    			map: map
+    		});
+    		var marker = new Tmapv2.Marker({
+    			position: new Tmapv2.LatLng(37.566481622437934,126.98552302169841),
+    			map: map
+    		});
+    		
+    	}
+    	// 맵 생성 실행
+    	initTmap();
+</script>
+		
+>>>>>>> 0065b3930c44a261c178c8cd0da76333b69b1daf
 		
 </head>
 <!-- ============================================================== -->
@@ -52,22 +87,39 @@ img {
                  <li class="breadcrumb-item"><a href="adminuserlist.mc">관리자모드 유저관리</a></li>
              </ol>
          </nav>
+<<<<<<< HEAD
          <!-- T-map Initialization -->
          <body onload="initTmap()">
         		<div id="map_div">
       		  </div>        
     	 </body>
+=======
+         
+         <body onload="initTmap()">
+        <div id="map_div">
+        </div>        
+    </body>     
+    		
+>>>>>>> 0065b3930c44a261c178c8cd0da76333b69b1daf
          
          <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">차량 목록</h5>
                             <div class="row">
+<<<<<<< HEAD
                                 <c:forEach var="car" items="#{carInfo}">
                                 <div class="col-md-3 col-sm-12">
                                     <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button">${car.car_id}</button>
                                 </div>
                                 </c:forEach>
+=======
+                               <%--  <c:forEach var="car" items="#{carInfo}"> --%>
+                                <div class="col-md-3 col-sm-12">
+                                    <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button">Car1</button>
+                                </div>
+                                <%-- </c:forEach> --%>
+>>>>>>> 0065b3930c44a261c178c8cd0da76333b69b1daf
                             </div>
                         </div>
                     </div>
