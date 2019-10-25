@@ -45,6 +45,8 @@ public class UserDao implements Dao<String, User> {
 
 	@Override
 	public ArrayList<User> selectAll() {
-		return null;
+		ArrayList<User> users = userMapper.selectAll();
+		
+		return users;
 	}
 }
