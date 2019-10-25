@@ -47,27 +47,27 @@
 							<tbody>
 								<tr>
 									<td>필터</td>
-									<td id="car_filter_alarm">${carStatus.car_filter }</td>
+									<td id="car_filter">${carStatus.car_filter }</td>
 									<td id="date_filter">${carConsumable.date_filter }</td>
 								</tr>
 								<tr>
 									<td>엔진오일</td>
-									<td id="car_eng_oil_alarm">${carStatus.car_eng_oil }</td>
+									<td id="car_eng_oil">${carStatus.car_eng_oil }</td>
 									<td id="date_eng_oil">${carConsumable.date_eng_oil }</td>
 								</tr>
 								<tr>
 									<td>브레이크오일</td>
-									<td id="car_brakeoil_alarm">${carStatus.car_brakeoil }</td>
+									<td id="car_brakeoil">${carStatus.car_brakeoil }</td>
 									<td id="date_breakoil">${carConsumable.date_breakoil }</td>
 								</tr>
 								<tr>
 									<td>엑셀오일</td>
-									<td id="car_accoil_alarm">${carStatus.car_accoil }</td>
+									<td id="car_accoil">${carStatus.car_accoil }</td>
 									<td id="date_accoil">${carConsumable.date_accoil }</td>
 								</tr>
 								<tr>
 									<td>냉각수</td>
-									<td id="car_coolwat_alarm">${carStatus.car_coolwat }</td>
+									<td id="car_coolwat">${carStatus.car_coolwat }</td>
 									<td id="date_coolwat">${carConsumable.date_coolwat }</td>
 								</tr>
 							</tbody>
@@ -84,24 +84,10 @@
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
 <!-- ============================================================== -->
-  <!-- ============================================================== -->
-    <!-- All Required js -->
-    <!-- ============================================================== -->
-    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
-    
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
-    <!-- ============================================================== -->
-    <!-- This page Register scripts -->
-    <!-- ============================================================== -->
-    <script>
-
-    
+<script>
 	function getData(car_id) {
-		if (car_id != '') {
+		if (car_id != '') {	
 			$.ajax({
     			url : 'getRealTimeConsumable.mc',
     			method : 'POST',
@@ -110,15 +96,14 @@
     			},
     			
     			success : function(data){
-    			var obj = JSON.parse(data);	
     				console.log(data);
-    				console.log(obj.speed);
+    				var obj = JSON.parse(data);
     				
-   					$('#car_filter_alarm').html(obj.car_filter_alarm);
-   					$('#car_eng_oil_alarm').html(obj.car_eng_oil_alarm);
-   					$('#car_brakeoil_alarm').html(obj.car_brakeoil_alarm);
-   					$('#car_accoil_alarm').html(obj.car_accoil_alarm);
-   					$('#car_coolwat_alarm').html(obj.car_coolwat_alarm);
+   					$('#car_filter').html(obj.car_filter);
+   					$('#car_eng_oil').html(obj.car_eng_oil);
+   					$('#car_brakeoil').html(obj.car_brakeoil);
+   					$('#car_accoil').html(obj.car_accoil);
+   					$('#car_coolwat').html(obj.car_coolwat);
    					$('#date_filter').html(obj.date_filter);
    					$('#date_eng_oil').html(obj.date_eng_oil);
    					$('#date_breakoil').html(obj.date_breakoil);
@@ -129,14 +114,9 @@
 		}
 	};
 	
-    $(document).ready(function(){
-    	var car_id = '${carConsumable.car_id }';
-    	
-    	setInterval(function(){
-    		getData(car_id);
-    	},3000);
-    });
-    
-    </script>
-
-
+   	var car_id = '${carConsumable.car_id }';
+   	
+   	setInterval(function(){
+   		getData(car_id);
+   	},1000);
+</script>

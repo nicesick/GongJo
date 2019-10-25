@@ -25,6 +25,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.frame.Biz;
@@ -201,32 +202,45 @@ public class DataController {
 	
 	//소모품 실시간 확인
 	@RequestMapping("getRealTimeConsumable.mc")
-	public void getRealTimeConsumable(String car_id, HttpSession session, HttpServletResponse reponse) {
+	@ResponseBody
+	public void getRealTimeConsumable(String car_id, HttpSession session, HttpServletResponse response) {
+		PrintWriter out = null;
+		
 		CarConsumable carConsumable = null;
-		JSONArray ja = new JSONArray();
+		CarStatus carStatus = null;
+		
 		carConsumable = carConsumableBiz.select(car_id);
-		JSONObject jo = new JSONObject();
+		carStatus = carStatusBiz.select(car_id);
 		
-		jo.put("car_filter_alarm", carConsumable.getCar_filter_alarm());
-		jo.put("car_eng_oil_alarm", carConsumable.getCar_eng_oil_alarm());
-		jo.put("car_brakeoil_alarm", carConsumable.getCar_brakeoil_alarm());
-		jo.put("car_accoil_alarm", carConsumable.getCar_accoil_alarm());
-		jo.put("car_coolwat_alarm", carConsumable.getCar_coolwat_alarm());
-		jo.put("date_filter", carConsumable.getDate_filter());
-		jo.put("date_eng_oil", carConsumable.getDate_eng_oil());
-		jo.put("date_breakoil", carConsumable.getDate_breakoil());
-		jo.put("date_accoil", carConsumable.getDate_accoil());
-		jo.put("date_coolwat", carConsumable.getDate_coolwat());
-		
-		ja.add(jo); // array
-		try {
-			PrintWriter out = reponse.getWriter();
-			out.write(jo.toJSONString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if (carConsumable != null && carStatus != null) {
+			PrintLog.printLog("getRealTimeConsumable", carConsumable.toString());
+			PrintLog.printLog("getRealTimeConsumable", carStatus.toString());
+			
+			JSONObject jo = new JSONObject();
+			
+			jo.put("car_filter", carStatus.getCar_filter());
+			jo.put("car_eng_oil", carStatus.getCar_eng_oil());
+			jo.put("car_brakeoil", carStatus.getCar_brakeoil());
+			jo.put("car_accoil", carStatus.getCar_accoil());
+			jo.put("car_coolwat", carStatus.getCar_coolwat());
 
+			jo.put("date_filter", carConsumable.getDate_filter().toString());
+			jo.put("date_eng_oil", carConsumable.getDate_eng_oil().toString());
+			jo.put("date_breakoil", carConsumable.getDate_breakoil().toString());
+			jo.put("date_accoil", carConsumable.getDate_accoil().toString());
+			jo.put("date_coolwat", carConsumable.getDate_coolwat().toString());
+			
+			try {
+				out = response.getWriter();
+				out.write(jo.toJSONString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			if (out != null) {
+				out.close();
+			}
+		}
 	}
 
 	// 운행기록 확인
