@@ -3,8 +3,8 @@ package com.log;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Service;
 
 import com.test.PrintLog;
@@ -20,7 +20,7 @@ public class Log {
 		warning_log = Logger.getLogger("warning");
 	}
 	
-	@Before("execution(* com.controller.DataController.getData(..))")
+	@After("execution(* com.controller.DataController.getData(..))")
 	public void makeLog(JoinPoint jp) {
 		PrintLog.printLog("Log", jp.getArgs()[0].toString() + "");
 		String car_id = jp.getArgs()[0].toString();

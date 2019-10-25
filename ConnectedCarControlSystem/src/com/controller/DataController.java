@@ -241,14 +241,41 @@ public class DataController {
 	// 실시간 상태 확인
 
 	@RequestMapping("getRealTimeDrivingData.mc")
-	public ModelAndView getRealTimeDrivingData(ModelAndView mv, HttpSession session) {
+	public ModelAndView getRealTimeDrivingData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		mv.setViewName("index");
+		
 		CarStatus carStatus = null;
 		String car_id = (String) session.getAttribute("selectcar");
-		carStatus = carStatusBiz.select(car_id);
-		mv.addObject("carStatus", carStatus);
-
-		mv.addObject("center", "realTimeDriving");
+		
+		if (car_id != null && !car_id.equals("")) {
+			carStatus = carStatusBiz.select(car_id);
+			
+			if (carStatus != null) {
+				mv.addObject("carStatus", carStatus);
+				mv.addObject("center", "realTimeDriving");
+			}
+			
+			else {
+				try {
+					response.sendRedirect("main.mc");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				return null;
+			}
+		}
+		
+		else {
+			try {
+				response.sendRedirect("main.mc");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
 
 		return mv;
 	}
