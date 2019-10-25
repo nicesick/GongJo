@@ -131,25 +131,26 @@
     			data : {
     				'car_id' : car_id
     			},
+    			
     			success : function(data){
     			var obj = JSON.parse(data);	
     				console.log(data);
     				console.log(obj.speed);
-    					$('#car_speed').html(obj.speed);
-    					$('#car_distance').html(obj.distance);
-    					$('#car_air').html(obj.air);
-    					$('#car_dust').html(obj.dust);
-    					$('#car_finedust').html(obj.finedust);
-    					$('#car_temp').html(obj.temp);
-    					$('#car_ext_dust').html(obj.ext_dust);
-    					$('#car_ext_finedust').html(obj.ext_finedust);
-    					$('#car_ext_temperature').html(obj.ext_temperature);
-    					$('#car_humidity').html(obj.humidity);
-    					$('#car_bat').html(obj.bat);
-    					$('#car_fuel').html(obj.fuel);
-    					$('#car_lat').html(obj.lat);
-    					$('#car_log').html(obj.log);
     				
+   					$('#car_speed').html(obj.speed);
+   					$('#car_distance').html(obj.distance);
+   					$('#car_air').html(obj.air);
+   					$('#car_dust').html(obj.dust);
+   					$('#car_finedust').html(obj.finedust);
+   					$('#car_temp').html(obj.temp);
+   					$('#car_ext_dust').html(obj.ext_dust);
+   					$('#car_ext_finedust').html(obj.ext_finedust);
+   					$('#car_ext_temperature').html(obj.ext_temperature);
+   					$('#car_humidity').html(obj.humidity);
+   					$('#car_bat').html(obj.bat);
+   					$('#car_fuel').html(obj.fuel);
+   					$('#car_lat').html(obj.lat);
+   					$('#car_log').html(obj.log);
     			}
     		});
 		}
@@ -157,8 +158,10 @@
 	
     $(document).ready(function(){
     	var car_id = '${carStatus.car_id }';
-    	getData(car_id);
-    	setInterval(getData(car_id),3000);
+    	
+    	setInterval(function(){
+    		getData(car_id);
+    	},3000);
     });
     
     </script>

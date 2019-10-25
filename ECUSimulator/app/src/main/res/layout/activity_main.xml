@@ -145,6 +145,60 @@
                 android:text="TextView" />
 
             <TextView
+            android:id="@+id/ExtDust"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ExtDust"
+            android:textSize="30sp" />
+
+            <SeekBar
+                android:id="@+id/seekBar17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textViewExtDust"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextViewExtDust" />
+
+            <TextView
+                android:id="@+id/ExtSdust"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ExtSdust"
+                android:textSize="30sp" />
+
+            <SeekBar
+                android:id="@+id/seekBar18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textViewExtSdust"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextViewExtSdust" />
+
+            <TextView
+                android:id="@+id/ExtTemperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ExtTemperature"
+                android:textSize="30sp" />
+
+            <SeekBar
+                android:id="@+id/seekBar19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textViewExtTemperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextViewExtTemperature" />
+
+            <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

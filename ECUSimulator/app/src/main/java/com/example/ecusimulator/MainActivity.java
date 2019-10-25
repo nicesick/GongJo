@@ -19,9 +19,15 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity {
-    TextView textview, textview2, textview3,textViewSpeed,textViewDistance,textViewFuel,textViewBattery,textViewCO2,textViewDust,textViewSdust,textViewTemperature,textViewHumidity,textViewAircon,textViewEngine,textViewBrake,textViewAccoil,textViewCoolwater,textViewAccPressure,textViewBrakePressure;
-    SeekBar seekBar, seekBar2, seekBar3,seekBar4,seekBar5, seekBar6, seekBar7,seekBar8,seekBar9,seekBar10,seekBar11,seekBar12,seekBar13,seekBar14,seekBar15,seekBar16;
-    Button button2,button3;
+    TextView textview, textview2, textview3,textViewSpeed,
+            textViewDistance,textViewFuel,textViewBattery,
+            textViewCO2,textViewDust,textViewSdust,textViewExtDust,textViewExtSdust,textViewExtTemperature,textViewTemperature,
+            textViewHumidity,textViewAircon,textViewEngine,textViewBrake,textViewAccoil,
+            textViewCoolwater,textViewAccPressure,textViewBrakePressure;
+    SeekBar seekBar, seekBar2, seekBar3,seekBar4,seekBar5, seekBar6, seekBar7,seekBar8,
+            seekBar9,seekBar10,seekBar11,seekBar12,seekBar13,seekBar14,seekBar15,seekBar16,
+            seekBar17,seekBar18,seekBar19;
+
 
 
 
@@ -55,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         seekBar14 = findViewById(R.id.seekBar14);
         seekBar15 = findViewById(R.id.seekBar15);
         seekBar16 = findViewById(R.id.seekBar16);
+        seekBar17 = findViewById(R.id.seekBar17);
+        seekBar18 = findViewById(R.id.seekBar18);
+        seekBar19 = findViewById(R.id.seekBar19);
 
         seekBar.setMax(200);
         seekBar2.setMax(1000);
@@ -82,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
         textViewCoolwater = findViewById(R.id.textViewCoolwater);
         textViewAccPressure = findViewById(R.id.textViewAccPressure);
         textViewBrakePressure = findViewById(R.id.textViewBrakePressure);
-
+        textViewExtDust = findViewById(R.id.textViewExtDust);
+        textViewExtSdust = findViewById(R.id.textViewExtSdust);
+        textViewExtTemperature = findViewById(R.id.textViewExtTemperature);
 
 
         //Connection
@@ -410,6 +421,140 @@ public class MainActivity extends AppCompatActivity {
                             out = socket.getOutputStream();
                             dout = new DataOutputStream(out);
                             dout.writeUTF("000200350000000000000"+ finalTemp);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+
+                Thread testThread = new Thread(testSendIoTRunnable);
+                testThread.start();
+            }
+        });
+
+        seekBar17.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+                final int dust = seekBar17.getProgress();
+                textViewExtDust.setText(dust + "");
+                String temp = "";
+                if(dust<10){
+                    temp = "00"+dust;
+                }else if(dust<100){
+                    temp = "0"+dust;
+                }else{
+                    temp = ""+dust;
+                }
+                final String finalTemp = temp;
+                Runnable testSendIoTRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+
+                            out = socket.getOutputStream();
+                            dout = new DataOutputStream(out);
+                            dout.writeUTF("000200500000000000000"+ finalTemp);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+
+                Thread testThread = new Thread(testSendIoTRunnable);
+                testThread.start();
+            }
+        });
+        seekBar18.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+                final int sdust = seekBar18.getProgress();
+                textViewExtSdust.setText(sdust + "");
+                String temp = "";
+                if(sdust<10){
+                    temp = "00"+sdust;
+                }else if(sdust<100){
+                    temp = "0"+sdust;
+                }else{
+                    temp = ""+sdust;
+                }
+                final String finalTemp = temp;
+                Runnable testSendIoTRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+
+                            out = socket.getOutputStream();
+                            dout = new DataOutputStream(out);
+                            dout.writeUTF("000200550000000000000"+ finalTemp);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+
+                Thread testThread = new Thread(testSendIoTRunnable);
+                testThread.start();
+            }
+        });
+        seekBar19.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+                final int  temperature = seekBar19.getProgress();
+                int temp4text = temperature -40;
+                textViewExtTemperature.setText(temp4text + "");
+                String temp = "";
+                if(temperature<10){
+                    temp = "00"+temperature;
+                }else if(temperature<100){
+                    temp = "0"+temperature;
+                }else{
+                    temp = ""+temperature;
+                }
+                final String finalTemp = temp;
+                Runnable testSendIoTRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+
+                            out = socket.getOutputStream();
+                            dout = new DataOutputStream(out);
+                            dout.writeUTF("000200600000000000000"+ finalTemp);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
