@@ -59,9 +59,9 @@ public class SendStateWithHttp {
 
                     postData.put("car_filter",consumableController.getCar_filter());
                     postData.put("car_eng_oil",consumableController.getCar_eng_oil());
-                    postData.put("car_brakeoil",consumableController.getCar_brakeoil());
-                    postData.put("car_accoil",consumableController.getCar_accoil());
-                    postData.put("car_coolwat",consumableController.getCar_coolwat());
+                    postData.put("car_brakeoil",consumableController.getCar_break_oil());
+                    postData.put("car_accoil",consumableController.getCar_accOil());
+                    postData.put("car_coolwat",consumableController.getCar_cool_water());
 
                     postData.put("car_accel_pressure",realTimeController.getCar_accel_pressure());
                     postData.put("car_brake_pressure",realTimeController.getCar_brake_pressure());
