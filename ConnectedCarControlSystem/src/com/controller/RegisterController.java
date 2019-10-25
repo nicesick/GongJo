@@ -113,34 +113,22 @@ public class RegisterController {
 	public void checkShareCarId(String id, String uuid, HttpServletResponse response) {
 		Car car = carBiz.select(id);
 		ArrayList<CarGroup> cargroup = carGroupBiz.selects(uuid);
-		boolean flag = true;
-		
+
 		try {
 			PrintWriter out = response.getWriter();
-			
-			if(car == null) {
-				out.write("not exist");
-				System.out.println("not exist");
-			}
-			
-			else {
-				for (CarGroup group : cargroup) {
-					if ((group.getCar_id().equals(id))) {
-						flag = false;
-						System.out.println("2");
-						break;
-					}
+
+			for (CarGroup group : cargroup) {
+				if(car==null) {
+					out.write("Already");
 				}
-				
-				if(flag) {
-					out.write("OK");
-				}
-				
-				else {
+				if ((group.getCar_id().toString().equals(id))) {
 					out.write("Exist");
+					break;
+				}else if(!(group.getCar_id().equals(id))) {
+					out.write("OK");
+					break;
 				}
 			}
-			
 			out.close();
 
 		} catch (IOException e) {

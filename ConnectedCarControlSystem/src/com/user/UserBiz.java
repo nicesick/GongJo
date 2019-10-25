@@ -47,6 +47,8 @@ public class UserBiz implements Biz<String, User> {
 
 	@Override
 	public ArrayList<User> selectAll() {
-		return null;
+		ArrayList<User> users = userDao.selectAll();
+		
+		return users;
 	}
 }

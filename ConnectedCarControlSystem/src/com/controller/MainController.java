@@ -28,10 +28,12 @@ public class MainController {
 		User user = (User) session.getAttribute("userInfo");
 		
 		if (user != null) {
-			ArrayList<Car> cars = carBiz.selects(user.getUser_id());
-			
 			PrintLog.printLog("[MainController]", user.toString());
+			
+			ArrayList<Car> cars = carBiz.selects(user.getUser_id());
 			PrintLog.printLog("[MainController]", cars.toString());
+			
+			
 		
 			if(user.getUser_type().equals("1")) { //Admin
 				

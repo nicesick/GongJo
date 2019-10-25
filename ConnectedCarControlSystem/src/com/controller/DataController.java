@@ -25,7 +25,6 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.frame.Biz;
@@ -199,49 +198,6 @@ public class DataController {
 
 		return mv;
 	}
-	
-	//소모품 실시간 확인
-	@RequestMapping("getRealTimeConsumable.mc")
-	@ResponseBody
-	public void getRealTimeConsumable(String car_id, HttpSession session, HttpServletResponse response) {
-		PrintWriter out = null;
-		
-		CarConsumable carConsumable = null;
-		CarStatus carStatus = null;
-		
-		carConsumable = carConsumableBiz.select(car_id);
-		carStatus = carStatusBiz.select(car_id);
-		
-		if (carConsumable != null && carStatus != null) {
-			PrintLog.printLog("getRealTimeConsumable", carConsumable.toString());
-			PrintLog.printLog("getRealTimeConsumable", carStatus.toString());
-			
-			JSONObject jo = new JSONObject();
-			
-			jo.put("car_filter", carStatus.getCar_filter());
-			jo.put("car_eng_oil", carStatus.getCar_eng_oil());
-			jo.put("car_brakeoil", carStatus.getCar_brakeoil());
-			jo.put("car_accoil", carStatus.getCar_accoil());
-			jo.put("car_coolwat", carStatus.getCar_coolwat());
-
-			jo.put("date_filter", carConsumable.getDate_filter().toString());
-			jo.put("date_eng_oil", carConsumable.getDate_eng_oil().toString());
-			jo.put("date_breakoil", carConsumable.getDate_breakoil().toString());
-			jo.put("date_accoil", carConsumable.getDate_accoil().toString());
-			jo.put("date_coolwat", carConsumable.getDate_coolwat().toString());
-			
-			try {
-				out = response.getWriter();
-				out.write(jo.toJSONString());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			if (out != null) {
-				out.close();
-			}
-		}
-	}
 
 	// 운행기록 확인
 	@RequestMapping("getDrivingRecordData.mc")
@@ -255,45 +211,18 @@ public class DataController {
 	// 실시간 상태 확인
 
 	@RequestMapping("getRealTimeDrivingData.mc")
-	public ModelAndView getRealTimeDrivingData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
+	public ModelAndView getRealTimeDrivingData(ModelAndView mv, HttpSession session) {
 		mv.setViewName("index");
-		
 		CarStatus carStatus = null;
 		String car_id = (String) session.getAttribute("selectcar");
-		
-		if (car_id != null && !car_id.equals("")) {
-			carStatus = carStatusBiz.select(car_id);
-			
-			if (carStatus != null) {
-				mv.addObject("carStatus", carStatus);
-				mv.addObject("center", "realTimeDriving");
-			}
-			
-			else {
-				try {
-					response.sendRedirect("main.mc");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				return null;
-			}
-		}
-		
-		else {
-			try {
-				response.sendRedirect("main.mc");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return null;
-		}
+		carStatus = carStatusBiz.select(car_id);
+		mv.addObject("carStatus", carStatus);
+
+		mv.addObject("center", "realTimeDriving");
 
 		return mv;
 	}
-	
+
 	@RequestMapping("getRealTimeData.mc")
 	public void getRealTimedata(String car_id, HttpSession session, HttpServletResponse reponse) {
 		CarStatus carStatus = null;
