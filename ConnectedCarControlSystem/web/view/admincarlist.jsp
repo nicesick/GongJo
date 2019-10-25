@@ -35,7 +35,8 @@ img {
 		{
 			center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841), // 지도 초기 좌표
 			width: "100%", // map의 width 설정
-			height: "400px" // map의 height 설정
+			height: "400px", // map의 height 설정
+			zoom: 15
 		});
 		 
 		var marker = new Tmapv2.Marker({
@@ -53,7 +54,6 @@ img {
 		
 	}
 // 맵 생성 실행
-
 initTmap();
 </script>
 		
@@ -86,12 +86,12 @@ initTmap();
                 <div class="card-body">
                     <h5 class="card-title">차량 목록</h5>
                     <div class="row">
-
-                     <%--  <c:forEach var="car" items="#{carInfo}"> --%>
-                      <div class="col-md-3 col-sm-12">
-                          <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button">Car1</button>
-                      </div>
-                      <%-- </c:forEach> --%>
+                    
+                      <c:forEach var="car" items="#{admincars}">
+                      	<div class="col-md-3 col-sm-6">
+                          <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button">${car.car_id}</button>
+                      	</div>
+                      </c:forEach>
                       
                     </div>
                 </div>
