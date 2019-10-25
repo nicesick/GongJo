@@ -198,6 +198,36 @@ public class DataController {
 
 		return mv;
 	}
+	
+	//소모품 실시간 확인
+	@RequestMapping("getRealTimeConsumable.mc")
+	public void getRealTimeConsumable(String car_id, HttpSession session, HttpServletResponse reponse) {
+		CarConsumable carConsumable = null;
+		JSONArray ja = new JSONArray();
+		carConsumable = carConsumableBiz.select(car_id);
+		JSONObject jo = new JSONObject();
+		
+		jo.put("car_filter_alarm", carConsumable.getCar_filter_alarm());
+		jo.put("car_eng_oil_alarm", carConsumable.getCar_eng_oil_alarm());
+		jo.put("car_brakeoil_alarm", carConsumable.getCar_brakeoil_alarm());
+		jo.put("car_accoil_alarm", carConsumable.getCar_accoil_alarm());
+		jo.put("car_coolwat_alarm", carConsumable.getCar_coolwat_alarm());
+		jo.put("date_filter", carConsumable.getDate_filter());
+		jo.put("date_eng_oil", carConsumable.getDate_eng_oil());
+		jo.put("date_breakoil", carConsumable.getDate_breakoil());
+		jo.put("date_accoil", carConsumable.getDate_accoil());
+		jo.put("date_coolwat", carConsumable.getDate_coolwat());
+		
+		ja.add(jo); // array
+		try {
+			PrintWriter out = reponse.getWriter();
+			out.write(jo.toJSONString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 	// 운행기록 확인
 	@RequestMapping("getDrivingRecordData.mc")
@@ -222,7 +252,7 @@ public class DataController {
 
 		return mv;
 	}
-
+	
 	@RequestMapping("getRealTimeData.mc")
 	public void getRealTimedata(String car_id, HttpSession session, HttpServletResponse reponse) {
 		CarStatus carStatus = null;
