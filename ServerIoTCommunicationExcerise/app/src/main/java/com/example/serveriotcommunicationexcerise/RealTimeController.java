@@ -345,6 +345,7 @@ public class RealTimeController {
 
         else if (id.equals(CAR_EXT_TEMPERATURE_ID)) {
             this.setCar_ext_temperature(String.valueOf(Integer.parseInt(data)));
+            setOutTpt(String.valueOf(Integer.parseInt(data)-40));
         }
 
         else if (id.equals(CAR_EXT_DUST_ID)) {
@@ -353,6 +354,9 @@ public class RealTimeController {
 
         else if (id.equals(CAR_EXT_FINEDUST_ID)) {
             this.setCar_ext_finedust(String.valueOf(Integer.parseInt(data)));
+        }
+        else if(CAR_AIR_ID.equals(id)){
+            setInAir(String.valueOf(Integer.parseInt(data)));
         }
 
         else if (id.equals(CAR_HUMIDITY_ID)) {

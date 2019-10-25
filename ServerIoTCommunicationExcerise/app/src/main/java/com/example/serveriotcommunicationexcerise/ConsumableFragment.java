@@ -110,6 +110,7 @@ public class ConsumableFragment extends Fragment {
         @Override
         protected void onProgressUpdate(Void... values) {
             setViews();
+//            setExampleRemainValue();
         }
 
         @Override
@@ -124,43 +125,59 @@ public class ConsumableFragment extends Fragment {
             }
             return null;
         }
+        void setExampleRemainValue(){
+            consumableController.setCar_cool_water((Integer.parseInt(consumableController.getCar_cool_water())-1)+"");
+            consumableController.setCar_eng_oil((Integer.parseInt(consumableController.getCar_eng_oil())-1)+"");
+            consumableController.setCar_break_oil((Integer.parseInt(consumableController.getCar_break_oil())-1)+"");
+            consumableController.setCar_accOil((Integer.parseInt(consumableController.getCar_accOil())-1)+"");
+            consumableController.setCar_filter((Integer.parseInt(consumableController.getCar_filter())-1)+"");
 
+        }
         public void setViews(){
             setRemainView(filterRemainView,consumableController.getCar_filter());
             setRemainView(engineOilRemainView,consumableController.getCar_eng_oil());
-            setRemainView(breakOilRemainView,consumableController.getCar_brakeoil());
-            setRemainView(gearOilRemainView,consumableController.getCar_accoil());
-            setRemainView(coolingWaterRemainView,consumableController.getCar_coolwat());
+            setRemainView(breakOilRemainView,consumableController.getCar_break_oil());
+            setRemainView(gearOilRemainView,consumableController.getCar_accOil());
+            setRemainView(coolingWaterRemainView,consumableController.getCar_cool_water());
         }
 
         public void setRemainView(TextView textView,String value){
             if(textView!=null){
                 remainTemp = textView.getText().toString();
 
-                if(Integer.parseInt(remainTemp)+5 < Integer.parseInt(value)){
+
                     date = new Date();
                     switch (textView.getId()){
                         case R.id.FilterRemainView:
-                            filterReplacementDateView.setText(dateFormat.format(date));
-                            setReplaceOrderView(filterReplacementView,FILTER_REPLACE_STANDARD1,FILTER_REPLACE_STANDARD2,Integer.parseInt(remainTemp));
+                            if(Integer.parseInt(remainTemp)+5 < Integer.parseInt(value)) {
+                                filterReplacementDateView.setText(dateFormat.format(date));
+                            }
+                            setReplaceOrderView(filterReplacementView,FILTER_REPLACE_STANDARD1,FILTER_REPLACE_STANDARD2,Integer.parseInt(value));
                             break;
                         case R.id.EngineOilRemainView:
-                            engineOilReplacementDateView.setText(dateFormat.format(date));
-                            setReplaceOrderView(engineOilReplacementView,ENGINE_OIL_REPLACE_STANDARD1,ENGINE_OIL_REPLACE_STANDARD2,Integer.parseInt(remainTemp));
+                            if(Integer.parseInt(remainTemp)+5 < Integer.parseInt(value)) {
+                                engineOilReplacementDateView.setText(dateFormat.format(date));
+                            }
+                            setReplaceOrderView(engineOilReplacementView,ENGINE_OIL_REPLACE_STANDARD1,ENGINE_OIL_REPLACE_STANDARD2,Integer.parseInt(value));
                             break;
                         case R.id.BreakOilRemainView:
-                            breakOilReplacementDateView.setText(dateFormat.format(date));
-                            setReplaceOrderView(breakOilReplacementView,BREAK_OIL_REPLACE_STANDARD1,BREAK_OIL_REPLACE_STANDARD2,Integer.parseInt(remainTemp));
+                            if(Integer.parseInt(remainTemp)+5 < Integer.parseInt(value)) {
+                                breakOilReplacementDateView.setText(dateFormat.format(date));
+                            }
+                            setReplaceOrderView(breakOilReplacementView,BREAK_OIL_REPLACE_STANDARD1,BREAK_OIL_REPLACE_STANDARD2,Integer.parseInt(value));
                             break;
                         case R.id.GearOilRemainView:
-                            gearOilReplacementDateView.setText(dateFormat.format(date));
-                            setReplaceOrderView(gearOilReplacementView,GEAR_OIL_REPLACE_STANDARD1,GEAR_OIL_REPLACE_STANDARD2,Integer.parseInt(remainTemp));
+                            if(Integer.parseInt(remainTemp)+5 < Integer.parseInt(value)) {
+                                gearOilReplacementDateView.setText(dateFormat.format(date));
+                            }
+                            setReplaceOrderView(gearOilReplacementView,GEAR_OIL_REPLACE_STANDARD1,GEAR_OIL_REPLACE_STANDARD2,Integer.parseInt(value));
                             break;
                         case R.id.CoolingWaterRemainView:
-                            coolingWaterReplacementDateView.setText(dateFormat.format(date));
-                            setReplaceOrderView(coolingWaterReplacementView,COOLING_WATER_REPLACE_STANDARD1,COOLING_WATER_REPLACE_STANDARD2,Integer.parseInt(remainTemp));
+                            if(Integer.parseInt(remainTemp)+5 < Integer.parseInt(value)) {
+                                coolingWaterReplacementDateView.setText(dateFormat.format(date));
+                            }
+                            setReplaceOrderView(coolingWaterReplacementView,COOLING_WATER_REPLACE_STANDARD1,COOLING_WATER_REPLACE_STANDARD2,Integer.parseInt(value));
                             break;
-                    }
 
                 }
                 textView.setText(value);
@@ -177,7 +194,7 @@ public class ConsumableFragment extends Fragment {
             }
             else{
                 textView.setText(DANGER);
-                textView.setTextColor(Color.YELLOW);
+                textView.setTextColor(Color.RED);
             }
         }
     }

@@ -10,6 +10,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -28,7 +29,9 @@ public class ConnectIoTTask {
     public ConnectIoTTask(ArrayList<Socket> list, TextView textView,String ip,int port) throws IOException {
         this.list = list;
         this.textView = textView;
-        socketServer = new ServerSocket(8888);
+        socketServer = new ServerSocket();
+        socketServer.setReuseAddress(true);
+        socketServer.bind(new InetSocketAddress(8888));
         connectServerTask = new ConnectServerTask(port,ip,list,textView);
 
         serverSocket = connectServerTask.getSocket();
