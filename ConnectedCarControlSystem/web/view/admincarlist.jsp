@@ -87,7 +87,7 @@ initTmap();
                     <h5 class="card-title">차량 목록</h5>
                     <div class="row">
                     
-                      <c:forEach var="car" items="#{admincars}">
+                      <c:forEach var="car" items="${admincars }">
                       	<div class="col-md-3 col-sm-6">
                           <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button">${car.car_id}</button>
                       	</div>
@@ -99,9 +99,6 @@ initTmap();
         </div>
      </div>
  </div>
- 
- 
-                         
 	<!-- ============================================================== -->
 	<!-- Recent comment and chats -->
 	<!-- ============================================================== -->
