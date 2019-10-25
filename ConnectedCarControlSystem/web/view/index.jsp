@@ -150,8 +150,9 @@
 								<c:choose>
 									<c:when test="${carInfo != null }">
 										<c:forEach var="car" items="${carInfo}">
-											<a class="dropdown-item" href="selectcar.mc?id=${car.car_id}"><i class="mdi mdi-car-connected"></i>${car.car_name}
-												/ ${car.car_id}</a>
+											<a class="dropdown-item" href="selectcar.mc?id=${car.car_id}">
+												<i class="mdi mdi-car-connected"></i>${car.car_name} / ${car.car_id}
+											</a>
 										</c:forEach>
 									</c:when>
 									<c:otherwise>

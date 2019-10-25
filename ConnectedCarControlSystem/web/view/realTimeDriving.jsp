@@ -37,13 +37,6 @@
 					<h5 class="card-title">${carStatus.car_id } : 실시간 데이터</h5>
 					<div class="table-responsive">
 						<table id="zero_config" class="table table-striped table-bordered">
-							<thead>
-								<tr>
-									<th></th>
-									<th></th>
-									
-								</tr>
-							</thead>
 							<tbody>
 								<tr>
 									<td>속도</td>
@@ -92,7 +85,6 @@
 									<td>베터리</td>
 									<td id="car_bat"></td>
 								</tr>
-								
 							</tbody>
 						</table>
 					</div>
@@ -107,22 +99,8 @@
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
 <!-- ============================================================== -->
-   <!-- ============================================================== -->
-    <!-- All Required js -->
-    <!-- ============================================================== -->
-    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
-    
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
-    <!-- ============================================================== -->
-    <!-- This page Register scripts -->
-    <!-- ============================================================== -->
-    <script>
-
-    
+<script>
 	function getData(car_id) {
 		if (car_id != '') {
 			$.ajax({
@@ -135,30 +113,29 @@
     			var obj = JSON.parse(data);	
     				console.log(data);
     				console.log(obj.speed);
-    					$('#car_speed').html(obj.speed);
-    					$('#car_distance').html(obj.distance);
-    					$('#car_air').html(obj.air);
-    					$('#car_dust').html(obj.dust);
-    					$('#car_finedust').html(obj.finedust);
-    					$('#car_temp').html(obj.temp);
-    					$('#car_ext_dust').html(obj.ext_dust);
-    					$('#car_ext_finedust').html(obj.ext_finedust);
-    					$('#car_ext_temperature').html(obj.ext_temperature);
-    					$('#car_humidity').html(obj.humidity);
-    					$('#car_bat').html(obj.bat);
-    					$('#car_fuel').html(obj.fuel);
-    					$('#car_lat').html(obj.lat);
-    					$('#car_log').html(obj.log);
     				
+   					$('#car_speed').html(obj.speed);
+   					$('#car_distance').html(obj.distance);
+   					$('#car_air').html(obj.air);
+   					$('#car_dust').html(obj.dust);
+   					$('#car_finedust').html(obj.finedust);
+   					$('#car_temp').html(obj.temp);
+   					$('#car_ext_dust').html(obj.ext_dust);
+   					$('#car_ext_finedust').html(obj.ext_finedust);
+   					$('#car_ext_temperature').html(obj.ext_temperature);
+   					$('#car_humidity').html(obj.humidity);
+   					$('#car_bat').html(obj.bat);
+   					$('#car_fuel').html(obj.fuel);
+   					$('#car_lat').html(obj.lat);
+   					$('#car_log').html(obj.log);
     			}
     		});
 		}
 	};
 	
-    $(document).ready(function(){
-    	var car_id = '${carStatus.car_id }';
-    	getData(car_id);
-    	setInterval(getData(car_id),3000);
-    });
-    
-    </script>
+   	var car_id = '${carStatus.car_id }';
+   	
+   	setInterval(function(){
+   		getData(car_id);
+   	},1000);
+</script>

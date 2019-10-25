@@ -48,13 +48,6 @@ public class Receiver extends Thread {
 					socketDataCallback.registerSocket(this, car_id);
 					isRegistered = true;
 				}
-				
-				else {
-					Sender sender = new Sender(socket);
-					String sendMsg = "W28" + "00020040" + "0000000000000010";
-					sender.setMsg(sendMsg);
-					sender.start();
-				}
 			}
 		} catch (IOException e) {
 		} finally {
