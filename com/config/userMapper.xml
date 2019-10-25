@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.userMapper">
+
+	<select id="select" parameterType="String"
+	resultType="user">
+		SELECT * FROM USER_TABLE WHERE USER_ID=#{key}
+	</select>
+
+	<select id="selectAll" resultType="user">
+		SELECT * FROM USER_TABLE
+	</select>
+
+	<insert id="insert" parameterType="user">
+		INSERT INTO USER_TABLE VALUES (#{user_id},#{user_pwd},#{user_name},#{user_gender},#{user_birthdate},#{user_phone}, #{user_add}, #{user_email}, #{user_type})
+	</insert>
+	
+	<update id="update" parameterType="user">
+		<!-- UPDATE USER_TABLE SET USER_PWD=#{user_pwd}, USER_NAME=#{user_name}, USER_GENDER=#{user_gender}, USER_BIRTHDATE=#{user_birthdate}, USER_PHONE=#{user_phone}, USER_ADD=#{user_add}, USER_EMAIL=#{user_email}, USER_TYPE=#{user_type} WHERE USER_ID=#{user_id} -->
+		UPDATE USER_TABLE SET USER_PWD=#{user_pwd}, USER_PHONE=#{user_phone}, USER_ADD=#{user_add}, USER_EMAIL=#{user_email} WHERE USER_ID=#{user_id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM USER_TABLE WHERE USER_ID=#{key}
+	</delete>
+
+</mapper>
