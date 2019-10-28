@@ -14,12 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.frame.Biz;
 import com.test.PrintLog;
 import com.vo.Car;
+import com.vo.CarStatus;
 import com.vo.User;
 
 @Controller
 public class MainController {
 	@Resource(name = "CarBiz")
 	Biz<String, Car> carBiz;
+	
+	@Resource(name = "CarStatusBiz")
+	Biz<String, CarStatus> carStatusBiz;
 	
 	@RequestMapping("main.mc")
 	public ModelAndView mainPage(ModelAndView mv, HttpSession session, HttpServletResponse response) {
@@ -34,9 +38,9 @@ public class MainController {
 			PrintLog.printLog("[MainController]", cars.toString());
 		
 			if(user.getUser_type().equals("1")) { //Admin
-				ArrayList<Car> allcar = carBiz.selectAll();
+				ArrayList<CarStatus> allcarstatus = carStatusBiz.selectAll();
 				
-				session.setAttribute("admincars", allcar);
+				session.setAttribute("admincars", allcarstatus);
 				mv.addObject("center", "admincarlist");
 				
 			}
