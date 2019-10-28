@@ -45,7 +45,9 @@ public class CarBiz implements Biz<String, Car> {
 
 	@Override
 	public ArrayList<Car> selectAll() {
-		return null;
+		ArrayList<Car> cars = carDao.selectAll();
+		
+		return cars;
 	}
 
 }

@@ -9,4 +9,5 @@ public interface carMapper {
 	public void delete(String key);
 	public Car select(String key);
 	public ArrayList<Car> selects(String key);
+	public ArrayList<Car> selectAll();
 }

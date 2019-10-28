@@ -157,8 +157,17 @@
     		$(id).css('font-weight','bold');
     	};
 
+    	function checkFinalCarId(id, uuid) {
+    		if ($('#car_id_msg').html() == '등록 가능한 차량번호 입니다') {
+    			return true;
+    		}
+    		
+    		return false;
+    	}
     	
     	function checkCarId(id, uuid) {
+    		var idPattern =  /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2}\d{4}$/;
+
     		if (id != '') {
     			$.ajax({
         			url : 'checkShareCarId.mc',
@@ -169,17 +178,23 @@
         			},
         		
         			success : function(data){
-        				if (data == 'Exist'){
-        					$('#car_id_msg').html('이미 등록되어있습니다.');
+        				if(!idPattern.test(id)){
+            				$('#car_id_msg').html('형식이 올바르지 않습니다');
+            				changeStyleNo('#car_id_msg');
+            			}
+        				
+        				else if (data == 'Exist'){
+        					$('#car_id_msg').html('이미 연동된 차량 입니다');
         					changeStyleNo('#car_id_msg');
         				}
-        				else  if (data == 'OK') {
+        				
+        				else if (data == 'OK') {
         					$('#car_id_msg').html('등록 가능한 차량번호 입니다');
         					changeStyleOk('#car_id_msg');
         				}
         				
         				else {
-        					$('#car_id_msg').html('존재하지않는 차량번호 입니다');
+        					$('#car_id_msg').html('존재하지않는 차량 입니다');
         					changeStyleNo('#car_id_msg');
         				}
         			}
@@ -199,10 +214,20 @@
     		checkCarId(id,uuid);
     	});
     	
+  
+    	
 	    $('#signUpButton').click(function(){
-	    		$('#registersharecar_form').attr('action','registersharecarImpl.mc');
+	    	var id = $('#car_id').val();
+    		var uuid = $('#user_id').val();
+    		
+    		console.log('condition passed' + id + ' ' + uuid);
+	    	if (checkFinalCarId(id,uuid) == true) {
+	    		console.log('condition passed');
+		    	
+    			$('#registersharecar_form').attr('action','registersharecarImpl.mc');
 	    		$('#registersharecar_form').attr('method','POST');
 	    		$('#registersharecar_form').submit();
+	    	}
 	    	
 	    });
 	    
