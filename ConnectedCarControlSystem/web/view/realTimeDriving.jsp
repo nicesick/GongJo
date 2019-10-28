@@ -5,6 +5,7 @@
 <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
 <style>
+
 #rbox {
 	box-sizing: border-box;
 	width: 80px;
@@ -37,12 +38,12 @@
 <div class="page-breadcrumb">
 	<div class="row">
 		<div class="col-12 d-flex no-block align-items-center">
-			<h4 class="page-title">Tables</h4>
+			<h4 class="page-title">${carStatus.car_id } : 실시간데이터</h4>
 			<div class="ml-auto text-right">
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="main.mc">Home</a></li>
-						<li class="breadcrumb-item active" aria-current="page">consumable</li>
+						<li class="breadcrumb-item active" aria-current="page">RealTimeData</li>
 					</ol>
 				</nav>
 			</div>
@@ -60,12 +61,10 @@
 	<!-- Start Page Content -->
 	<!-- ============================================================== -->
 	<div class="row">
-		<div class="col-12">
+		<div class="col-md-5">
 			<div class="card">
-				<div class="card-body" style="text-align: center;">
-					<h5 class="card-title">${carStatus.car_id }:실시간데이터</h5>
-
-
+				<div class="card-body text-center">
+					<h4 class="card-title p-b-10">시동 관리 및 온도 관리</h4>
 					<div
 						style="display: inline-block; width: 320px; text-align: center">
 						<div style="display: inline-block; float: left;">
@@ -92,12 +91,12 @@
 								</div>
 
 								<!-- <div
-									style="display: inline-block; float: left; margin-right: 5px; background-color: black;">
-									<img src="assets/images/excel.png" width="80px">
-								</div>
-								<div style="display: inline-block; float: left;">
-									<img src="assets/images/brake.png" width="80px">
-								</div> -->
+										style="display: inline-block; float: left; margin-right: 5px; background-color: black;">
+										<img src="assets/images/excel.png" width="80px">
+									</div>
+									<div style="display: inline-block; float: left;">
+										<img src="assets/images/brake.png" width="80px">
+									</div> -->
 							</div>
 						</div>
 					</div>
@@ -127,11 +126,16 @@
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
 
-					<br></br>
-
+		<div class="col-md-7">
+			<div class="card">
+				<div class="card-body text-center">
+					<h4 class="card-title p-b-10">실시간 데이터</h4>
 					<div style="display: inline-block; width: 100%;">
-						<div style="display: inline-block; padding: 10px;">
+						<div style="display: inline-block;">
 							<div style="display: inline-block; float: left;">
 								<img src="assets/images/atemperatureIn.png" height="80px">
 							</div>
@@ -158,7 +162,7 @@
 
 						<br></br>
 
-						<div style="display: inline-block; padding: 10px;">
+						<div style="display: inline-block;">
 							<div style="display: inline-block; float: left;">
 								<img src="assets/images/aco2In.png" height="80px">
 							</div>
@@ -185,7 +189,7 @@
 
 						<br></br>
 
-						<div style="display: inline-block; padding: 10px;">
+						<div style="display: inline-block;">
 							<div style="display: inline-block; float: left;">
 								<img src="assets/images/adustIn.png" height="80px">
 							</div>
@@ -212,7 +216,7 @@
 
 						<br></br>
 
-						<div style="display: inline-block; padding: 10px;">
+						<div style="display: inline-block;">
 							<div style="display: inline-block; float: left;">
 								<img src="assets/images/audustIn.png" height="80px">
 							</div>
@@ -239,7 +243,7 @@
 
 						<br></br>
 
-						<div style="display: inline-block; padding: 10px;">
+						<div style="display: inline-block;">
 							<div style="display: inline-block; float: left;">
 								<img src="assets/images/afuel.png" width="95px" height="75px">
 							</div>
@@ -268,13 +272,15 @@
 			</div>
 		</div>
 	</div>
-	<!-- ============================================================== -->
-	<!-- End PAge Content -->
-	<!-- ============================================================== -->
 </div>
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->
+
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
 <!-- ============================================================== -->
+
 <!-- ============================================================== -->
 <!-- All Required js -->
 <!-- ============================================================== -->
