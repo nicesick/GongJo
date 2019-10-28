@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 img {
@@ -26,16 +26,16 @@ img {
 
 <script>
 	var map;
-	// ÆäÀÌÁö°¡ ·ÎµùÀÌ µÈ ÈÄ È£ÃâÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù.
+	// í˜ì´ì§€ê°€ ë¡œë”©ì´ ëœ í›„ í˜¸ì¶œí•˜ëŠ” í•¨ìˆ˜ì…ë‹ˆë‹¤.
 	
 	function initTmap(){
-		// map »ı¼º
-		// Tmapv2.MapÀ» ÀÌ¿ëÇÏ¿©, Áöµµ°¡ µé¾î°¥ div, ³ĞÀÌ, ³ôÀÌ¸¦ ¼³Á¤ÇÕ´Ï´Ù.
-		map = new Tmapv2.Map("map_div",  // "map_div" : Áöµµ°¡ Ç¥½ÃµÉ divÀÇ id
+		// map ìƒì„±
+		// Tmapv2.Mapì„ ì´ìš©í•˜ì—¬, ì§€ë„ê°€ ë“¤ì–´ê°ˆ div, ë„“ì´, ë†’ì´ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤.
+		map = new Tmapv2.Map("map_div",  // "map_div" : ì§€ë„ê°€ í‘œì‹œë  divì˜ id
 		{
-			center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841), // Áöµµ ÃÊ±â ÁÂÇ¥
-			width: "100%", // mapÀÇ width ¼³Á¤
-			height: "400px", // mapÀÇ height ¼³Á¤
+			center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841), // ì§€ë„ ì´ˆê¸° ì¢Œí‘œ
+			width: "100%", // mapì˜ width ì„¤ì •
+			height: "400px", // mapì˜ height ì„¤ì •
 			zoom: 15
 		});
 		 
@@ -53,7 +53,7 @@ img {
 		});
 		
 	}
-// ¸Ê »ı¼º ½ÇÇà
+// ë§µ ìƒì„± ì‹¤í–‰
 initTmap();
 </script>
 		
@@ -70,8 +70,8 @@ initTmap();
      <div class="card">
          <nav aria-label="breadcrumb">
              <ol class="breadcrumb">
-                 <li class="breadcrumb-item"><a href="admincarlist.mc">°ü¸®ÀÚ¸ğµå Â÷·®Á¶È¸</a></li>
-                 <li class="breadcrumb-item"><a href="adminuserlist.mc">°ü¸®ÀÚ¸ğµå À¯Àú°ü¸®</a></li>
+                 <li class="breadcrumb-item"><a href="admincarlist.mc">ê´€ë¦¬ìëª¨ë“œ ì°¨ëŸ‰ì¡°íšŒ</a></li>
+                 <li class="breadcrumb-item"><a href="adminuserlist.mc">ê´€ë¦¬ìëª¨ë“œ ìœ ì €ê´€ë¦¬</a></li>
              </ol>
          </nav>
          
@@ -84,7 +84,7 @@ initTmap();
          <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Â÷·® ¸ñ·Ï</h5>
+                    <h5 class="card-title">ì°¨ëŸ‰ ëª©ë¡</h5>
                     <div class="row">
                     
                       <c:forEach var="car" items="${admincars }">
