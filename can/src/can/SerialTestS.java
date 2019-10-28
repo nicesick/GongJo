@@ -154,14 +154,6 @@ public class SerialTestS implements SerialPortEventListener {
 					System.out.println("Receiver From Pad : " + str);
 					
 					sendData(str);
-					
-//					if(str.equals("1th send")) {
-//						st.sendData("W28000000000000000000000001");
-//					} else if(str.equals("2th send")){
-//						st.sendData("W28000000000000000000000010");
-//					} else if(str.equals("3th send")){
-//						st.sendData("W280000000100000000ABCDABCD");
-//					}
 				}
 			} catch (Exception e) {
 			}
@@ -182,7 +174,6 @@ public class SerialTestS implements SerialPortEventListener {
 			// :W28 00000000 000000000000 53 \r 
 			// 이 구조로 보내야함, 53:checksum, \r이 끝났다는 표시
 			String sdata = sendDataFormat(serialData); // 구조 바꾸는 곳
-			System.out.println(sdata);
 			this.data = sdata; // run으로
 		}
 
@@ -272,7 +263,7 @@ public class SerialTestS implements SerialPortEventListener {
 				System.out.println("Receive Low Data:" + ss + "||");
 				
 				if(ss.substring(1, 2).equals("U")) { // IoT <- CAN
-					System.out.println("Send to server");
+					System.out.println("Send to server:"+ss);
 					sendMsg(ss);
 				}else if(ss.substring(1, 2).equals("W")) { // IoT -> CAN
 					System.out.println("Send Low Data:" + ss + "||");
