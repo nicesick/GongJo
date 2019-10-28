@@ -47,28 +47,28 @@
 							<tbody>
 								<tr>
 									<td>필터</td>
-									<td>${carStatus.car_filter }</td>
-									<td>${carConsumable.date_filter }</td>
+									<td id="car_filter">${carStatus.car_filter }</td>
+									<td id="date_filter">${carConsumable.date_filter }</td>
 								</tr>
 								<tr>
 									<td>엔진오일</td>
-									<td>${carStatus.car_eng_oil }</td>
-									<td>${carConsumable.date_eng_oil }</td>
+									<td id="car_eng_oil">${carStatus.car_eng_oil }</td>
+									<td id="date_eng_oil">${carConsumable.date_eng_oil }</td>
 								</tr>
 								<tr>
 									<td>브레이크오일</td>
-									<td>${carStatus.car_brakeoil }</td>
-									<td>${carConsumable.date_breakoil }</td>
+									<td id="car_brakeoil">${carStatus.car_brakeoil }</td>
+									<td id="date_breakoil">${carConsumable.date_breakoil }</td>
 								</tr>
 								<tr>
 									<td>엑셀오일</td>
-									<td>${carStatus.car_accoil }</td>
-									<td>${carConsumable.date_accoil }</td>
+									<td id="car_accoil">${carStatus.car_accoil }</td>
+									<td id="date_accoil">${carConsumable.date_accoil }</td>
 								</tr>
 								<tr>
 									<td>냉각수</td>
-									<td>${carStatus.car_coolwat }</td>
-									<td>${carConsumable.date_coolwat }</td>
+									<td id="car_coolwat">${carStatus.car_coolwat }</td>
+									<td id="date_coolwat">${carConsumable.date_coolwat }</td>
 								</tr>
 							</tbody>
 						</table>
@@ -84,3 +84,39 @@
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
 <!-- ============================================================== -->
+
+<script>
+	function getData(car_id) {
+		if (car_id != '') {	
+			$.ajax({
+    			url : 'getRealTimeConsumable.mc',
+    			method : 'POST',
+    			data : {
+    				'car_id' : car_id
+    			},
+    			
+    			success : function(data){
+    				console.log(data);
+    				var obj = JSON.parse(data);
+    				
+   					$('#car_filter').html(obj.car_filter);
+   					$('#car_eng_oil').html(obj.car_eng_oil);
+   					$('#car_brakeoil').html(obj.car_brakeoil);
+   					$('#car_accoil').html(obj.car_accoil);
+   					$('#car_coolwat').html(obj.car_coolwat);
+   					$('#date_filter').html(obj.date_filter);
+   					$('#date_eng_oil').html(obj.date_eng_oil);
+   					$('#date_breakoil').html(obj.date_breakoil);
+   					$('#date_accoil').html(obj.date_accoil);
+   					$('#date_coolwat').html(obj.date_coolwat);
+    			}
+    		});
+		}
+	};
+	
+   	var car_id = '${carConsumable.car_id }';
+   	
+   	setInterval(function(){
+   		getData(car_id);
+   	},1000);
+</script>

@@ -39,9 +39,10 @@
              </tr>
          </thead>
          <tbody>
+           <c:forEach var="user" items="#{adminusers}">
            <tr>
                <td>
-                   	id01
+               ${user.user_id}    	
                </td>
                <td>
                    <button class="btn btn-cyan btn-sm" type="button" href="">Edit</button>
@@ -49,12 +50,10 @@
                    	소유 차량 : 
                </td>
            </tr>
-           
-          
+               </c:forEach>
            </tbody>
          </table>
-         
-         
+      
      </div>
  </div>
  

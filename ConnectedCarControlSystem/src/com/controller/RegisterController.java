@@ -27,7 +27,6 @@ public class RegisterController {
 
 	@Resource(name = "UserBiz")
 	Biz<String, User> userBiz;
-
 	
 	@Resource(name="CarBiz")
 	Biz<String,Car> carBiz;
@@ -113,22 +112,34 @@ public class RegisterController {
 	public void checkShareCarId(String id, String uuid, HttpServletResponse response) {
 		Car car = carBiz.select(id);
 		ArrayList<CarGroup> cargroup = carGroupBiz.selects(uuid);
-
+		boolean flag = true;
+		
 		try {
 			PrintWriter out = response.getWriter();
-
-			for (CarGroup group : cargroup) {
-				if(car==null) {
-					out.write("Already");
+			
+			if(car == null) {
+				out.write("not exist");
+				System.out.println("not exist");
+			}
+			
+			else {
+				for (CarGroup group : cargroup) {
+					if ((group.getCar_id().equals(id))) {
+						flag = false;
+						System.out.println("2");
+						break;
+					}
 				}
-				if ((group.getCar_id().toString().equals(id))) {
-					out.write("Exist");
-					break;
-				}else if(!(group.getCar_id().equals(id))) {
+				
+				if(flag) {
 					out.write("OK");
-					break;
+				}
+				
+				else {
+					out.write("Exist");
 				}
 			}
+			
 			out.close();
 
 		} catch (IOException e) {

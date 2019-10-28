@@ -10,6 +10,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM USER_TABLE WHERE USER_ID=#{key}
 	</select>
 
+	<select id="selectAll" resultType="user">
+		SELECT * FROM USER_TABLE
+	</select>
+
 	<insert id="insert" parameterType="user">
 		INSERT INTO USER_TABLE VALUES (#{user_id},#{user_pwd},#{user_name},#{user_gender},#{user_birthdate},#{user_phone}, #{user_add}, #{user_email}, #{user_type})
 	</insert>

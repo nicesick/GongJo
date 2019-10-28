@@ -32,7 +32,6 @@
 	font-size: 1em;
 	color: white;
 }
-
 </style>
 <!-- ============================================================== -->
 <div class="page-breadcrumb">
@@ -67,7 +66,8 @@
 					<h5 class="card-title">${carStatus.car_id }:실시간데이터</h5>
 
 
-					<div style="display: inline-block; width: 320px; text-align: center">
+					<div
+						style="display: inline-block; width: 320px; text-align: center">
 						<div style="display: inline-block; float: left;">
 							<img src="assets/images/car_top_view_on.png" width="135px">
 						</div>
@@ -104,7 +104,8 @@
 
 					<br></br>
 
-					<div style="display: inline-block; width: 400px; text-align: center">
+					<div
+						style="display: inline-block; width: 400px; text-align: center">
 						<div
 							style="display: inline-block; float: left; margin-right: 5px; padding: 10px;">
 							<img src="assets/images/air-conditioner.png" width="60px">
@@ -154,9 +155,9 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<br></br>
-						
+
 						<div style="display: inline-block; padding: 10px;">
 							<div style="display: inline-block; float: left;">
 								<img src="assets/images/aco2In.png" height="80px">
@@ -181,9 +182,9 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<br></br>
-						
+
 						<div style="display: inline-block; padding: 10px;">
 							<div style="display: inline-block; float: left;">
 								<img src="assets/images/adustIn.png" height="80px">
@@ -208,9 +209,9 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<br></br>
-						
+
 						<div style="display: inline-block; padding: 10px;">
 							<div style="display: inline-block; float: left;">
 								<img src="assets/images/audustIn.png" height="80px">
@@ -235,9 +236,9 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<br></br>
-						
+
 						<div style="display: inline-block; padding: 10px;">
 							<div style="display: inline-block; float: left;">
 								<img src="assets/images/afuel.png" width="95px" height="75px">
@@ -297,10 +298,12 @@
 				data : {
 					'car_id' : car_id
 				},
+
 				success : function(data) {
 					var obj = JSON.parse(data);
 					console.log(data);
 					console.log(obj.speed);
+
 					$('#car_speed').html(obj.speed);
 					$('#car_distance').html(obj.distance);
 					$('#car_air').html(obj.air);
@@ -315,15 +318,14 @@
 					$('#car_fuel').html(obj.fuel);
 					$('#car_lat').html(obj.lat);
 					$('#car_log').html(obj.log);
-
 				}
 			});
 		}
 	};
 
-	$(document).ready(function() {
-		var car_id = '${carStatus.car_id }';
+	var car_id = '${carStatus.car_id }';
+
+	setInterval(function() {
 		getData(car_id);
-		setInterval(getData(car_id), 3000);
-	});
+	}, 1000);
 </script>

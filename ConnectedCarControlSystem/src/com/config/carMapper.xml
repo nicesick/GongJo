@@ -14,6 +14,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	resultType="car">
 		SELECT CAR_TABLE.CAR_ID, CAR_TABLE.CAR_NAME, CAR_TABLE.CAR_TYPE, CAR_TABLE.CAR_FUEL, CAR_TABLE.CAR_DISPLACEMENT, CAR_TABLE.CAR_COLOR, CAR_TABLE.CAR_AUTO FROM CAR_TABLE, CARGROUP_TABLE WHERE USER_ID=#{key} AND CAR_TABLE.CAR_ID=CARGROUP_TABLE.CAR_ID
 	</select>
+
+	<select id="selectAll" resultType="car">
+		SELECT * FROM CAR_TABLE
+	</select>
 	
 	<insert id="insert" parameterType="car">
 		INSERT INTO CAR_TABLE VALUES (#{car_id},#{car_name},#{car_type},#{car_fuel},#{car_displacement},#{car_color}, #{car_auto})
