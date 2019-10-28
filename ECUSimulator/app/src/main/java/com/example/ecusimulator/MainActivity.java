@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     SeekBar seekBar, seekBar2, seekBar3,seekBar4,seekBar5, seekBar6, seekBar7,seekBar8,
             seekBar9,seekBar10,seekBar11,seekBar12,seekBar13,seekBar14,seekBar15,seekBar16,
             seekBar17,seekBar18,seekBar19;
-
+    ImageView imageView,imageView25,imageView26,imageView27,imageView24,imageView28;
 
 
 
@@ -44,6 +45,82 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        imageView = findViewById(R.id.imageView);
+        imageView24=findViewById(R.id.imageView24);
+        imageView25 = findViewById(R.id.imageView25);
+        imageView27 = findViewById(R.id.imageView27);
+        imageView26 = findViewById(R.id.imageView26);
+        imageView28 = findViewById(R.id.imageView28);
+
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            int temp = 0;
+            public void onClick(View v) {
+                if (temp == 0) {
+                    imageView.setImageResource(R.drawable.cartopviewoff);
+                    temp = 1;
+                } else if (temp == 1) {
+                    imageView.setImageResource(R.drawable.cartopviewon);
+                    temp = 0;
+                }
+            }
+        });
+       imageView26.bringToFront();
+        imageView26.setOnClickListener(new View.OnClickListener() {
+            int temp = 0;
+            public void onClick(View v) {
+                if (temp == 0) {
+                    imageView26.setImageResource(R.drawable.lock);
+                    temp = 1;
+                } else if (temp == 1) {
+                    imageView26.setImageResource(R.drawable.unlock);
+                    temp = 0;
+                }
+            }
+        });
+        imageView28.bringToFront();
+        imageView28.setOnClickListener(new View.OnClickListener() {
+            int temp = 0;
+            public void onClick(View v) {
+                if (temp == 0) {
+                    imageView28.setImageResource(R.drawable.lock);
+                    temp = 1;
+                } else if (temp == 1) {
+                    imageView28.setImageResource(R.drawable.unlock);
+                    temp = 0;
+                }
+            }
+        });
+
+        imageView25.bringToFront();
+        imageView25.setOnClickListener(new View.OnClickListener() {
+            int temp = 0;
+            public void onClick(View v) {
+                if (temp == 0) {
+                    imageView25.setImageResource(R.drawable.beltoff);
+                    temp = 1;
+                } else if (temp == 1) {
+                    imageView25.setImageResource(R.drawable.belton);
+                    temp = 0;
+                }
+            }
+        });
+
+        imageView27.bringToFront();
+        imageView27.setOnClickListener(new View.OnClickListener() {
+            int temp = 0;
+            public void onClick(View v) {
+                if (temp == 0) {
+                    imageView27.setImageResource(R.drawable.beltoff);
+                    temp = 1;
+                } else if (temp == 1) {
+                    imageView27.setImageResource(R.drawable.belton);
+                    temp = 0;
+                }
+            }
+        });
 
         seekBar = findViewById(R.id.seekBar);
         seekBar2 = findViewById(R.id.seekBar2);
@@ -95,11 +172,32 @@ public class MainActivity extends AppCompatActivity {
         textViewExtSdust = findViewById(R.id.textViewExtSdust);
         textViewExtTemperature = findViewById(R.id.textViewExtTemperature);
 
-
+        textViewCO2.bringToFront();
+        textViewDust.bringToFront();
+        textViewSdust.bringToFront();
+        textViewTemperature.bringToFront();
+        textViewHumidity.bringToFront();
+        textViewSpeed.bringToFront();
+        textViewDistance.bringToFront();
+        textViewFuel.bringToFront();
+        textViewBattery.bringToFront();
+        textViewAircon.bringToFront();
+        textViewEngine.bringToFront();
+        textViewBrake.bringToFront();
+        textViewAccoil.bringToFront();
+        textViewEngine.bringToFront();
+        textViewBrake.bringToFront();
+        textViewAccoil.bringToFront();
+        textViewCoolwater.bringToFront();
+        textViewAccPressure.bringToFront();
+        textViewBrakePressure.bringToFront();
+        textViewExtDust.bringToFront();
+        textViewExtSdust.bringToFront();
+        textViewExtTemperature.bringToFront();
         //Connection
 
         while(true) {
-            connectServerTask = new ConnectServerTask(8888, "70.12.60.106");
+            connectServerTask = new ConnectServerTask(8888, "70.12.225.75");
             socket = connectServerTask.getSocket();
             try{
             if(socket != null){
@@ -118,6 +216,8 @@ public class MainActivity extends AppCompatActivity {
 
         Receiver receiver = new Receiver(socket);
         receiver.execute();
+
+
 
         //Speed SeekBar
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -1002,6 +1102,13 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
+  /*  public void onclick(View view){
+        if (imageView24 != null) {
+            imageView24.setSelected(!imageView24.isSelected());
+        }
+    }*/
 
 
 }

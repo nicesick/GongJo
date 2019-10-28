@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html dir="ltr">
 
+
 <head>
 <meta charset="EUC-KR">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="This Page is for managing Connected Car System">
 <meta name="author" content="MultiCampus Team 1">
+	<style>
+		#webbody {
+			background-image: url("/web/assets/images/ConnectedCar1.jpg") !important;
+		}
+	</style>
 
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
@@ -27,7 +33,7 @@
 <![endif]-->
 </head>
 
-<body>
+<body id="webbody">
 	<div class="main-wrapper">
 		<!-- ============================================================== -->
 		<!-- Preloader - style you can find in spinners.css -->
@@ -117,6 +123,7 @@
 	<!-- ============================================================== -->
 	<!-- All Required js -->
 	<!-- ============================================================== -->
+	
 	<script src="assets/libs/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap tether Core JavaScript -->
 	<script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
@@ -124,9 +131,11 @@
 	<!-- ============================================================== -->
 	<!-- This page plugin js -->
 	<!-- ============================================================== -->
+
 	<script>
 		$('[data-toggle="tooltip"]').tooltip();
 		$(".preloader").fadeOut();
+
 		
 		// ============================================================== 
 		// Login and Recover Password 

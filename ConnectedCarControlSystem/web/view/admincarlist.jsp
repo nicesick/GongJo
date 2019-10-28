@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 img {
@@ -47,10 +47,6 @@ img {
 	 	var lonlat = new Tmapv2.LatLng(37.566481622437934,126.98502302169841);
 	    map.setCenter(lonlat);
 	}
-
-	
-
-
 </script>
 		
 </head>
@@ -66,8 +62,8 @@ img {
      <div class="card">
          <nav aria-label="breadcrumb">
              <ol class="breadcrumb">
-                 <li class="breadcrumb-item"><a href="admincarlist.mc">°ü¸®ÀÚ¸ğµå Â÷·®Á¶È¸</a></li>
-                 <li class="breadcrumb-item"><a href="adminuserlist.mc">°ü¸®ÀÚ¸ğµå À¯Àú°ü¸®</a></li>
+                 <li class="breadcrumb-item"><a href="admincarlist.mc">ê´€ë¦¬ìëª¨ë“œ ì°¨ëŸ‰ì¡°íšŒ</a></li>
+                 <li class="breadcrumb-item"><a href="adminuserlist.mc">ê´€ë¦¬ìëª¨ë“œ ìœ ì €ê´€ë¦¬</a></li>
              </ol>
          </nav>
          
@@ -81,7 +77,7 @@ img {
          <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Â÷·® ¸ñ·Ï</h5>
+                    <h5 class="card-title">ì°¨ëŸ‰ ëª©ë¡</h5>
                     <div class="row">
                     
                       <c:forEach var="car" items="${admincars}">
