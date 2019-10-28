@@ -10,6 +10,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM CAR_STATUS_TABLE WHERE CAR_ID=#{key}
 	</select>
 	
+	<select id="selectAll" resultType="carStatus">
+		SELECT * FROM CAR_STATUS_TABLE
+	</select>
+	
 	<insert id="insert" parameterType="carStatus">
 		<!-- INSERT INTO CAR_STATUS_TABLE VALUES (#{user_id},#{car_id},SYSDATE,'정상') -->
 		INSERT INTO CAR_STATUS_TABLE VALUES (#{car_id}, #{car_speed}, #{car_distance}, #{car_air}, #{car_dust}, #{car_finedust}, #{car_temp}, #{car_ext_temperature}, #{car_ext_dust}, #{car_ext_finedust}, #{car_humidity}, #{car_fuel}, #{car_bat}, SYSDATE, #{car_hms}, #{car_lat}, #{car_log}, #{car_filter}, #{car_eng_oil}, #{car_brakeoil}, #{car_accoil}, #{car_coolwat}, #{car_accel_pressure}, #{car_brake_pressure})
