@@ -47,105 +47,12 @@ public class MainActivity extends AppCompatActivity {
     DataOutputStream dout;
 
     InputStream in;
-
+    int temp =1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        speedometer = (SpeedometerGauge) findViewById(R.id.speedometer);
-        speedometer.setMaxSpeed(50);
-        speedometer.setLabelConverter(new SpeedometerGauge.LabelConverter() {
-            @Override
-            public String getLabelFor(double progress, double maxProgress) {
-                return String.valueOf((int) Math.round(progress));
-            }
-        });
-        speedometer.setMaxSpeed(300);
-        speedometer.setMajorTickStep(5);
-        speedometer.setMinorTicks(4);
-        speedometer.addColoredRange(0, 100, Color.GREEN);
-        speedometer.addColoredRange(100, 140, Color.YELLOW);
-        speedometer.addColoredRange(140, 300, Color.RED);
-        speedometer.setSpeed(100, 1000, 300);
-
-
-
-        imageView = findViewById(R.id.imageView);
-        imageView24=findViewById(R.id.imageView24);
-        imageView25 = findViewById(R.id.imageView25);
-        imageView27 = findViewById(R.id.imageView27);
-        imageView26 = findViewById(R.id.imageView26);
-        imageView28 = findViewById(R.id.imageView28);
-
-
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            int temp = 0;
-            public void onClick(View v) {
-                if (temp == 0) {
-                    imageView.setImageResource(R.drawable.cartopviewoff);
-                    temp = 1;
-                } else if (temp == 1) {
-                    imageView.setImageResource(R.drawable.cartopviewon);
-                    temp = 0;
-                }
-            }
-        });
-       imageView26.bringToFront();
-        imageView26.setOnClickListener(new View.OnClickListener() {
-            int temp = 0;
-            public void onClick(View v) {
-                if (temp == 0) {
-                    imageView26.setImageResource(R.drawable.lock);
-                    temp = 1;
-                } else if (temp == 1) {
-                    imageView26.setImageResource(R.drawable.unlock);
-                    temp = 0;
-                }
-            }
-        });
-        imageView28.bringToFront();
-        imageView28.setOnClickListener(new View.OnClickListener() {
-            int temp = 0;
-            public void onClick(View v) {
-                if (temp == 0) {
-                    imageView28.setImageResource(R.drawable.lock);
-                    temp = 1;
-                } else if (temp == 1) {
-                    imageView28.setImageResource(R.drawable.unlock);
-                    temp = 0;
-                }
-            }
-        });
-
-        imageView25.bringToFront();
-        imageView25.setOnClickListener(new View.OnClickListener() {
-            int temp = 0;
-            public void onClick(View v) {
-                if (temp == 0) {
-                    imageView25.setImageResource(R.drawable.beltoff);
-                    temp = 1;
-                } else if (temp == 1) {
-                    imageView25.setImageResource(R.drawable.belton);
-                    temp = 0;
-                }
-            }
-        });
-
-        imageView27.bringToFront();
-        imageView27.setOnClickListener(new View.OnClickListener() {
-            int temp = 0;
-            public void onClick(View v) {
-                if (temp == 0) {
-                    imageView27.setImageResource(R.drawable.beltoff);
-                    temp = 1;
-                } else if (temp == 1) {
-                    imageView27.setImageResource(R.drawable.belton);
-                    temp = 0;
-                }
-            }
-        });
 
         seekBar = findViewById(R.id.seekBar);
         seekBar2 = findViewById(R.id.seekBar2);
@@ -167,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         seekBar18 = findViewById(R.id.seekBar18);
         seekBar19 = findViewById(R.id.seekBar19);
 
-        seekBar.setMax(200);
+        seekBar.setMax(300);
         seekBar2.setMax(1000);
         seekBar3.setMax(100);
         seekBar4.setMax(15);
@@ -242,6 +149,132 @@ public class MainActivity extends AppCompatActivity {
         Receiver receiver = new Receiver(socket);
         receiver.execute();
 
+        speedometer = (SpeedometerGauge) findViewById(R.id.speedometer);
+        speedometer.setMaxSpeed(50);
+        speedometer.setLabelConverter(new SpeedometerGauge.LabelConverter() {
+            @Override
+            public String getLabelFor(double progress, double maxProgress) {
+                return String.valueOf((int) Math.round(progress));
+            }
+        });
+        speedometer.setMaxSpeed(300);
+        speedometer.setMajorTickStep(5);
+        speedometer.setMinorTicks(4);
+        speedometer.addColoredRange(0, 100, Color.GREEN);
+        speedometer.addColoredRange(100, 200, Color.YELLOW);
+        speedometer.addColoredRange(200, 300, Color.RED);
+        speedometer.setSpeed(100, 1000, 300);
+
+
+
+        imageView = findViewById(R.id.imageView);
+        /*  imageView24=findViewById(R.id.imageView24);*/
+        imageView25 = findViewById(R.id.imageView25);
+        imageView27 = findViewById(R.id.imageView27);
+        imageView26 = findViewById(R.id.imageView26);
+        imageView28 = findViewById(R.id.imageView28);
+
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                if (temp == 0) {
+                    imageView.setImageResource(R.drawable.cartopviewoff);
+                    temp = 1;
+                    Runnable testSendIoTRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                out = socket.getOutputStream();
+                                dout = new DataOutputStream(out);
+                                dout.writeUTF("000000000000000000000000");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                    Thread testThread = new Thread(testSendIoTRunnable);
+                    testThread.start();
+                } else if (temp == 1) {
+                    imageView.setImageResource(R.drawable.cartopviewon);
+                    temp = 0;
+                    Runnable testSendIoTRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                out = socket.getOutputStream();
+                                dout = new DataOutputStream(out);
+                                dout.writeUTF("000000000000000000000001");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                    Thread testThread = new Thread(testSendIoTRunnable);
+                    testThread.start();
+                }
+            }
+        });
+        imageView26.bringToFront();
+        imageView26.setOnClickListener(new View.OnClickListener() {
+            int temp = 0;
+            public void onClick(View v) {
+                if (temp == 0) {
+                    imageView26.setImageResource(R.drawable.lock);
+                    temp = 1;
+                } else if (temp == 1) {
+                    imageView26.setImageResource(R.drawable.unlock);
+                    temp = 0;
+                }
+            }
+        });
+        imageView28.bringToFront();
+        imageView28.setOnClickListener(new View.OnClickListener() {
+            int temp = 0;
+            public void onClick(View v) {
+                if (temp == 0) {
+                    imageView28.setImageResource(R.drawable.lock);
+                    temp = 1;
+                } else if (temp == 1) {
+                    imageView28.setImageResource(R.drawable.unlock);
+                    temp = 0;
+                }
+            }
+        });
+
+        imageView25.bringToFront();
+        imageView25.setOnClickListener(new View.OnClickListener() {
+            int temp = 0;
+            public void onClick(View v) {
+                if (temp == 0) {
+                    imageView25.setImageResource(R.drawable.beltoff);
+                    temp = 1;
+                } else if (temp == 1) {
+                    imageView25.setImageResource(R.drawable.belton);
+                    temp = 0;
+                }
+            }
+        });
+
+        imageView27.bringToFront();
+        imageView27.setOnClickListener(new View.OnClickListener() {
+            int temp = 0;
+            public void onClick(View v) {
+                if (temp == 0) {
+                    imageView27.setImageResource(R.drawable.beltoff);
+                    temp = 1;
+                } else if (temp == 1) {
+                    imageView27.setImageResource(R.drawable.belton);
+                    temp = 0;
+                }
+            }
+        });
 
 
 
@@ -1100,13 +1133,77 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(String... values) {
+        protected void onProgressUpdate(final String... values) {
             int data = Integer.parseInt(values[0].substring(13,28));
-
+            int data1 = Integer.parseInt(values[0].substring(4,12));
+            Log.d("데이터",data+"");
+            Log.d("아이디",data1+"");
+            
             if(values[0].substring(4,12).equals("00020040")) {
                 seekBar8.setProgress(data);
                 int temp = data - 40;
                 textViewTemperature.setText(temp + "");
+
+                Runnable testSendIoTRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+
+                            out = socket.getOutputStream();
+                            dout = new DataOutputStream(out);
+                            dout.writeUTF(values[0].substring(4,28) );
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+
+                Thread testThread = new Thread(testSendIoTRunnable);
+                testThread.start();
+            }
+            if(values[0].substring(4,12).equals("00000000")) {
+                if(data==0) {
+                    imageView.setImageResource(R.drawable.cartopviewoff);
+                    temp = 1;
+                    Runnable testSendIoTRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                out = socket.getOutputStream();
+                                dout = new DataOutputStream(out);
+                                dout.writeUTF("000000000000000000000000");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                    Thread testThread = new Thread(testSendIoTRunnable);
+                    testThread.start();
+                }else if(data==1){
+                    imageView.setImageResource(R.drawable.cartopviewon);
+                    temp = 0;
+                    Runnable testSendIoTRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                out = socket.getOutputStream();
+                                dout = new DataOutputStream(out);
+                                dout.writeUTF("000000000000000000000001");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                    Thread testThread = new Thread(testSendIoTRunnable);
+                    testThread.start();
+                }
+
+
             }
     }
 

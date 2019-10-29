@@ -141,6 +141,9 @@ public class DataController {
 		PrintLog.printLog("DataController", data);
 		CarStatus carStatus = null;
 		
+		
+		
+		
 		JSONParser parser = new JSONParser();
 		JSONObject jo = null;
 		
@@ -173,7 +176,8 @@ public class DataController {
 						Integer.parseInt(jo.get("car_accoil").toString()),
 						Integer.parseInt(jo.get("car_coolwat").toString()),
 						Integer.parseInt(jo.get("car_accel_pressure").toString()),
-						Integer.parseInt(jo.get("car_brake_pressure").toString()));
+						Integer.parseInt(jo.get("car_brake_pressure").toString()),
+						carStatusBiz.select(jo.get("car_id").toString()).getCar_driving_count());
 				
 				MDC.put("car_id", jo.get("car_id").toString());
 				MDC.put("car_on", jo.get("car_on").toString());
@@ -200,6 +204,7 @@ public class DataController {
 				MDC.put("car_coolwat", jo.get("car_coolwat").toString());
 				MDC.put("car_accel_pressure", jo.get("car_accel_pressure").toString());
 				MDC.put("car_brake_pressure", jo.get("car_brake_pressure").toString());
+				MDC.put("car_driving_count", carStatusBiz.select(jo.get("car_id").toString()).getCar_driving_count());
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -211,6 +216,15 @@ public class DataController {
 
 		if (carStatus != null) {
 			if (carStatusBiz.select(carStatus.getCar_id()) != null) {
+				
+				//시동 꺼지면  count ++;
+				if(carStatusBiz.select(carStatus.getCar_id()).getCar_on().equals("on") && carStatus.getCar_on().equals("off")) {
+					carStatus.setCar_driving_count(carStatus.getCar_driving_count() + 1);
+				}
+				
+				if(carStatusBiz.select(carStatus.getCar_id()).getCar_date() != carStatus.getCar_date()) {
+					carStatus.setCar_driving_count(0);
+				}
 				carStatusBiz.update(carStatus);
 			}
 			
