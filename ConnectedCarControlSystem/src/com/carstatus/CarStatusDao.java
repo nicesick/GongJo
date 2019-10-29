@@ -44,7 +44,9 @@ public class CarStatusDao implements Dao<String, CarStatus> {
 
 	@Override
 	public ArrayList<CarStatus> selectAll() {
-		return null;
+		ArrayList<CarStatus> carStatuses = carStatusMapper.selectAll();
+		
+		return carStatuses;
 	}
 
 }

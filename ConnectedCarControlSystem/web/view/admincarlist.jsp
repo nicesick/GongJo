@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 img {
@@ -26,35 +26,29 @@ img {
 
 <script>
 	var map;
-	// ÆäÀÌÁö°¡ ·ÎµùÀÌ µÈ ÈÄ È£ÃâÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù.
-	
+	var lonlat;
 	function initTmap(){
-		// map »ı¼º
-		// Tmapv2.MapÀ» ÀÌ¿ëÇÏ¿©, Áöµµ°¡ µé¾î°¥ div, ³ĞÀÌ, ³ôÀÌ¸¦ ¼³Á¤ÇÕ´Ï´Ù.
-		map = new Tmapv2.Map("map_div",  // "map_div" : Áöµµ°¡ Ç¥½ÃµÉ divÀÇ id
-		{
-			center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841), // Áöµµ ÃÊ±â ÁÂÇ¥
-			width: "100%", // mapÀÇ width ¼³Á¤
-			height: "400px", // mapÀÇ height ¼³Á¤
-			zoom: 15
-		});
-		 
-		var marker = new Tmapv2.Marker({
-			position: new Tmapv2.LatLng(37.566481622437934,126.98452302169841),
-			map: map
-		});
-		var marker = new Tmapv2.Marker({
-			position: new Tmapv2.LatLng(37.566481622437934,126.98502302169841),
-			map: map
-		});
-		var marker = new Tmapv2.Marker({
-			position: new Tmapv2.LatLng(37.566481622437934,126.98552302169841),
-			map: map
-		});
-		
+		map = new Tmapv2.Map("map_div", {
+						center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841),
+						width: "100%",
+						height: "400px",
+						zomm: 15
+	                    });
+	}        
+	
+	function Move(car_lat, car_log){
+ 	
+		var lonlat = new Tmapv2.LatLng(car_lat, car_log);
+    	map.setCenter(lonlat);
+	
 	}
-// ¸Ê »ı¼º ½ÇÇà
-initTmap();
+
+	function Move(){
+	 	var lonlat = new Tmapv2.LatLng(37.566481622437934,126.98502302169841);
+	    map.setCenter(lonlat);
+	}
+	
+
 </script>
 		
 </head>
@@ -70,26 +64,27 @@ initTmap();
      <div class="card">
          <nav aria-label="breadcrumb">
              <ol class="breadcrumb">
-                 <li class="breadcrumb-item"><a href="admincarlist.mc">°ü¸®ÀÚ¸ğµå Â÷·®Á¶È¸</a></li>
-                 <li class="breadcrumb-item"><a href="adminuserlist.mc">°ü¸®ÀÚ¸ğµå À¯Àú°ü¸®</a></li>
+                 <li class="breadcrumb-item"><a href="admincarlist.mc">ê´€ë¦¬ìëª¨ë“œ ì°¨ëŸ‰ì¡°íšŒ</a></li>
+                 <li class="breadcrumb-item"><a href="adminuserlist.mc">ê´€ë¦¬ìëª¨ë“œ ìœ ì €ê´€ë¦¬</a></li>
              </ol>
          </nav>
          
          <!-- T-map Initialization -->
-         <body onload="initTmap()">
+         <body onload="initTmap();">
         		<div id="map_div">
       		  </div>        
     	 </body>
          
+        
          <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Â÷·® ¸ñ·Ï</h5>
+                    <h5 class="card-title">ì°¨ëŸ‰ ëª©ë¡</h5>
                     <div class="row">
                     
-                      <c:forEach var="car" items="${admincars }">
+                      <c:forEach var="car" items="${admincars}">
                       	<div class="col-md-3 col-sm-6">
-                          <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button">${car.car_id}</button>
+                          <a href="selectcar.mc?id=${car.car_id}"><button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button"  onClick="Move(${car.car_lat}, ${car.car_log});" >${car.car_id}</button></a>
                       	</div>
                       </c:forEach>
                       
@@ -98,6 +93,7 @@ initTmap();
             </div>
         </div>
      </div>
+     
  </div>
 	<!-- ============================================================== -->
 	<!-- Recent comment and chats -->
