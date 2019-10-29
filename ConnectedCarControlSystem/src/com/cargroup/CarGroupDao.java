@@ -38,7 +38,7 @@ public class CarGroupDao implements Dao<String, CarGroup> {
 
 	@Override
 	public ArrayList<CarGroup> selects(String k) {
-		ArrayList<CarGroup> carGroups = carGroupMapper.select(k);
+		ArrayList<CarGroup> carGroups = carGroupMapper.selects(k);
 		
 		return carGroups;
 	}

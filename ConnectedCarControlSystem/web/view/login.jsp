@@ -83,6 +83,7 @@
 								<input type="password" id="user_pwd" class="form-control"
 									placeholder="비밀번호" aria-label="Password"
 									aria-describedby="basic-addon1" required>
+								<input type="hidden" id="token" >
 							</div>
 						</div>
 					</div>
@@ -149,6 +150,7 @@
 		$('#loginimpl').click(function(){
 			var id = $('#user_id').val();
 			var pwd = $('#user_pwd').val();
+			var token = $('#token').val();
 			
 			if (id != '' && pwd != '') {
 				$.ajax({
@@ -157,7 +159,8 @@
 					
 					data : {
 						'id' : id,
-						'pwd' : pwd
+						'pwd' : pwd,
+						'token' : token
 					},
 					
 					success : function(data) {
