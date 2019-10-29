@@ -47,6 +47,8 @@ img {
 	 	var lonlat = new Tmapv2.LatLng(37.566481622437934,126.98502302169841);
 	    map.setCenter(lonlat);
 	}
+	
+
 </script>
 		
 </head>
@@ -82,7 +84,7 @@ img {
                     
                       <c:forEach var="car" items="${admincars}">
                       	<div class="col-md-3 col-sm-6">
-                          <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button" onClick="Move(${car.car_lat}, ${car.car_log});" >${car.car_id}</button>
+                          <a href="selectcar.mc?id=${car.car_id}"><button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button"  onClick="Move(${car.car_lat}, ${car.car_log});" >${car.car_id}</button></a>
                       	</div>
                       </c:forEach>
                       
