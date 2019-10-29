@@ -3,15 +3,15 @@ package com.log;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Service;
-
-import com.test.PrintLog;
 
 @Service
 @Aspect
 public class Log {
+	private static final int PRESSURE_STANDARD = 50;
+	
 	private Logger status_log;
 	private Logger warning_log;
 	
@@ -20,12 +20,17 @@ public class Log {
 		warning_log = Logger.getLogger("warning");
 	}
 	
-	@Before("execution(* com.controller.DataController.getData(..))")
+	@After("execution(* com.controller.DataController.getData(..))")
 	public void makeLog(JoinPoint jp) {
-		PrintLog.printLog("Log", jp.getArgs()[0].toString() + "");
-		String car_id = jp.getArgs()[0].toString();
+		int car_accel_pressure = Integer.parseInt(MDC.get("car_accel_pressure").toString());
+		int car_brake_pressure = Integer.parseInt(MDC.get("car_brake_pressure").toString());
 		
-		MDC.put("car_id", car_id);
-		status_log.debug(jp.getSignature().getName());
+		if (car_accel_pressure > PRESSURE_STANDARD || car_brake_pressure > PRESSURE_STANDARD) {
+			warning_log.debug(jp.getSignature().getName());
+		}
+		
+		else {
+			status_log.debug(jp.getSignature().getName());
+		}
 	}
 }
