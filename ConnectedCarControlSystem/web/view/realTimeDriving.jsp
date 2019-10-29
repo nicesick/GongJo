@@ -67,8 +67,8 @@
 					<h4 class="card-title p-b-10">시동 관리 및 온도 관리</h4>
 					<div
 						style="display: inline-block; width: 320px; text-align: center">
-						<div style="display: inline-block; float: left;">
-							<img src="assets/images/car_top_view_on.png" width="135px">
+						<div id="carOnStatus" style="display: inline-block; float: left;">
+							<img id="carOnStatusImg" src="assets/images/car_top_view_on.png" width="135px">
 						</div>
 
 						<div style="display: inline-block; float: middle; width: 170px">
@@ -105,9 +105,11 @@
 
 					<div
 						style="display: inline-block; width: 400px; text-align: center">
+						
 						<div
 							style="display: inline-block; float: left; margin-right: 5px; padding: 10px;">
 							<img src="assets/images/air-conditioner.png" width="60px">
+							<input id="requestTemp" type="text" style="display: inline-block; width : 100px; height: 50px; margin-left : 10px; vertical-align: middle;">
 							<h6>희망 온도</h6>
 							<!-- form -->
 						</div>
@@ -117,7 +119,6 @@
 							<div style="float: left; text-align: center;">
 								<img src="assets/images/cardistance.png" height="60px">
 								<h6>운행 거리</h6>
-
 							</div>
 							<div
 								style="display: inline-block; height: 80px; padding: 20px 10px; vertical-align: middle;">
@@ -296,6 +297,14 @@
 <!-- This page Register scripts -->
 <!-- ============================================================== -->
 <script>
+	var car_id = '${carStatus.car_id }';
+
+	$('#carOnStatus').click(function(){
+		$.ajax({
+			url : ''
+		});
+	});
+
 	function getData(car_id) {
 		if (car_id != '') {
 			$.ajax({
@@ -328,8 +337,6 @@
 			});
 		}
 	};
-
-	var car_id = '${carStatus.car_id }';
 
 	setInterval(function() {
 		getData(car_id);
