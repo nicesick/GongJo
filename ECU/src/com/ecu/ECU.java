@@ -381,7 +381,7 @@ public class ECU implements SerialPortEventListener {
 		try {
 			// ECU st = new ECU("COM5");
 			//st = new ECU("COM5");
-			st = new ECU("COM8");
+			st = new ECU("COM7");
 			ecu = new ECU("70.12.230.119", 8888);
 //			ecu.start();
 		}

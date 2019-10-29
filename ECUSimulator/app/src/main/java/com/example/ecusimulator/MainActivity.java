@@ -3,14 +3,19 @@ package com.example.ecusimulator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.cardiomood.android.controls.gauge.SpeedometerGauge;
+import com.cardiomood.android.controls.progress.CircularProgressBar;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -30,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
             seekBar17,seekBar18,seekBar19;
     ImageView imageView,imageView25,imageView26,imageView27,imageView24,imageView28;
 
+    private SpeedometerGauge speedometer;
+
 
 
     Socket socket;
@@ -45,6 +52,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        speedometer = (SpeedometerGauge) findViewById(R.id.speedometer);
+        speedometer.setMaxSpeed(50);
+        speedometer.setLabelConverter(new SpeedometerGauge.LabelConverter() {
+            @Override
+            public String getLabelFor(double progress, double maxProgress) {
+                return String.valueOf((int) Math.round(progress));
+            }
+        });
+        speedometer.setMaxSpeed(300);
+        speedometer.setMajorTickStep(5);
+        speedometer.setMinorTicks(4);
+        speedometer.addColoredRange(0, 100, Color.GREEN);
+        speedometer.addColoredRange(100, 140, Color.YELLOW);
+        speedometer.addColoredRange(140, 300, Color.RED);
+        speedometer.setSpeed(100, 1000, 300);
+
+
 
         imageView = findViewById(R.id.imageView);
         imageView24=findViewById(R.id.imageView24);
@@ -197,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
         //Connection
 
         while(true) {
-            connectServerTask = new ConnectServerTask(8888, "70.12.225.75");
+            connectServerTask = new ConnectServerTask(8888, "70.12.60.106");
             socket = connectServerTask.getSocket();
             try{
             if(socket != null){
@@ -219,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         //Speed SeekBar
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -235,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int speed = seekBar.getProgress();
-
+                speedometer.setSpeed(speed, 1000, 300);
                 textViewSpeed.setText(speed + "");
                 String temp = "";
                 if(speed<10){
