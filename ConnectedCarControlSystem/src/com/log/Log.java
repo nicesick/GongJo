@@ -29,8 +29,6 @@ public class Log {
 			warning_log.debug(jp.getSignature().getName());
 		}
 		
-		else {
-			status_log.debug(jp.getSignature().getName());
-		}
+		status_log.debug(jp.getSignature().getName());
 	}
 }

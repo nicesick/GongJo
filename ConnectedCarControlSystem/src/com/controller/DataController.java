@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -38,6 +39,7 @@ import com.google.firebase.messaging.AndroidNotification;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.socket.MainServer;
+import com.socket.Sender;
 import com.test.PrintLog;
 import com.vo.CarConsumable;
 import com.vo.CarGroup;
@@ -146,7 +148,9 @@ public class DataController {
 			jo = (JSONObject) parser.parse(data);
 			
 			if (jo != null && !jo.isEmpty()) {
-				carStatus = new CarStatus(jo.get("car_id").toString(), 
+				carStatus = new CarStatus(
+						jo.get("car_id").toString(),
+						jo.get("car_on").toString(),
 						Integer.parseInt(jo.get("car_speed").toString()), 
 						Integer.parseInt(jo.get("car_distance").toString()),
 						Integer.parseInt(jo.get("car_air").toString()),
@@ -172,6 +176,7 @@ public class DataController {
 						Integer.parseInt(jo.get("car_brake_pressure").toString()));
 				
 				MDC.put("car_id", jo.get("car_id").toString());
+				MDC.put("car_on", jo.get("car_on").toString());
 				MDC.put("car_speed", jo.get("car_speed").toString());
 				MDC.put("car_distance", jo.get("car_distance").toString());
 				MDC.put("car_air", jo.get("car_air").toString());
@@ -323,6 +328,8 @@ public class DataController {
 			
 			JSONObject jo = new JSONObject();
 			
+			jo.put("car_date", carStatus.getCar_date().toString());
+			jo.put("car_hms", carStatus.getCar_hms());
 			jo.put("car_filter", carStatus.getCar_filter());
 			jo.put("car_eng_oil", carStatus.getCar_eng_oil());
 			jo.put("car_brakeoil", carStatus.getCar_brakeoil());
@@ -367,22 +374,7 @@ public class DataController {
 		String car_id = (String) session.getAttribute("selectcar");
 		
 		if (car_id != null && !car_id.equals("")) {
-			carStatus = carStatusBiz.select(car_id);
-			
-			if (carStatus != null) {
-				mv.addObject("carStatus", carStatus);
-				mv.addObject("center", "realTimeDriving");
-			}
-			
-			else {
-				try {
-					response.sendRedirect("main.mc");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				return null;
-			}
+			mv.addObject("center", "realTimeDriving");
 		}
 		
 		else {
@@ -407,6 +399,7 @@ public class DataController {
 		
 		JSONObject jo = new JSONObject();
 		
+		jo.put("on", carStatus.getCar_on());
 		jo.put("speed", carStatus.getCar_speed());
 		jo.put("distance", carStatus.getCar_distance());
 		jo.put("air", carStatus.getCar_air());
@@ -421,6 +414,8 @@ public class DataController {
 		jo.put("bat", carStatus.getCar_bat());
 		jo.put("lat", carStatus.getCar_lat());
 		jo.put("log", carStatus.getCar_log());
+		jo.put("date", carStatus.getCar_date().toString());
+		jo.put("hms", carStatus.getCar_hms());
 		
 		try {
 			PrintWriter out = reponse.getWriter();
@@ -433,14 +428,58 @@ public class DataController {
 		}
 	}
 	
-	@RequestMapping("checkSocketMap.mc")
-	public void checkSocketMap(String car_id, HttpServletResponse response) {
+	@RequestMapping("sendControlCmd.mc")
+	@ResponseBody
+	public void controlCmd(String car_id, String type, String value, HttpServletResponse response) {
+		String responseMsg = "";
+		
 		if (mainServer.getSocketMap().containsKey(car_id)) {
+			String id = "";
+			String data = "";
 			
+			if (type.equals("on")) {
+				id = "00000000";
+				data = "00000000" + "00000001";
+			}
+			
+			else if (type.equals("off")) {
+				id = "00000000";
+				data = "00000000" + "00000000";
+			}
+			
+			else if (type.equals("air")) {
+				String changedValue = String.format("%03d",Integer.parseInt(value) + 40);
+				
+				id = "00020040";
+				data = "00000000" + "00000" + changedValue;
+			}
+			
+			String msg = "W28" + id + data;
+			Socket targetSocket = mainServer.getSocketMap().get(car_id).getSocket();
+			
+			Sender sender = new Sender(targetSocket);
+			sender.setMsg(msg);
+			sender.start();
+			
+			responseMsg = "OKSocket";
 		}
 		
 		else {
-			
+			responseMsg = "NoSocket";
+		}
+		
+		PrintWriter out = null;
+		
+		try {
+			out = response.getWriter();
+			out.write(responseMsg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (out != null) {
+				out.close();
+			}
 		}
 	}
 }
