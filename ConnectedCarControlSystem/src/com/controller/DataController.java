@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.MDC;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -139,6 +140,31 @@ public class DataController {
 						Integer.parseInt(jo.get("car_coolwat").toString()),
 						Integer.parseInt(jo.get("car_accel_pressure").toString()),
 						Integer.parseInt(jo.get("car_brake_pressure").toString()));
+				
+				MDC.put("car_id", jo.get("car_id").toString());
+				MDC.put("car_speed", jo.get("car_speed").toString());
+				MDC.put("car_distance", jo.get("car_distance").toString());
+				MDC.put("car_air", jo.get("car_air").toString());
+				MDC.put("car_dust", jo.get("car_dust").toString());
+				MDC.put("car_finedust", jo.get("car_finedust").toString());
+				MDC.put("car_temp", jo.get("car_temp").toString());
+				MDC.put("car_ext_temperature", jo.get("car_ext_temperature").toString());
+				MDC.put("car_ext_dust", jo.get("car_ext_dust").toString());
+				MDC.put("car_ext_finedust", jo.get("car_ext_finedust").toString());
+				MDC.put("car_humidity", jo.get("car_humidity").toString());
+				MDC.put("car_fuel", jo.get("car_fuel").toString());
+				MDC.put("car_bat", jo.get("car_bat").toString());
+				MDC.put("car_date", jo.get("car_date").toString());
+				MDC.put("car_hms", jo.get("car_hms").toString());
+				MDC.put("car_lat", jo.get("car_lat").toString());
+				MDC.put("car_log", jo.get("car_log").toString());
+				MDC.put("car_filter", jo.get("car_filter").toString());
+				MDC.put("car_eng_oil", jo.get("car_eng_oil").toString());
+				MDC.put("car_brakeoil", jo.get("car_brakeoil").toString());
+				MDC.put("car_accoil", jo.get("car_accoil").toString());
+				MDC.put("car_coolwat", jo.get("car_coolwat").toString());
+				MDC.put("car_accel_pressure", jo.get("car_accel_pressure").toString());
+				MDC.put("car_brake_pressure", jo.get("car_brake_pressure").toString());
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -155,7 +181,7 @@ public class DataController {
 		}
 	}
 
-	// 소모품 정보 확인
+	// �냼紐⑦뭹 �젙蹂� �솗�씤
 	@RequestMapping("getConsumableData.mc")
 	public ModelAndView getConsumableData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		CarConsumable carConsumable = null;
@@ -199,7 +225,7 @@ public class DataController {
 		return mv;
 	}
 	
-	//소모품 실시간 확인
+	//�냼紐⑦뭹 �떎�떆媛� �솗�씤
 	@RequestMapping("getRealTimeConsumable.mc")
 	@ResponseBody
 	public void getRealTimeConsumable(String car_id, HttpSession session, HttpServletResponse response) {
@@ -242,7 +268,7 @@ public class DataController {
 		}
 	}
 
-	// 운행기록 확인
+	// �슫�뻾湲곕줉 �솗�씤
 	@RequestMapping("getDrivingRecordData.mc")
 	public ModelAndView getDrivingRecordData(ModelAndView mv) {
 		mv.setViewName("index");
@@ -251,7 +277,7 @@ public class DataController {
 		return mv;
 	}
 
-	// 실시간 상태 확인
+	// �떎�떆媛� �긽�깭 �솗�씤
 
 	@RequestMapping("getRealTimeDrivingData.mc")
 	public ModelAndView getRealTimeDrivingData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
