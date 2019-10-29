@@ -23,33 +23,54 @@ img {
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&format=javascript&appkey=dbd0828d-01af-45cb-956b-a170291f8d2b"></script>
-
+	<!-- ============================================================== -->
+	<script src="assets/libs/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap tether Core JavaScript -->
+	<script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+	<script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- ============================================================== -->
 <script>
-	var map;
-	var lonlat;
+	var map
+	var marker;
+	var label;
+	
 	function initTmap(){
 		map = new Tmapv2.Map("map_div", {
 						center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841),
 						width: "100%",
-						height: "400px",
-						zomm: 15
+						height: "400px"	
 	                    });
-	}        
+		
+		
+	}
 	
+	
+	//move to center of Map coordinate
 	function Move(car_lat, car_log){
- 	
+	
 		var lonlat = new Tmapv2.LatLng(car_lat, car_log);
     	map.setCenter(lonlat);
-	
+		var obj = '${admincars}';	
+		console.log(obj);
+		
 	}
-
-	function Move(){
-	 	var lonlat = new Tmapv2.LatLng(37.566481622437934,126.98502302169841);
-	    map.setCenter(lonlat);
-	}
-
 	
-
+	
+	
+	//make marker
+	function MakeMarker(car_id, car_lat, car_log){			
+		
+		var lonlat = new Tmapv2.LatLng(car_lat, car_log);
+		var title = car_id;
+		label="<span style='background-color: #46414E;color:white'>"+title+"</span>";
+		marker = new Tmapv2.Marker({
+			position : lonlat,
+			map : map,
+			title : title,
+			label : label
+		});
+	}
+	 
 
 </script>
 		
@@ -73,27 +94,35 @@ img {
          
          <!-- T-map Initialization -->
          <body onload="initTmap();">
-        		<div id="map_div">
-      		  </div>        
-    	 </body>
-         
-        
-         <div class="col-12">
+        		<div id="map_div" >
+      		  </div>  
+      		  <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">차량 목록</h5>
                     <div class="row">
                     
-                      <c:forEach var="car" items="${admincars}">
-                      	<div class="col-md-3 col-sm-6">
-                          <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button" onClick="Move(${car.car_lat}, ${car.car_log});" >${car.car_id}</button>
+                      <c:forEach var="car" items="${admincars}" >
+                      	<div class="col-md-3 col-sm-6" >
+                          <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button" 
+                          onClick="Move(${car.car_lat}, ${car.car_log});"
+                          onload="MakeMarker(${car.car_id}, ${car.car_lat}, ${car.car_log});"
+                          >
+                          ${car.car_id}
+                          </button>
                       	</div>
                       </c:forEach>
                       
                     </div>
-                </div>
+                </div >
             </div>
         </div>
+      		        
+    	 </body>
+         
+        
+         
+        
      </div>
      
  </div>
