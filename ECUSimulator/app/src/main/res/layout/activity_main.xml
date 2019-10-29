@@ -24,7 +24,7 @@
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
@@ -59,17 +59,10 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imageView24"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/distance" />
-
             <com.cardiomood.android.controls.gauge.SpeedometerGauge
                 android:id="@+id/speedometer"
-                android:layout_width="287dp"
-                android:layout_height="204dp"
-                android:padding="8dp" />
+                android:layout_width="336dp"
+                android:layout_height="210dp" />
         </LinearLayout>
 
 
@@ -564,7 +557,8 @@
                             <SeekBar
                                 android:id="@+id/seekBar18"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                                android:layout_height="match_parent"
+                                android:layout_weight="1" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -614,6 +608,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Speed"
+                        android:textColor="#FFFFFF"
                         android:textSize="30sp" />
 
                     <SeekBar

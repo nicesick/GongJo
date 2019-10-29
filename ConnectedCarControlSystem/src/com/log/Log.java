@@ -14,10 +14,12 @@ public class Log {
 	
 	private Logger status_log;
 	private Logger warning_log;
+	private Logger user_log;
 	
 	public Log() {
 		status_log = Logger.getLogger("status");
 		warning_log = Logger.getLogger("warning");
+		user_log=Logger.getLogger("user");
 	}
 	
 	@After("execution(* com.controller.DataController.getData(..))")
@@ -27,10 +29,22 @@ public class Log {
 		
 		if (car_accel_pressure > PRESSURE_STANDARD || car_brake_pressure > PRESSURE_STANDARD) {
 			warning_log.debug(jp.getSignature().getName());
-		}
-		
-		else {
+		}else {
 			status_log.debug(jp.getSignature().getName());
 		}
+	}
+	
+	@After("execution(* com.controller.LoginController.loginImpl(..))")
+	public void makeUserLog(JoinPoint jp) {
+		
+		String user_id = MDC.get("user_id").toString();
+		String user_birthday = MDC.get("user_birthdate").toString();
+		
+		if(user_id != null) {
+			user_log.debug(jp.getSignature().getName());
+		}else {
+			warning_log.debug(jp.getSignature().getName());
+		}
+
 	}
 }
