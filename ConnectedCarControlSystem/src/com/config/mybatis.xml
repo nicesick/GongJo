@@ -10,13 +10,16 @@ PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 		<typeAlias type="com.vo.CarGroup" alias="carGroup"/>
 		<typeAlias type="com.vo.CarStatus" alias="carStatus"/>
 		<typeAlias type="com.vo.CarConsumable" alias="carConsumable"/>
+		<typeAlias type="com.vo.DeviceToken" alias="deviceToken"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="com/config/userMapper.xml"/>
 		<mapper resource="com/config/carMapper.xml"/>
 		<mapper resource="com/config/carGroupMapper.xml"/>
+		<mapper resource="com/config/carGroupUserMapper.xml"/>
 		<mapper resource="com/config/carStatusMapper.xml"/>
 		<mapper resource="com/config/carConsumableMapper.xml"/>
+		<mapper resource="com/config/deviceTokenMapper.xml"/>
 	</mappers>
 </configuration>
