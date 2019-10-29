@@ -38,9 +38,10 @@ public class CarGroupBiz implements Biz<Object, CarGroup> {
 
 	@Override
 	public ArrayList<CarGroup> selects(Object k) {
-		ArrayList<CarGroup> carGroups = carGroupDao.selects(k);
+		System.out.println(carGroupDao.toString());
+//		ArrayList<CarGroup> carGroups = carGroupDao.selects(k);
 		
-		return carGroups;
+		return null;
 	}
 
 	@Override

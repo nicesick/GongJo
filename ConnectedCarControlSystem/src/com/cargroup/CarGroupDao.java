@@ -47,5 +47,4 @@ public class CarGroupDao implements Dao<String, CarGroup> {
 	public ArrayList<CarGroup> selectAll() {
 		return null;
 	}
-
 }

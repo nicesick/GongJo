@@ -81,7 +81,7 @@ public class LoginController {
 					MDC.put("user_gender", user.getUser_gender().toString());
 					System.out.println(user.getUser_birthdate());
 					MDC.put("user_birthdate", user.getUser_birthdate().toString());
-					
+
 					out.print("LoginSuccess");
 				}
 				
@@ -100,14 +100,14 @@ public class LoginController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean checkExistDeviceToken(String user_id,String device_token) {
 		ArrayList<DeviceToken> deviceTokenList = deviceTokenBiz.selects(user_id);
 		
 		for(DeviceToken deviceToken:deviceTokenList) {
 			if(deviceToken.getDevice_token().equals(device_token)) return true;
 		}
-		
+
 		return false;
 	}
 }

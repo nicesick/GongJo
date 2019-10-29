@@ -22,9 +22,10 @@ public class ConnectServerTask {
     ServerSocket serverSocketTask;
     TextView textView;
     boolean flag;
-    final String CarId = "car1";
+    final String CarId = "서울1234";
     OutputStream out;
     DataOutputStream dout;
+    LocationResgist locationResgist;
 
     public ConnectServerTask(final int port, String ip, ArrayList<Socket> socketList, TextView textView) {
         this.port = port;
@@ -87,6 +88,7 @@ public class ConnectServerTask {
         public ServerSocket(Socket serverSocket, ArrayList<Socket> socketList) {
             this.serverSocket = serverSocket;
             this.socketList = socketList;
+            locationResgist = new LocationResgist();
         }
 
         @Override
@@ -94,11 +96,23 @@ public class ConnectServerTask {
 
 
                 String msg = (String)values[1];
-                try {
-                    textView.append("\nServer send Msg : " + msg);
-                    sendMsg(msg,socketList);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if(msg.substring(0,5).equals("Danger")){
+                    String[] areaToken = msg.split("/");
+                    ArrayList<Location> locationArrayList = new ArrayList<>();
+                    for(int i=1;i<areaToken.length;i++) {
+                        String[] locationToken = areaToken[i].split(",");
+                        locationArrayList.add(
+                                new Location(Double.parseDouble(locationToken[0]),Double.parseDouble((locationToken[1]))));
+                    }
+                    locationResgist.setLocationsList(locationArrayList);
+                }
+                else {
+                    try {
+                        textView.append("\nServer send Msg : " + msg);
+                        sendMsg(msg, socketList);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
         }

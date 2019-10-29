@@ -38,8 +38,10 @@ import com.google.firebase.messaging.AndroidConfig;
 import com.google.firebase.messaging.AndroidNotification;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
+
 import com.socket.MainServer;
 import com.socket.Sender;
+
 import com.test.PrintLog;
 import com.vo.CarConsumable;
 import com.vo.CarGroup;
@@ -51,7 +53,7 @@ import com.vo.DeviceToken;
 public class DataController {
 	// For Socket Test
 	private MainServer mainServer;
-	
+
 	@Resource(name = "CarConsumableBiz")
 	Biz<String, CarConsumable> carConsumableBiz;
 
@@ -69,7 +71,7 @@ public class DataController {
 
 	final String titleMSG = "CAUSE";
 	final String bodyMSG = "you turn on light!!";
-	
+
 	public DataController() {
 		mainServer = new MainServer();
 		mainServer.start();
@@ -140,10 +142,7 @@ public class DataController {
 
 		PrintLog.printLog("DataController", data);
 		CarStatus carStatus = null;
-		
-		
-		
-		
+
 		JSONParser parser = new JSONParser();
 		JSONObject jo = null;
 		
@@ -247,6 +246,7 @@ public class DataController {
 
 	public void searchTokenId(String User_id) {
 		ArrayList<DeviceToken> deviceTokens = deviceTokenBiz.selects(User_id);
+		
 		for (DeviceToken deviceToken : deviceTokens) {
 			sendFCMMsg(deviceToken.getDevice_token(), titleMSG, bodyMSG);
 		}
@@ -259,10 +259,11 @@ public class DataController {
 			FirebaseOptions options = new FirebaseOptions.Builder()
 					.setCredentials(GoogleCredentials.fromStream(refreshToken))
 					.setDatabaseUrl("https://gongjo-93a9f.firebaseio.com").build();
+			
 			if (FirebaseApp.getApps().isEmpty()) {
 				FirebaseApp.initializeApp(options); 
 			}
-			System.out.println(tokenId);
+			
 			String registrationToken = tokenId;
 
 			Message msg = Message.builder()
@@ -280,7 +281,6 @@ public class DataController {
 		}
 	}
 
-	// ?�쎈꺖筌뤴뫂?�� ?�쎌?�癰귨옙 ?�쎌?�占?�뵥
 	@RequestMapping("getConsumableData.mc")
 	public ModelAndView getConsumableData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		CarConsumable carConsumable = null;
@@ -324,7 +324,6 @@ public class DataController {
 		return mv;
 	}
 	
-	//?�쎈꺖筌뤴뫂?�� ?�쎈뼄占?�뻻?�쏉???�쎌?�占?�뵥
 	@RequestMapping("getRealTimeConsumable.mc")
 	@ResponseBody
 	public void getRealTimeConsumable(String car_id, HttpSession session, HttpServletResponse response) {
@@ -369,7 +368,6 @@ public class DataController {
 		}
 	}
 
-	// ?�쎌?�占?�뻬?�꿸?�以�??�쎌?�占?�뵥
 	@RequestMapping("getDrivingRecordData.mc")
 	public ModelAndView getDrivingRecordData(ModelAndView mv) {
 		mv.setViewName("index");
@@ -377,8 +375,6 @@ public class DataController {
 
 		return mv;
 	}
-
-	// ?�쎈뼄占?�뻻?�쏉???�쎄맒占?�묶 ?�쎌?�占?�뵥
 
 	@RequestMapping("getRealTimeDrivingData.mc")
 	public ModelAndView getRealTimeDrivingData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
