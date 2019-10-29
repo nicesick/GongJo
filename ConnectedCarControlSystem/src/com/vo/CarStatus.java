@@ -28,6 +28,7 @@ public class CarStatus {
 	int car_coolwat;
 	int car_accel_pressure;
 	int car_brake_pressure;
+	int car_driving_count;
 	
 	public CarStatus() {
 		super();
@@ -37,7 +38,7 @@ public class CarStatus {
 			int car_finedust, int car_temp, int car_ext_temperature, int car_ext_dust, int car_ext_finedust,
 			int car_humidity, int car_fuel, int car_bat, Date car_date, String car_hms, float car_lat, float car_log,
 			int car_filter, int car_eng_oil, int car_brakeoil, int car_accoil, int car_coolwat, int car_accel_pressure,
-			int car_brake_pressure) {
+			int car_brake_pressure,int car_driving_count) {
 		super();
 		this.car_id = car_id;
 		this.car_on = car_on;
@@ -64,12 +65,13 @@ public class CarStatus {
 		this.car_coolwat = car_coolwat;
 		this.car_accel_pressure = car_accel_pressure;
 		this.car_brake_pressure = car_brake_pressure;
+		this.car_driving_count = car_driving_count;
 	}
 
 	public String getCar_id() {
 		return car_id;
 	}
-
+	
 	public void setCar_id(String car_id) {
 		this.car_id = car_id;
 	}
@@ -266,6 +268,14 @@ public class CarStatus {
 		this.car_brake_pressure = car_brake_pressure;
 	}
 
+	public int getCar_driving_count() {
+		return car_driving_count;
+	}
+
+	public void setCar_driving_count(int car_driving_count) {
+		this.car_driving_count = car_driving_count;
+	}
+
 	@Override
 	public String toString() {
 		return "CarStatus [car_id=" + car_id + ", car_on=" + car_on + ", car_speed=" + car_speed + ", car_distance="
@@ -276,6 +286,8 @@ public class CarStatus {
 				+ ", car_lat=" + car_lat + ", car_log=" + car_log + ", car_filter=" + car_filter + ", car_eng_oil="
 				+ car_eng_oil + ", car_brakeoil=" + car_brakeoil + ", car_accoil=" + car_accoil + ", car_coolwat="
 				+ car_coolwat + ", car_accel_pressure=" + car_accel_pressure + ", car_brake_pressure="
-				+ car_brake_pressure + "]";
+				+ car_brake_pressure + ", car_driving_count=" + car_driving_count + "]";
 	}
+
+
 }
