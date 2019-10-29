@@ -2,8 +2,11 @@ package com.cargroupuser;
 
 import java.util.ArrayList;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.frame.Dao;
@@ -13,7 +16,7 @@ import com.vo.CarGroup;
 @Component("CarGroupUserDao")
 public class CarGroupUserDao implements Dao<String, CarGroup> {
 
-	@Resource(name = "carGroupUserMapper")
+	@Autowired
 	carGroupUserMapper carGroupUserMapper;
 	
 	@Override

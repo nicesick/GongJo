@@ -13,6 +13,7 @@ public class CarGroupUserBiz implements Biz<String, CarGroup> {
 	@Resource(name = "CarGroupUserDao")
 	Dao<String, CarGroup> carGroupUserDao;
 	
+	
 	@Override
 	public void insert(CarGroup v) {
 		// TODO Auto-generated method stub
