@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <style>
 img {
   width: auto;
   height: 60px;
   border: 5px solid black;
 }
-
 </style>
+
 <head>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
@@ -27,20 +28,20 @@ img {
 <script>
 	var map;
 	var lonlat;
+  var label;
+  
 	function initTmap(){
 		map = new Tmapv2.Map("map_div", {
 						center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841),
 						width: "100%",
 						height: "400px",
 						zomm: 15
-	                    });
-	}        
+	  });
+	}
 	
 	function Move(car_lat, car_log){
- 	
 		var lonlat = new Tmapv2.LatLng(car_lat, car_log);
-    	map.setCenter(lonlat);
-	
+    map.setCenter(lonlat);
 	}
 
 	function Move(){
@@ -48,9 +49,22 @@ img {
 	    map.setCenter(lonlat);
 	}
 	
-
-</script>
+  //make marker
+	function MakeMarker(car_id, car_lat, car_log){
+		var lonlat = new Tmapv2.LatLng(car_lat, car_log);
+		var title = car_id;
+    
+		label="<span style='background-color: #46414E;color:white'>"+title+"</span>";
 		
+    marker = new Tmapv2.Marker({
+			position : lonlat,
+			map : map,
+			title : title,
+			label : label
+		});
+	}
+</script>
+
 </head>
 <!-- ============================================================== -->
 <!-- Container fluid  -->
@@ -68,7 +82,7 @@ img {
                  <li class="breadcrumb-item"><a href="adminuserlist.mc">관리자모드 유저관리</a></li>
              </ol>
          </nav>
-         
+
          <!-- T-map Initialization -->
          <body onload="initTmap();">
         		<div id="map_div">
@@ -92,13 +106,12 @@ img {
                 </div>
             </div>
         </div>
-     </div>
-     
- </div>
+     </div>   
+  </div>
 	<!-- ============================================================== -->
 	<!-- Recent comment and chats -->
 	<!-- ============================================================== -->
-</div>
+  </div>
 </div>
 <!-- Charts js Files -->
 	<script src="assets/libs/flot/excanvas.js"></script>
