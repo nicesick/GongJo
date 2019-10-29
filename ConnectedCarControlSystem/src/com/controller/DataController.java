@@ -241,7 +241,7 @@ public class DataController {
 	public void sendFCMMsg(String tokenId, String title, String context) {
 		try {
 			FileInputStream refreshToken = new FileInputStream(
-					"C:\\Users\\student\\Desktop\\ConnectedCarControlSystem\\resource\\gongjo-93a9f-firebase-adminsdk-qwyxy-674f31e157.json");
+					"C:\\Users\\student\\Desktop\\GongJo\\ConnectedCarControlSystem\\resource\\gongjo-93a9f-firebase-adminsdk-qwyxy-674f31e157.json");
 			FirebaseOptions options = new FirebaseOptions.Builder()
 					.setCredentials(GoogleCredentials.fromStream(refreshToken))
 					.setDatabaseUrl("https://gongjo-93a9f.firebaseio.com").build();
