@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class CarStatus {
 	String car_id;
+	String car_on;
 	int car_speed;
 	int car_distance;
 	int car_air;
@@ -32,13 +33,14 @@ public class CarStatus {
 		super();
 	}
 
-	public CarStatus(String car_id, int car_speed, int car_distance, int car_air, int car_dust, int car_finedust,
-			int car_temp, int car_ext_temperature, int car_ext_dust, int car_ext_finedust, int car_humidity,
-			int car_fuel, int car_bat, Date car_date, String car_hms, float car_lat, float car_log, int car_filter,
-			int car_eng_oil, int car_brakeoil, int car_accoil, int car_coolwat, int car_accel_pressure,
+	public CarStatus(String car_id, String car_on, int car_speed, int car_distance, int car_air, int car_dust,
+			int car_finedust, int car_temp, int car_ext_temperature, int car_ext_dust, int car_ext_finedust,
+			int car_humidity, int car_fuel, int car_bat, Date car_date, String car_hms, float car_lat, float car_log,
+			int car_filter, int car_eng_oil, int car_brakeoil, int car_accoil, int car_coolwat, int car_accel_pressure,
 			int car_brake_pressure) {
 		super();
 		this.car_id = car_id;
+		this.car_on = car_on;
 		this.car_speed = car_speed;
 		this.car_distance = car_distance;
 		this.car_air = car_air;
@@ -70,6 +72,14 @@ public class CarStatus {
 
 	public void setCar_id(String car_id) {
 		this.car_id = car_id;
+	}
+
+	public String getCar_on() {
+		return car_on;
+	}
+
+	public void setCar_on(String car_on) {
+		this.car_on = car_on;
 	}
 
 	public int getCar_speed() {
@@ -258,13 +268,14 @@ public class CarStatus {
 
 	@Override
 	public String toString() {
-		return "CarStatus [car_id=" + car_id + ", car_speed=" + car_speed + ", car_distance=" + car_distance
-				+ ", car_air=" + car_air + ", car_dust=" + car_dust + ", car_finedust=" + car_finedust + ", car_temp="
-				+ car_temp + ", car_ext_temperature=" + car_ext_temperature + ", car_ext_dust=" + car_ext_dust
-				+ ", car_ext_finedust=" + car_ext_finedust + ", car_humidity=" + car_humidity + ", car_fuel=" + car_fuel
-				+ ", car_bat=" + car_bat + ", car_date=" + car_date + ", car_hms=" + car_hms + ", car_lat=" + car_lat
-				+ ", car_log=" + car_log + ", car_filter=" + car_filter + ", car_eng_oil=" + car_eng_oil
-				+ ", car_brakeoil=" + car_brakeoil + ", car_accoil=" + car_accoil + ", car_coolwat=" + car_coolwat
-				+ ", car_accel_pressure=" + car_accel_pressure + ", car_brake_pressure=" + car_brake_pressure + "]";
+		return "CarStatus [car_id=" + car_id + ", car_on=" + car_on + ", car_speed=" + car_speed + ", car_distance="
+				+ car_distance + ", car_air=" + car_air + ", car_dust=" + car_dust + ", car_finedust=" + car_finedust
+				+ ", car_temp=" + car_temp + ", car_ext_temperature=" + car_ext_temperature + ", car_ext_dust="
+				+ car_ext_dust + ", car_ext_finedust=" + car_ext_finedust + ", car_humidity=" + car_humidity
+				+ ", car_fuel=" + car_fuel + ", car_bat=" + car_bat + ", car_date=" + car_date + ", car_hms=" + car_hms
+				+ ", car_lat=" + car_lat + ", car_log=" + car_log + ", car_filter=" + car_filter + ", car_eng_oil="
+				+ car_eng_oil + ", car_brakeoil=" + car_brakeoil + ", car_accoil=" + car_accoil + ", car_coolwat="
+				+ car_coolwat + ", car_accel_pressure=" + car_accel_pressure + ", car_brake_pressure="
+				+ car_brake_pressure + "]";
 	}
 }

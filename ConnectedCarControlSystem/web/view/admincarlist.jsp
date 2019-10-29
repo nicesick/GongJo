@@ -1,14 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <style>
 img {
   width: auto;
   height: 60px;
   border: 5px solid black;
 }
-
 </style>
+
 <head>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
@@ -23,57 +24,47 @@ img {
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&format=javascript&appkey=dbd0828d-01af-45cb-956b-a170291f8d2b"></script>
-	<!-- ============================================================== -->
-	<script src="assets/libs/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap tether Core JavaScript -->
-	<script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
-	<script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- ============================================================== -->
+
 <script>
-	var map
-	var marker;
-	var label;
-	
+	var map;
+	var lonlat;
+  var label;
+  
 	function initTmap(){
 		map = new Tmapv2.Map("map_div", {
 						center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841),
 						width: "100%",
-						height: "400px"	
-	                    });
-		
-		
+						height: "400px",
+						zomm: 15
+	  });
 	}
 	
-	
-	//move to center of Map coordinate
 	function Move(car_lat, car_log){
-	
 		var lonlat = new Tmapv2.LatLng(car_lat, car_log);
-    	map.setCenter(lonlat);
-		var obj = '${admincars}';	
-		console.log(obj);
-		
+    map.setCenter(lonlat);
+	}
+
+	function Move(){
+	 	var lonlat = new Tmapv2.LatLng(37.566481622437934,126.98502302169841);
+	    map.setCenter(lonlat);
 	}
 	
-	
-	
-	//make marker
-	function MakeMarker(car_id, car_lat, car_log){			
-		
+  //make marker
+	function MakeMarker(car_id, car_lat, car_log){
 		var lonlat = new Tmapv2.LatLng(car_lat, car_log);
 		var title = car_id;
+    
 		label="<span style='background-color: #46414E;color:white'>"+title+"</span>";
-		marker = new Tmapv2.Marker({
+		
+    marker = new Tmapv2.Marker({
 			position : lonlat,
 			map : map,
 			title : title,
 			label : label
 		});
 	}
-	 
-
 </script>
-		
+
 </head>
 <!-- ============================================================== -->
 <!-- Container fluid  -->
@@ -87,49 +78,40 @@ img {
      <div class="card">
          <nav aria-label="breadcrumb">
              <ol class="breadcrumb">
-                 <li class="breadcrumb-item"><a href="admincarlist.mc">°ü¸®ÀÚ¸ğµå Â÷·®Á¶È¸</a></li>
-                 <li class="breadcrumb-item"><a href="adminuserlist.mc">°ü¸®ÀÚ¸ğµå À¯Àú°ü¸®</a></li>
+                 <li class="breadcrumb-item"><a href="admincarlist.mc">ê´€ë¦¬ìëª¨ë“œ ì°¨ëŸ‰ì¡°íšŒ</a></li>
+                 <li class="breadcrumb-item"><a href="adminuserlist.mc">ê´€ë¦¬ìëª¨ë“œ ìœ ì €ê´€ë¦¬</a></li>
              </ol>
          </nav>
-         
+
          <!-- T-map Initialization -->
          <body onload="initTmap();">
-        		<div id="map_div" >
-      		  </div>  
-      		  <div class="col-12">
+        		<div id="map_div">
+      		  </div>        
+    	 </body>
+         
+        
+         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Â÷·® ¸ñ·Ï</h5>
+                    <h5 class="card-title">ì°¨ëŸ‰ ëª©ë¡</h5>
                     <div class="row">
                     
-                      <c:forEach var="car" items="${admincars}" >
-                      	<div class="col-md-3 col-sm-6" >
-                          <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button" 
-                          onClick="Move(${car.car_lat}, ${car.car_log});"
-                          onload="MakeMarker(${car.car_id}, ${car.car_lat}, ${car.car_log});"
-                          >
-                          ${car.car_id}
-                          </button>
+                      <c:forEach var="car" items="${admincars}">
+                      	<div class="col-md-3 col-sm-6">
+                          <a href="selectcar.mc?id=${car.car_id}"><button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button"  onClick="Move(${car.car_lat}, ${car.car_log});" >${car.car_id}</button></a>
                       	</div>
                       </c:forEach>
                       
                     </div>
-                </div >
+                </div>
             </div>
         </div>
-      		        
-    	 </body>
-         
-        
-         
-        
-     </div>
-     
- </div>
+     </div>   
+  </div>
 	<!-- ============================================================== -->
 	<!-- Recent comment and chats -->
 	<!-- ============================================================== -->
-</div>
+  </div>
 </div>
 <!-- Charts js Files -->
 	<script src="assets/libs/flot/excanvas.js"></script>

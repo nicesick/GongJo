@@ -2,11 +2,14 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.MDC;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,17 +21,8 @@ import com.vo.User;
 
 @Controller
 public class LoginController {
-	// For Socket Test
-	private MainServer mainServer;
-	
 	@Resource(name="UserBiz")
 	Biz<String, User> userBiz;
-	
-	// Initialize MainServer
-	public LoginController() {
-		mainServer = new MainServer();
-		mainServer.start();
-	}
 	
 	@RequestMapping("logout.mc")
 	public void logout(HttpSession session, HttpServletResponse response) {
@@ -46,6 +40,8 @@ public class LoginController {
 	@RequestMapping("login.mc")
 	public ModelAndView loginPage(ModelAndView mv, HttpServletResponse response, HttpSession session) {
 		User user = (User)session.getAttribute("userInfo");
+		
+	
 		
 		if (user != null) {
 			try {
@@ -74,6 +70,12 @@ public class LoginController {
 				if (user.getUser_pwd().equals(pwd)) {
 					session.setAttribute("userInfo", user);
 					session.setMaxInactiveInterval(10000);
+					//Log4j
+					MDC.put("user_id", user.getUser_id().toString());
+					MDC.put("user_name",user.getUser_name().toString());
+					MDC.put("user_gender", user.getUser_gender().toString());
+					System.out.println(user.getUser_birthdate());
+					MDC.put("user_birthdate", user.getUser_birthdate().toString());
 					
 					out.print("LoginSuccess");
 				}

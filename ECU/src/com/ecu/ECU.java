@@ -195,52 +195,48 @@ public class ECU implements SerialPortEventListener {
 				while (rflag) {
 
 					str = din.readUTF();
-					
-					System.out.println(str);
-					// 시뮬레이터 조작
-					// 속도 연료 거리 베터리
-					
-					System.out.println(str.substring(0,8));
-					
-					if (str.substring(0,8).equals("00010010")) {
-						speed = str.substring(8,24);
-						st.sendData("W28"+str);
-					}
-					
-					else if(str.substring(0,8).equals("00010015")) {
-						distance = str.substring(8,24);
-						st.sendData("W28"+str);
-					}
-					
-					else if(str.substring(0,8).equals("00010050")) {
-						fuel = str.substring(8,24);
-						st.sendData("W28"+str);
-					}
-					
-					else if(str.substring(0,8).equals("00010055")) {
-						battery = str.substring(8,24);
-						st.sendData("W28"+str);
-					}
-					else if(str.substring(0,8).equals("00020020")) {
-						co2 = str.substring(8,24);
-						st.sendData("W28"+str);
-					}
-					else if(str.substring(0,8).equals("00020030")) {
-						dust = str.substring(8,24);
-						st.sendData("W28"+str);
-					}
-					else if(str.substring(0,8).equals("00020035")) {
-						sdust = str.substring(8,24);
-						st.sendData("W28"+str);
-					}
-					else if(str.substring(0,8).equals("00020040")) {
-						temperature = str.substring(8,24);
-						st.sendData("W28"+str);
-					}
-					else if(str.substring(0,8).equals("00020045")) {
-						humidity = str.substring(8,24);
-						st.sendData("W28"+str);
-					}
+					//센서값 From Simulator To IoT
+					System.out.println("From Simulator To IoT :"+"W28"+str);
+					st.sendData("W28"+str);
+//					if (str.substring(0,8).equals("00010010")) {
+//						speed = str.substring(8,24);
+//						st.sendData("W28"+str);
+//					}
+//					
+//					else if(str.substring(0,8).equals("00010015")) {
+//						distance = str.substring(8,24);
+//						st.sendData("W28"+str);
+//					}
+//					
+//					else if(str.substring(0,8).equals("00010050")) {
+//						fuel = str.substring(8,24);
+//						st.sendData("W28"+str);
+//					}
+//					
+//					else if(str.substring(0,8).equals("00010055")) {
+//						battery = str.substring(8,24);
+//						st.sendData("W28"+str);
+//					}
+//					else if(str.substring(0,8).equals("00020020")) {
+//						co2 = str.substring(8,24);
+//						st.sendData("W28"+str);
+//					}
+//					else if(str.substring(0,8).equals("00020030")) {
+//						dust = str.substring(8,24);
+//						st.sendData("W28"+str);
+//					}
+//					else if(str.substring(0,8).equals("00020035")) {
+//						sdust = str.substring(8,24);
+//						st.sendData("W28"+str);
+//					}
+//					else if(str.substring(0,8).equals("00020040")) {
+//						temperature = str.substring(8,24);
+//						st.sendData("W28"+str);
+//					}
+//					else if(str.substring(0,8).equals("00020045")) {
+//						humidity = str.substring(8,24);
+//						st.sendData("W28"+str);
+//					}
 				} 
 			} catch (Exception e) {
 				System.out.println("Disconnected");			
@@ -296,15 +292,12 @@ public class ECU implements SerialPortEventListener {
 				System.out.println("Result:" + result);
 				System.out.println("Receive Raw Data:" + ss + "||");
 				
-				
+				//From IoT to Simulator
 				if(ss.substring(0,4).equals(":U28")){
+				System.out.println("From IoT to Simulator :" + ss);
 				ecu.sendMsg(ss);
 				}
 
-				if(checkData.equals("U28000000000000000000000001")){
-					System.out.println("enginestart");
-//					ecu.sendMsg("EngineStart");
-				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -388,7 +381,7 @@ public class ECU implements SerialPortEventListener {
 		try {
 			// ECU st = new ECU("COM5");
 			//st = new ECU("COM5");
-			st = new ECU("COM8");
+			st = new ECU("COM7");
 			ecu = new ECU("70.12.230.119", 8888);
 //			ecu.start();
 		}
