@@ -37,16 +37,9 @@
 <!-- ============================================================== -->
 <div class="page-breadcrumb">
 	<div class="row">
-		<div class="col-12 d-flex no-block align-items-center">
-			<h4 class="page-title">${carStatus.car_id } : 실시간데이터</h4>
-			<div class="ml-auto text-right">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="main.mc">Home</a></li>
-						<li class="breadcrumb-item active" aria-current="page">RealTimeData</li>
-					</ol>
-				</nav>
-			</div>
+		<div class="col-12 align-items-center">
+			<h4 class="page-title">${selectcar } : 실시간데이터</h4>
+			<h5 class="page-title" id="dateHms"></h5>
 		</div>
 	</div>
 </div>
@@ -68,7 +61,7 @@
 					<div
 						style="display: inline-block; width: 320px; text-align: center">
 						<div style="display: inline-block; float: left;">
-							<img src="assets/images/car_top_view_on.png" width="135px">
+							<img id="carOnStatusImg" src="assets/images/car_top_view_off.png" width="135px">
 						</div>
 
 						<div style="display: inline-block; float: middle; width: 170px">
@@ -105,9 +98,12 @@
 
 					<div
 						style="display: inline-block; width: 400px; text-align: center">
+						
 						<div
 							style="display: inline-block; float: left; margin-right: 5px; padding: 10px;">
 							<img src="assets/images/air-conditioner.png" width="60px">
+							<input id="requestTemp" type="number" min="-40" max="50" style="display: inline-block; width : 50px; height: 50px; margin-left : 10px; vertical-align: middle;">
+							<button id="requestTempButton" style="display: inline-block; width : 50px; height: 50px; margin-left : 10px; vertical-align: middle;">Send</button>
 							<h6>희망 온도</h6>
 							<!-- form -->
 						</div>
@@ -117,7 +113,6 @@
 							<div style="float: left; text-align: center;">
 								<img src="assets/images/cardistance.png" height="60px">
 								<h6>운행 거리</h6>
-
 							</div>
 							<div
 								style="display: inline-block; height: 80px; padding: 20px 10px; vertical-align: middle;">
@@ -296,6 +291,83 @@
 <!-- This page Register scripts -->
 <!-- ============================================================== -->
 <script>
+	var car_id = '${selectcar }';
+	
+	function offClickEvent(id) {
+		$(id).off('click');
+	}
+	
+	function setClickEvent(id) {
+		if (id == '#carOnStatusImg') {
+			$(id).on('click',function(){
+				var currentOnStatus = $('#carOnStatusImg').attr('src');
+				console.log(currentOnStatus);
+				
+				if (currentOnStatus == 'assets/images/car_top_view_on.png') {
+					var type = 'off';
+					var value = null;
+					
+					sendControlCmd(car_id, type, value);
+				}
+				
+				else {
+					var type = 'on';
+					var value = null;
+					
+					sendControlCmd(car_id, type, value);
+				}
+			});
+		}
+		
+		else if (id == '#requestTempButton') {
+			$(id).on('click',function(){
+				var value = $('#requestTemp').val();
+				
+				if (value != '') {
+					var type = 'air';
+					
+					sendControlCmd(car_id, type, value);
+				}
+			});
+		}
+	}
+	
+	function sendControlCmd(car_id, type, value) {
+		if (car_id != '') {
+			if (type == 'on' || type == 'off') {
+				offClickEvent('#carOnStatusImg');
+			}
+			
+			else {
+				offClickEvent('#requestTempButton');
+			}
+			
+			$.ajax({
+				url : 'sendControlCmd.mc',
+				method : 'POST',
+				data : {
+					'car_id' : car_id,
+					'type' : type,
+					'value' : value
+				},
+				
+				success : function(data){
+					if (type == 'on' || type == 'off') {
+						setClickEvent('#carOnStatusImg');
+					}
+					
+					else {
+						setClickEvent('#requestTempButton');
+					}
+					
+					if (data == 'NoSocket') {
+						alert('현재 차량과 연결되어 있지 않습니다');
+					}
+				}
+			});
+		}
+	}
+	
 	function getData(car_id) {
 		if (car_id != '') {
 			$.ajax({
@@ -309,7 +381,7 @@
 					var obj = JSON.parse(data);
 					console.log(data);
 					console.log(obj.speed);
-
+					
 					$('#car_speed').html(obj.speed);
 					$('#car_distance').html(obj.distance);
 					$('#car_air').html(obj.air);
@@ -324,14 +396,17 @@
 					$('#car_fuel').html(obj.fuel);
 					$('#car_lat').html(obj.lat);
 					$('#car_log').html(obj.log);
+					$('#dateHms').html("갱신시간 : " + obj.date + " " + obj.hms);
+					$('#carOnStatusImg').attr('src','assets/images/car_top_view_' + obj.on + '.png');
 				}
 			});
 		}
 	};
-
-	var car_id = '${carStatus.car_id }';
-
+	
 	setInterval(function() {
 		getData(car_id);
 	}, 1000);
+	
+	setClickEvent('#carOnStatusImg');
+	setClickEvent('#requestTempButton');
 </script>

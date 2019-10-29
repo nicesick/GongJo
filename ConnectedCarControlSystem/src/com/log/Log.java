@@ -29,14 +29,15 @@ public class Log {
 		
 		if (car_accel_pressure > PRESSURE_STANDARD || car_brake_pressure > PRESSURE_STANDARD) {
 			warning_log.debug(jp.getSignature().getName());
-		}else {
-			status_log.debug(jp.getSignature().getName());
 		}
+		status_log.debug(jp.getSignature().getName());
+		
 	}
 	
 	@After("execution(* com.controller.LoginController.loginImpl(..))")
 	public void makeUserLog(JoinPoint jp) {
 		
+
 		String user_id = MDC.get("user_id").toString();
 		String user_birthday = MDC.get("user_birthdate").toString();
 		
@@ -45,6 +46,7 @@ public class Log {
 		}else {
 			warning_log.debug(jp.getSignature().getName());
 		}
+
 
 	}
 }

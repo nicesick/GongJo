@@ -21,17 +21,8 @@ import com.vo.User;
 
 @Controller
 public class LoginController {
-	// For Socket Test
-	private MainServer mainServer;
-	
 	@Resource(name="UserBiz")
 	Biz<String, User> userBiz;
-	
-	// Initialize MainServer
-	public LoginController() {
-		mainServer = new MainServer();
-		mainServer.start();
-	}
 	
 	@RequestMapping("logout.mc")
 	public void logout(HttpSession session, HttpServletResponse response) {

@@ -163,7 +163,7 @@ public class RegisterController {
 		CarGroup carGroup = new CarGroup (user.getUser_id(), car.getCar_id());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		
-		CarStatus carstatus = new CarStatus(car.getCar_id(),80,20000,700,120,100,26,17,200,150,50,15,80,Date.valueOf(sdf.format(new java.util.Date())),"0",123.1234f,36.5678f,100,100,100,100,100,0,30);
+		CarStatus carstatus = new CarStatus(car.getCar_id(),"off",80,20000,700,120,100,26,17,200,150,50,15,80,Date.valueOf(sdf.format(new java.util.Date())),"0",123.1234f,36.5678f,100,100,100,100,100,0,30);
 
 		carGroupBiz.insert(carGroup);
 

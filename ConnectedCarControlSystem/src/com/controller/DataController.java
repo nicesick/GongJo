@@ -1,10 +1,12 @@
 package com.controller;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -29,20 +31,50 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.frame.Biz;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.messaging.AndroidConfig;
+import com.google.firebase.messaging.AndroidNotification;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.Message;
+import com.socket.MainServer;
+import com.socket.Sender;
 import com.test.PrintLog;
 import com.vo.CarConsumable;
+import com.vo.CarGroup;
 import com.vo.CarStatus;
 import com.vo.CarStatusTestHive;
+import com.vo.DeviceToken;
 
 @Controller
 public class DataController {
-
+	// For Socket Test
+	private MainServer mainServer;
+	
 	@Resource(name = "CarConsumableBiz")
 	Biz<String, CarConsumable> carConsumableBiz;
 
 	@Resource(name = "CarStatusBiz")
 	Biz<String, CarStatus> carStatusBiz;
 
+	@Resource(name = "CarGroupBiz")
+	Biz<String, CarGroup> CarGroupBiz;
+
+	@Resource(name = "CarGroupUserBiz")
+	Biz<String, CarGroup> carGroupUserBiz;
+	
+	@Resource(name = "DeviceTokenBiz")
+	Biz<String, DeviceToken> deviceTokenBiz;
+
+	final String titleMSG = "CAUSE";
+	final String bodyMSG = "you turn on light!!";
+	
+	public DataController() {
+		mainServer = new MainServer();
+		mainServer.start();
+	}
+	
 	@RequestMapping("selectcar.mc")
 	public void selectcar(HttpServletResponse response, HttpSession session, String id) {
 		if (id != null) {
@@ -116,7 +148,9 @@ public class DataController {
 			jo = (JSONObject) parser.parse(data);
 			
 			if (jo != null && !jo.isEmpty()) {
-				carStatus = new CarStatus(jo.get("car_id").toString(), 
+				carStatus = new CarStatus(
+						jo.get("car_id").toString(),
+						jo.get("car_on").toString(),
 						Integer.parseInt(jo.get("car_speed").toString()), 
 						Integer.parseInt(jo.get("car_distance").toString()),
 						Integer.parseInt(jo.get("car_air").toString()),
@@ -142,6 +176,7 @@ public class DataController {
 						Integer.parseInt(jo.get("car_brake_pressure").toString()));
 				
 				MDC.put("car_id", jo.get("car_id").toString());
+				MDC.put("car_on", jo.get("car_on").toString());
 				MDC.put("car_speed", jo.get("car_speed").toString());
 				MDC.put("car_distance", jo.get("car_distance").toString());
 				MDC.put("car_air", jo.get("car_air").toString());
@@ -170,6 +205,10 @@ public class DataController {
 			e.printStackTrace();
 		}
 
+		if("0".equals(jo.get("car_start_up").toString()) && "1".equals(jo.get("car_light_on"))) {
+			makeFCMEnvironment(jo.get("car_id").toString());
+		}
+
 		if (carStatus != null) {
 			if (carStatusBiz.select(carStatus.getCar_id()) != null) {
 				carStatusBiz.update(carStatus);
@@ -181,7 +220,53 @@ public class DataController {
 		}
 	}
 
-	// �냼紐⑦뭹 �젙蹂� �솗�씤
+	public void makeFCMEnvironment(String car_id) {
+		ArrayList<CarGroup> carGroups =	carGroupUserBiz.selects(car_id);
+		
+		for (CarGroup carGroup : carGroups) {
+			if (carGroup.getCar_id().equals(car_id)) {
+				System.out.println(carGroup.getCar_id());
+				searchTokenId(carGroup.getUser_id());
+			}
+		}
+	}
+
+	public void searchTokenId(String User_id) {
+		ArrayList<DeviceToken> deviceTokens = deviceTokenBiz.selects(User_id);
+		for (DeviceToken deviceToken : deviceTokens) {
+			sendFCMMsg(deviceToken.getDevice_token(), titleMSG, bodyMSG);
+		}
+	}
+
+	public void sendFCMMsg(String tokenId, String title, String context) {
+		try {
+			FileInputStream refreshToken = new FileInputStream(
+					"C:\\Users\\student\\Desktop\\ConnectedCarControlSystem\\resource\\gongjo-93a9f-firebase-adminsdk-qwyxy-674f31e157.json");
+			FirebaseOptions options = new FirebaseOptions.Builder()
+					.setCredentials(GoogleCredentials.fromStream(refreshToken))
+					.setDatabaseUrl("https://gongjo-93a9f.firebaseio.com").build();
+			if (FirebaseApp.getApps().isEmpty()) {
+				FirebaseApp.initializeApp(options); 
+			}
+			System.out.println(tokenId);
+			String registrationToken = tokenId;
+
+			Message msg = Message.builder()
+					.setAndroidConfig(AndroidConfig.builder().setTtl(1000).setPriority(AndroidConfig.Priority.NORMAL)
+							.setNotification(AndroidNotification.builder().setTitle(title).setBody(context).build())
+							.build())
+//					.putData("title", title)
+//					.putData("body", context)
+					.setToken(registrationToken).build();
+
+			String response = FirebaseMessaging.getInstance().send(msg);
+			System.out.println(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// ?�쎈꺖筌뤴뫂?�� ?�쎌?�癰귨옙 ?�쎌?�占?�뵥
 	@RequestMapping("getConsumableData.mc")
 	public ModelAndView getConsumableData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		CarConsumable carConsumable = null;
@@ -225,7 +310,7 @@ public class DataController {
 		return mv;
 	}
 	
-	//�냼紐⑦뭹 �떎�떆媛� �솗�씤
+	//?�쎈꺖筌뤴뫂?�� ?�쎈뼄占?�뻻?�쏉???�쎌?�占?�뵥
 	@RequestMapping("getRealTimeConsumable.mc")
 	@ResponseBody
 	public void getRealTimeConsumable(String car_id, HttpSession session, HttpServletResponse response) {
@@ -243,6 +328,8 @@ public class DataController {
 			
 			JSONObject jo = new JSONObject();
 			
+			jo.put("car_date", carStatus.getCar_date().toString());
+			jo.put("car_hms", carStatus.getCar_hms());
 			jo.put("car_filter", carStatus.getCar_filter());
 			jo.put("car_eng_oil", carStatus.getCar_eng_oil());
 			jo.put("car_brakeoil", carStatus.getCar_brakeoil());
@@ -268,7 +355,7 @@ public class DataController {
 		}
 	}
 
-	// �슫�뻾湲곕줉 �솗�씤
+	// ?�쎌?�占?�뻬?�꿸?�以�??�쎌?�占?�뵥
 	@RequestMapping("getDrivingRecordData.mc")
 	public ModelAndView getDrivingRecordData(ModelAndView mv) {
 		mv.setViewName("index");
@@ -277,7 +364,7 @@ public class DataController {
 		return mv;
 	}
 
-	// �떎�떆媛� �긽�깭 �솗�씤
+	// ?�쎈뼄占?�뻻?�쏉???�쎄맒占?�묶 ?�쎌?�占?�뵥
 
 	@RequestMapping("getRealTimeDrivingData.mc")
 	public ModelAndView getRealTimeDrivingData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
@@ -287,22 +374,7 @@ public class DataController {
 		String car_id = (String) session.getAttribute("selectcar");
 		
 		if (car_id != null && !car_id.equals("")) {
-			carStatus = carStatusBiz.select(car_id);
-			
-			if (carStatus != null) {
-				mv.addObject("carStatus", carStatus);
-				mv.addObject("center", "realTimeDriving");
-			}
-			
-			else {
-				try {
-					response.sendRedirect("main.mc");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				return null;
-			}
+			mv.addObject("center", "realTimeDriving");
 		}
 		
 		else {
@@ -320,12 +392,14 @@ public class DataController {
 	}
 	
 	@RequestMapping("getRealTimeData.mc")
+	@ResponseBody
 	public void getRealTimedata(String car_id, HttpSession session, HttpServletResponse reponse) {
 		CarStatus carStatus = null;
 		carStatus = carStatusBiz.select(car_id);
 		
 		JSONObject jo = new JSONObject();
 		
+		jo.put("on", carStatus.getCar_on());
 		jo.put("speed", carStatus.getCar_speed());
 		jo.put("distance", carStatus.getCar_distance());
 		jo.put("air", carStatus.getCar_air());
@@ -340,6 +414,8 @@ public class DataController {
 		jo.put("bat", carStatus.getCar_bat());
 		jo.put("lat", carStatus.getCar_lat());
 		jo.put("log", carStatus.getCar_log());
+		jo.put("date", carStatus.getCar_date().toString());
+		jo.put("hms", carStatus.getCar_hms());
 		
 		try {
 			PrintWriter out = reponse.getWriter();
@@ -349,6 +425,61 @@ public class DataController {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("sendControlCmd.mc")
+	@ResponseBody
+	public void controlCmd(String car_id, String type, String value, HttpServletResponse response) {
+		String responseMsg = "";
+		
+		if (mainServer.getSocketMap().containsKey(car_id)) {
+			String id = "";
+			String data = "";
+			
+			if (type.equals("on")) {
+				id = "00000000";
+				data = "00000000" + "00000001";
+			}
+			
+			else if (type.equals("off")) {
+				id = "00000000";
+				data = "00000000" + "00000000";
+			}
+			
+			else if (type.equals("air")) {
+				String changedValue = String.format("%03d",Integer.parseInt(value) + 40);
+				
+				id = "00020040";
+				data = "00000000" + "00000" + changedValue;
+			}
+			
+			String msg = "W28" + id + data;
+			Socket targetSocket = mainServer.getSocketMap().get(car_id).getSocket();
+			
+			Sender sender = new Sender(targetSocket);
+			sender.setMsg(msg);
+			sender.start();
+			
+			responseMsg = "OKSocket";
+		}
+		
+		else {
+			responseMsg = "NoSocket";
+		}
+		
+		PrintWriter out = null;
+		
+		try {
+			out = response.getWriter();
+			out.write(responseMsg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (out != null) {
+				out.close();
+			}
 		}
 	}
 }
