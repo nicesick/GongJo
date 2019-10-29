@@ -35,7 +35,7 @@ import com.vo.CarStatusTestHive;
 
 @Controller
 public class DataController {
-
+	fcmController fcmUtil;
 	@Resource(name = "CarConsumableBiz")
 	Biz<String, CarConsumable> carConsumableBiz;
 
@@ -143,7 +143,12 @@ public class DataController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
+		
+		if("0".equals(jo.get("car_start_up").toString()) && "1".equals(jo.get("car_light_on"))) {
+			System.out.println("danger");
+			fcmUtil = new fcmController();
+			fcmUtil.makeFCMEnvironment(jo.get("car_id").toString());
+		}
 		if (carStatus != null) {
 			if (carStatusBiz.select(carStatus.getCar_id()) != null) {
 				carStatusBiz.update(carStatus);
@@ -155,7 +160,7 @@ public class DataController {
 		}
 	}
 
-	// 소모품 정보 확인
+	// �냼紐⑦뭹 �젙蹂� �솗�씤
 	@RequestMapping("getConsumableData.mc")
 	public ModelAndView getConsumableData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		CarConsumable carConsumable = null;
@@ -199,7 +204,7 @@ public class DataController {
 		return mv;
 	}
 	
-	//소모품 실시간 확인
+	//�냼紐⑦뭹 �떎�떆媛� �솗�씤
 	@RequestMapping("getRealTimeConsumable.mc")
 	@ResponseBody
 	public void getRealTimeConsumable(String car_id, HttpSession session, HttpServletResponse response) {
@@ -242,7 +247,7 @@ public class DataController {
 		}
 	}
 
-	// 운행기록 확인
+	// �슫�뻾湲곕줉 �솗�씤
 	@RequestMapping("getDrivingRecordData.mc")
 	public ModelAndView getDrivingRecordData(ModelAndView mv) {
 		mv.setViewName("index");
@@ -251,7 +256,7 @@ public class DataController {
 		return mv;
 	}
 
-	// 실시간 상태 확인
+	// �떎�떆媛� �긽�깭 �솗�씤
 
 	@RequestMapping("getRealTimeDrivingData.mc")
 	public ModelAndView getRealTimeDrivingData(ModelAndView mv, HttpSession session, HttpServletResponse response) {

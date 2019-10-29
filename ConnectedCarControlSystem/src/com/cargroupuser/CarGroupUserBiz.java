@@ -1,50 +1,53 @@
-package com.cargroup;
+package com.cargroupuser;
 
 import java.util.ArrayList;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Component;
-
+import com.frame.Biz;
 import com.frame.Dao;
-import com.mapper.carGroupMapper;
 import com.vo.CarGroup;
 
-@Component("CarGroupDao")
-public class CarGroupDao implements Dao<String, CarGroup> {
+@Component("CarGroupUserBiz")
+public class CarGroupUserBiz implements Biz<String, CarGroup> {
 
-	@Resource(name = "carGroupMapper")
-	carGroupMapper carGroupMapper;
+	@Resource(name = "CarGroupUserDao")
+	Dao<String, CarGroup> carGroupUserDao;
 	
 	@Override
 	public void insert(CarGroup v) {
-		carGroupMapper.insert(v);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void update(CarGroup v) {
-		carGroupMapper.update(v);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void delete(String k) {
-		carGroupMapper.delete(k);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public CarGroup select(String k) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ArrayList<CarGroup> selects(String k) {
-		ArrayList<CarGroup> carGroups = carGroupMapper.selects(k);
+		ArrayList<CarGroup> carGroups = carGroupUserDao.selects(k);
 		
 		return carGroups;
 	}
 
 	@Override
 	public ArrayList<CarGroup> selectAll() {
+		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
