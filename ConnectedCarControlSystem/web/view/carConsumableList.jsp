@@ -7,16 +7,9 @@
 <!-- ============================================================== -->
 <div class="page-breadcrumb">
 	<div class="row">
-		<div class="col-12 d-flex no-block align-items-center">
-			<h4 class="page-title">Tables</h4>
-			<div class="ml-auto text-right">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="main.mc">Home</a></li>
-						<li class="breadcrumb-item active" aria-current="page">consumable</li>
-					</ol>
-				</nav>
-			</div>
+		<div class="col-12 align-items-center">
+			<h4 class="page-title">${selectcar } : 소모품</h4>
+			<h5 class="page-title" id="dateHms"></h5>
 		</div>
 	</div>
 </div>
@@ -34,7 +27,6 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">${carConsumable.car_id } : 소모품</h5>
 					<div class="table-responsive">
 						<table id="zero_config" class="table table-striped table-bordered">
 							<thead>
@@ -87,7 +79,7 @@
 
 <script>
 	function getData(car_id) {
-		if (car_id != '') {	
+		if (car_id != '') {
 			$.ajax({
     			url : 'getRealTimeConsumable.mc',
     			method : 'POST',
@@ -109,6 +101,7 @@
    					$('#date_breakoil').html(obj.date_breakoil);
    					$('#date_accoil').html(obj.date_accoil);
    					$('#date_coolwat').html(obj.date_coolwat);
+   					$('#dateHms').html("갱신시간 : " + obj.car_date + " " + obj.car_hms);
     			}
     		});
 		}
