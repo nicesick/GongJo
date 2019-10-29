@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <style>
 img {
   width: auto;
   height: 60px;
   border: 5px solid black;
 }
-
 </style>
+
 <head>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
@@ -26,37 +27,44 @@ img {
 
 <script>
 	var map;
-	// 페이지가 로딩이 된 후 호출하는 함수입니다.
-	
+	var lonlat;
+  var label;
+  
 	function initTmap(){
-		// map 생성
-		// Tmapv2.Map을 이용하여, 지도가 들어갈 div, 넓이, 높이를 설정합니다.
-		map = new Tmapv2.Map("map_div",  // "map_div" : 지도가 표시될 div의 id
-		{
-			center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841), // 지도 초기 좌표
-			width: "100%", // map의 width 설정
-			height: "400px", // map의 height 설정
-			zoom: 15
-		});
-		 
-		var marker = new Tmapv2.Marker({
-			position: new Tmapv2.LatLng(37.566481622437934,126.98452302169841),
-			map: map
-		});
-		var marker = new Tmapv2.Marker({
-			position: new Tmapv2.LatLng(37.566481622437934,126.98502302169841),
-			map: map
-		});
-		var marker = new Tmapv2.Marker({
-			position: new Tmapv2.LatLng(37.566481622437934,126.98552302169841),
-			map: map
-		});
-		
+		map = new Tmapv2.Map("map_div", {
+						center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841),
+						width: "100%",
+						height: "400px",
+						zomm: 15
+	  });
 	}
-// 맵 생성 실행
-initTmap();
-</script>
+	
+	function Move(car_lat, car_log){
+		var lonlat = new Tmapv2.LatLng(car_lat, car_log);
+    map.setCenter(lonlat);
+	}
+
+	function Move(){
+	 	var lonlat = new Tmapv2.LatLng(37.566481622437934,126.98502302169841);
+	    map.setCenter(lonlat);
+	}
+	
+  //make marker
+	function MakeMarker(car_id, car_lat, car_log){
+		var lonlat = new Tmapv2.LatLng(car_lat, car_log);
+		var title = car_id;
+    
+		label="<span style='background-color: #46414E;color:white'>"+title+"</span>";
 		
+    marker = new Tmapv2.Marker({
+			position : lonlat,
+			map : map,
+			title : title,
+			label : label
+		});
+	}
+</script>
+
 </head>
 <!-- ============================================================== -->
 <!-- Container fluid  -->
@@ -74,22 +82,23 @@ initTmap();
                  <li class="breadcrumb-item"><a href="adminuserlist.mc">관리자모드 유저관리</a></li>
              </ol>
          </nav>
-         
+
          <!-- T-map Initialization -->
-         <body onload="initTmap()">
+         <body onload="initTmap();">
         		<div id="map_div">
       		  </div>        
     	 </body>
          
+        
          <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">차량 목록</h5>
                     <div class="row">
                     
-                      <c:forEach var="car" items="${admincars }">
+                      <c:forEach var="car" items="${admincars}">
                       	<div class="col-md-3 col-sm-6">
-                          <button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button">${car.car_id}</button>
+                          <a href="selectcar.mc?id=${car.car_id}"><button class="btn btn-lg btn-block btn-outline-info" id="ts-info" type="button"  onClick="Move(${car.car_lat}, ${car.car_log});" >${car.car_id}</button></a>
                       	</div>
                       </c:forEach>
                       
@@ -97,12 +106,12 @@ initTmap();
                 </div>
             </div>
         </div>
-     </div>
- </div>
+     </div>   
+  </div>
 	<!-- ============================================================== -->
 	<!-- Recent comment and chats -->
 	<!-- ============================================================== -->
-</div>
+  </div>
 </div>
 <!-- Charts js Files -->
 	<script src="assets/libs/flot/excanvas.js"></script>
