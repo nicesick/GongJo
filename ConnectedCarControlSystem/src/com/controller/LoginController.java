@@ -70,8 +70,9 @@ public class LoginController {
 				if (user.getUser_pwd().equals(pwd)) {
 					session.setAttribute("userInfo", user);
 					session.setMaxInactiveInterval(10000);
-					
-					if (!checkExistDeviceToken(id, token)) {
+					if(token.equals("NULL") || token.equals("null")) {
+						
+					}else if(!checkExistDeviceToken(id, token)) {
 						deviceTokenBiz.insert(new DeviceToken(id, token));
 					}
 					

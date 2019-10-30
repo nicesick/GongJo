@@ -83,7 +83,7 @@
 								<input type="password" id="user_pwd" class="form-control"
 									placeholder="비밀번호" aria-label="Password"
 									aria-describedby="basic-addon1" required>
-								<input type="hidden" id="token" >
+								<input type="hidden" id="token" value="NULL">
 							</div>
 						</div>
 					</div>

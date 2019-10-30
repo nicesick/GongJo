@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<update id="update" parameterType="carStatus">
 		<!-- UPDATE CAR_STATUS_TABLE SET CAR_DATE=#{car_date}, CAR_STAT=#{car_stat} WHERE USER_ID=#{user_id} AND CAR_ID=#{car_id} -->
-		UPDATE CAR_STATUS_TABLE SET CAR_ON=#{car_on}, CAR_SPEED=#{car_speed}, CAR_DISTANCE=#{car_distance}, CAR_AIR=#{car_air}, CAR_DUST=#{car_dust}, CAR_FINEDUST=#{car_finedust}, CAR_TEMP=#{car_temp}, CAR_EXT_TEMPERATURE=#{car_ext_temperature}, CAR_EXT_DUST=#{car_ext_dust}, CAR_EXT_FINEDUST=#{car_ext_finedust}, CAR_HUMIDITY=#{car_humidity}, CAR_FUEL=#{car_fuel}, CAR_BAT=#{car_bat}, CAR_DATE=#{car_date}, CAR_HMS=#{car_hms}, CAR_LAT=#{car_lat}, CAR_LOG=#{car_log}, CAR_FILTER=#{car_filter}, CAR_ENG_OIL=#{car_eng_oil}, CAR_BRAKEOIL=#{car_brakeoil}, CAR_ACCOIL=#{car_accoil}, CAR_COOLWAT=#{car_coolwat}, CAR_ACCEL_PRESSURE=#{car_accel_pressure}, CAR_BRAKE_PRESSURE=#{car_brake_pressure}, #{car_driving_count} WHERE CAR_ID=#{car_id}
+		UPDATE CAR_STATUS_TABLE SET CAR_ON=#{car_on}, CAR_SPEED=#{car_speed}, CAR_DISTANCE=#{car_distance}, CAR_AIR=#{car_air}, CAR_DUST=#{car_dust}, CAR_FINEDUST=#{car_finedust}, CAR_TEMP=#{car_temp}, CAR_EXT_TEMPERATURE=#{car_ext_temperature}, CAR_EXT_DUST=#{car_ext_dust}, CAR_EXT_FINEDUST=#{car_ext_finedust}, CAR_HUMIDITY=#{car_humidity}, CAR_FUEL=#{car_fuel}, CAR_BAT=#{car_bat}, CAR_DATE=#{car_date}, CAR_HMS=#{car_hms}, CAR_LAT=#{car_lat}, CAR_LOG=#{car_log}, CAR_FILTER=#{car_filter}, CAR_ENG_OIL=#{car_eng_oil}, CAR_BRAKEOIL=#{car_brakeoil}, CAR_ACCOIL=#{car_accoil}, CAR_COOLWAT=#{car_coolwat}, CAR_ACCEL_PRESSURE=#{car_accel_pressure}, CAR_BRAKE_PRESSURE=#{car_brake_pressure}, CAR_DRIVING_COUNT=#{car_driving_count} WHERE CAR_ID=#{car_id}
 	</update>
 	
 	<delete id="delete" parameterType="String">

@@ -209,7 +209,7 @@ public class DataController {
 			e.printStackTrace();
 		}
 
-		if("0".equals(jo.get("car_start_up").toString()) && "1".equals(jo.get("car_light_on"))) {
+		if("on".equals(jo.get("car_on").toString()) && "1".equals(jo.get("car_light_on"))) {
 			makeFCMEnvironment(jo.get("car_id").toString());
 		}
 
@@ -228,6 +228,7 @@ public class DataController {
 			}
 			
 			else {
+				carStatus.setCar_driving_count(0);
 				carStatusBiz.insert(carStatus);
 			}
 		}
