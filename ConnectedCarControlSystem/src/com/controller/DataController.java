@@ -38,8 +38,10 @@ import com.google.firebase.messaging.AndroidConfig;
 import com.google.firebase.messaging.AndroidNotification;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
+
 import com.socket.MainServer;
 import com.socket.Sender;
+
 import com.test.PrintLog;
 import com.vo.CarConsumable;
 import com.vo.CarGroup;
@@ -51,7 +53,7 @@ import com.vo.DeviceToken;
 public class DataController {
 	// For Socket Test
 	private MainServer mainServer;
-	
+
 	@Resource(name = "CarConsumableBiz")
 	Biz<String, CarConsumable> carConsumableBiz;
 
@@ -69,7 +71,7 @@ public class DataController {
 
 	final String titleMSG = "CAUSE";
 	final String bodyMSG = "you turn on light!!";
-	
+
 	public DataController() {
 		mainServer = new MainServer();
 		mainServer.start();
@@ -104,8 +106,7 @@ public class DataController {
 				System.out.println(rs.getDate("test_hive.car_date"));
 				System.out.println(rs.getString("test_hive.car_id"));
 
-				carStatus
-						.add(new CarStatusTestHive(rs.getDate("test_hive.car_date"), rs.getString("test_hive.car_id")));
+				carStatus.add(new CarStatusTestHive(rs.getDate("test_hive.car_date"), rs.getString("test_hive.car_id")));
 			}
 
 			conn.close();
@@ -140,10 +141,7 @@ public class DataController {
 
 		PrintLog.printLog("DataController", data);
 		CarStatus carStatus = null;
-		
-		
-		
-		
+
 		JSONParser parser = new JSONParser();
 		JSONObject jo = null;
 		
@@ -205,12 +203,18 @@ public class DataController {
 				MDC.put("car_accel_pressure", jo.get("car_accel_pressure").toString());
 				MDC.put("car_brake_pressure", jo.get("car_brake_pressure").toString());
 				MDC.put("car_driving_count", carStatusBiz.select(jo.get("car_id").toString()).getCar_driving_count());
+				
+				MDC.put("car_fuel_spent", Integer.parseInt(jo.get("car_fuel").toString())-carStatusBiz.select(jo.get("car_id").toString()).getCar_fuel());
+				
+				
+				
+				
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
-		if("0".equals(jo.get("car_start_up").toString()) && "1".equals(jo.get("car_light_on"))) {
+		if("on".equals(jo.get("car_on").toString()) && "1".equals(jo.get("car_light_on"))) {
 			makeFCMEnvironment(jo.get("car_id").toString());
 		}
 
@@ -229,6 +233,7 @@ public class DataController {
 			}
 			
 			else {
+				carStatus.setCar_driving_count(0);
 				carStatusBiz.insert(carStatus);
 			}
 		}
@@ -247,6 +252,7 @@ public class DataController {
 
 	public void searchTokenId(String User_id) {
 		ArrayList<DeviceToken> deviceTokens = deviceTokenBiz.selects(User_id);
+		
 		for (DeviceToken deviceToken : deviceTokens) {
 			sendFCMMsg(deviceToken.getDevice_token(), titleMSG, bodyMSG);
 		}
@@ -259,10 +265,11 @@ public class DataController {
 			FirebaseOptions options = new FirebaseOptions.Builder()
 					.setCredentials(GoogleCredentials.fromStream(refreshToken))
 					.setDatabaseUrl("https://gongjo-93a9f.firebaseio.com").build();
+			
 			if (FirebaseApp.getApps().isEmpty()) {
 				FirebaseApp.initializeApp(options); 
 			}
-			System.out.println(tokenId);
+			
 			String registrationToken = tokenId;
 
 			Message msg = Message.builder()
@@ -280,7 +287,6 @@ public class DataController {
 		}
 	}
 
-	// ?�쎈꺖筌뤴뫂?�� ?�쎌?�癰귨옙 ?�쎌?�占?�뵥
 	@RequestMapping("getConsumableData.mc")
 	public ModelAndView getConsumableData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		CarConsumable carConsumable = null;
@@ -324,7 +330,6 @@ public class DataController {
 		return mv;
 	}
 	
-	//?�쎈꺖筌뤴뫂?�� ?�쎈뼄占?�뻻?�쏉???�쎌?�占?�뵥
 	@RequestMapping("getRealTimeConsumable.mc")
 	@ResponseBody
 	public void getRealTimeConsumable(String car_id, HttpSession session, HttpServletResponse response) {
@@ -369,7 +374,6 @@ public class DataController {
 		}
 	}
 
-	// ?�쎌?�占?�뻬?�꿸?�以�??�쎌?�占?�뵥
 	@RequestMapping("getDrivingRecordData.mc")
 	public ModelAndView getDrivingRecordData(ModelAndView mv) {
 		mv.setViewName("index");
@@ -377,8 +381,6 @@ public class DataController {
 
 		return mv;
 	}
-
-	// ?�쎈뼄占?�뻻?�쏉???�쎄맒占?�묶 ?�쎌?�占?�뵥
 
 	@RequestMapping("getRealTimeDrivingData.mc")
 	public ModelAndView getRealTimeDrivingData(ModelAndView mv, HttpSession session, HttpServletResponse response) {

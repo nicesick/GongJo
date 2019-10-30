@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     TextView timeTextView;
 
     FragmentManager fragmentManager;
-    ConsumableFragment comsumableFragment;
+    ConsumableFragment consumableFragment;
     MapFragment mapFragment;
     SettingFragment settingFragment;
     RealTimeFragment realTimeFragment;
@@ -45,18 +45,18 @@ public class MainActivity extends AppCompatActivity {
     URL url;
 
     ChangeTimeInRealTime changeTimeInRealTime;
-    SendStateWithHttp sendStateWithHttp;
     RealTimeController realTimeController;
     ConsumableController consumableController;
 
     Button mapFragmentButton,settingFragmentButton,realTimeFragmentButton,consumableFragmentButton;
+    SoundPlayClass soundPlayClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        soundPlayClass= new SoundPlayClass(this);
         url = null;
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         setViewControl();
         setFragment();
@@ -64,7 +64,11 @@ public class MainActivity extends AppCompatActivity {
         changeTimeInRealTime.start();
         index = 0;
         checkPermission();
+        Log.d("on create","Start");
         openSocket();
+
+
+
     }
 
     void checkPermission(){
@@ -74,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     void setURL(){
         try {
-            url = new URL("http://70.12.60.99/sendData.mc");
+            url = new URL("http://70.12.60.95/ConnectedCarControlSystem/sendData.mc");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -95,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager =getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
-        comsumableFragment = new ConsumableFragment();
+        consumableFragment = new ConsumableFragment();
         mapFragment = new MapFragment();
         settingFragment = new SettingFragment();
         realTimeFragment = new RealTimeFragment();
@@ -103,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         realTimeController = new RealTimeController();
         consumableController = new ConsumableController();
 
-        transaction.replace(R.id.FragmentLayout,comsumableFragment).commit();
+        transaction.replace(R.id.FragmentLayout,consumableFragment).commit();
         clickedButton = R.id.csmFragmentButton;
     }
     void setViewControl(){
@@ -178,15 +182,17 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("button","consumable");
                 setButtonUI(consumableFragmentButton);
                 clickedButton = R.id.csmFragmentButton;
-                getSupportFragmentManager().beginTransaction().replace(R.id.FragmentLayout,comsumableFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.FragmentLayout,consumableFragment).commit();
 
                 break;
             case R.id.settingFragmentButton:
                 Log.d("button","setting");
                 setButtonUI(settingFragmentButton);
                 clickedButton = R.id.settingFragmentButton;
-                realTimeController.setInTpt(index+"");
-                index++;
+
+                soundPlayClass.playLeftAlarm();
+                realTimeController.setStartUp("0");
+                realTimeController.setLightOn("1");
                 getSupportFragmentManager().beginTransaction().replace(R.id.FragmentLayout,settingFragment).commit();
 
                 break;

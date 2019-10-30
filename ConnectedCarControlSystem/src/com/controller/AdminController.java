@@ -45,6 +45,7 @@ public class AdminController {
 
 			ArrayList<CarStatus> allcarstatus = carStatusBiz.selectAll(); // selects all cars
 			session.setAttribute("admincars", allcarstatus);
+			
 			mv.addObject("center", "admincarlist");
 
 		}
@@ -66,9 +67,6 @@ public class AdminController {
 
 			ArrayList<User> alluser = userBiz.selectAll(); // selects all cars
 			session.setAttribute("adminusers", alluser);
-
-			
-			 
 
 			mv.addObject("center", "adminuserlist");
 
