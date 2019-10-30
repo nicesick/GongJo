@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.MDC;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -498,4 +499,50 @@ public class DataController {
 			}
 		}
 	}
+	
+	@RequestMapping("drawgraph.mc")
+	public ModelAndView drawgraph(ModelAndView mv) {
+		ArrayList<CarStatusTestHive> carStatus = new ArrayList<CarStatusTestHive>();
+		JSONArray graph1 = new JSONArray();
+		JSONObject data = new JSONObject();
+		
+		try {
+			Class.forName("org.apache.hive.jdbc.HiveDriver");
+			Connection conn = DriverManager.getConnection("jdbc:hive2://70.12.60.103:10000/default","hive_db" ,"111111");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT MAX(travel01.car_distance), travel01.car_id FROM travel01 where travel01.car_on = 'on' group by travel01.car_id");
+//			"SELECT max(travel01.car_distance) as distance, travel01.car_id from travel01 where travel01.car_on = 'on' group by travel01.car_id"
+		
+			
+			while (rs.next()) {
+				for(int i=1; i<2; i++) {
+				System.out.printf("하이브 메시지"+rs.getString(i)+ " ");
+				data = new JSONObject();
+				data.put("name",rs.getString("travel01.car_id"));
+				data.put("y",rs.getInt("max(travel01.car_distance)"));
+				System.out.println(data.get("name"));
+				
+				}
+				graph1.add(data);
+			}
+
+			conn.close();
+			System.out.println("Success....");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		mv.setViewName("index");
+		mv.addObject("center", "charts");
+
+		return mv;
+	}
+	
+	
+	
+	
+	
+	
 }
