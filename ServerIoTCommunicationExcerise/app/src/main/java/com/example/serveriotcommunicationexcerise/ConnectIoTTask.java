@@ -31,7 +31,8 @@ public class ConnectIoTTask {
         this.textView = textView;
         socketServer = new ServerSocket();
         socketServer.setReuseAddress(true);
-        socketServer.bind(new InetSocketAddress(8888));
+        Log.d("new server socket","open");
+        socketServer.bind(new InetSocketAddress(8800));
         connectServerTask = new ConnectServerTask(port,ip,list,textView);
 
         serverSocket = connectServerTask.getSocket();
@@ -117,7 +118,7 @@ public class ConnectIoTTask {
                     din = new DataInputStream(in);
                     String Msg = din.readUTF();
                     Log.i("IoT",mySocket.getInetAddress()+" is send "+Msg);
-
+                    if(serverSocket == null) break;
                     if(!serverSocket.isConnected()){
                         connectServerTask.makeSocket();
                         connectServerTask.startServerSocket();;

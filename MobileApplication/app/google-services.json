@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1093113243670",
+    "firebase_url": "https://gongjo-93a9f.firebaseio.com",
+    "project_id": "gongjo-93a9f",
+    "storage_bucket": "gongjo-93a9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093113243670:android:bbf37400dd427045dcad37",
+        "android_client_info": {
+          "package_name": "com.example.mobileapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093113243670-jpgg3vt9v54h32jtlf6c89d3b2kv7r2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFuP4VDUnGHln3_wIvixhtPzbz-GN-Sek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093113243670-jpgg3vt9v54h32jtlf6c89d3b2kv7r2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

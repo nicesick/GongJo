@@ -22,6 +22,8 @@ import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
 
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +41,7 @@ public class MapFragment extends Fragment {
     TMapPoint tMapPoint;
     TMapMarkerItem tMapMarkerItem;
     View mapView;
+    LocationResgist locationResgist;
     public MapFragment() {
         // Required empty public constructor
     }
@@ -54,7 +57,7 @@ public class MapFragment extends Fragment {
         linearLayout = mapView.findViewById(R.id.mapLayout);
         linearLayout.addView(tMapView);
 
-
+        locationResgist = new LocationResgist();
 
         mapUpdateTask = new MapUpdateTask();
         mapUpdateTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -89,15 +92,24 @@ public class MapFragment extends Fragment {
     }
 
     class MapUpdateTask extends AsyncTask<Void,Void,Void> implements LocationListener{
+        final double LAT_RANGER = 0.00001;
+        final double LON_RANGER = 0.00001;
+
         LocationManager locationManager;
 //        GPSListener gpsListener;
-
+        ArrayList<com.example.serveriotcommunicationexcerise.Location> dangerList;
         public MapUpdateTask() {
             locationManager = (LocationManager)getActivity().getSystemService(getContext().LOCATION_SERVICE);
 //            gpsListener = new GPSListener();
             Log.d("GPS is ", String.valueOf(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)));
             Log.d("network is ", String.valueOf(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)));
-
+            dangerList = locationResgist.getLocationsList();
+        }
+        boolean isInDangerArea(ArrayList<com.example.serveriotcommunicationexcerise.Location> locationList, double lat, double lon){
+            for(com.example.serveriotcommunicationexcerise.Location location:locationList){
+                if(Math.abs(location.getLat() - lat) < LAT_RANGER && Math.abs(location.getLon()-lon) < LON_RANGER ) return true;
+            }
+            return false;
         }
         void setCenterView(Location location){
             tMapView.setCenterPoint(location.getLongitude(),location.getLatitude(),false);
@@ -112,6 +124,7 @@ public class MapFragment extends Fragment {
         @Override
         protected void onProgressUpdate(Void... values) {
             int permission = PermissionChecker.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+            dangerList = locationResgist.getLocationsList();
             if(permission == PackageManager.PERMISSION_GRANTED){
 //                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,0,gpsListener);
 //
@@ -129,7 +142,9 @@ public class MapFragment extends Fragment {
                     else {
                         Log.d("network loc is ", location.getLongitude()+"lac is "+location.getLatitude());
                         setCenterView(location);
+                        if(isInDangerArea(dangerList,location.getLatitude(),location.getLongitude())){
 
+                        }
                     }
                 }
                 else{

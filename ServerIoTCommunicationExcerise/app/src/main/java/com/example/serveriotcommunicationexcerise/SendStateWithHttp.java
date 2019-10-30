@@ -39,7 +39,10 @@ public class SendStateWithHttp {
 
                 try {
                     JSONObject postData = new JSONObject();
+                    postData.put("car_start_up",realTimeController.getStartUp());
+                    postData.put("car_light_on",realTimeController.getLightOn());
                     postData.put("car_id",realTimeController.getCar_id());
+                    postData.put("car_on",realTimeController.getCar_on());
                     postData.put("car_speed",realTimeController.getCar_speed());
                     postData.put("car_distance",realTimeController.getCar_distance());
                     postData.put("car_air",realTimeController.getCar_air());
@@ -111,5 +114,6 @@ public class SendStateWithHttp {
             }
         });
         thread.start();
+//        realTimeController.setLightOn("0");
     }
 }

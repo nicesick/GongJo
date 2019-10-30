@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mapper.carGroupMapper">
-	<select id="select" parameterType="String"
+	<select id="selects" parameterType="String"
 	resultType="carGroup">
 		SELECT * FROM CARGROUP_TABLE WHERE USER_ID=#{key}
 	</select>
@@ -21,4 +21,5 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="String">
 		DELETE FROM CARGROUP_TABLE WHERE USER_ID=#{key}
 	</delete>
+	
 </mapper>

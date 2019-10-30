@@ -2,8 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -16,13 +15,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.frame.Biz;
-import com.socket.MainServer;
+import com.vo.DeviceToken;
 import com.vo.User;
 
 @Controller
 public class LoginController {
 	@Resource(name="UserBiz")
 	Biz<String, User> userBiz;
+	
+	@Resource(name = "DeviceTokenBiz")
+	Biz<String,DeviceToken> deviceTokenBiz;
 	
 	@RequestMapping("logout.mc")
 	public void logout(HttpSession session, HttpServletResponse response) {
@@ -41,8 +43,6 @@ public class LoginController {
 	public ModelAndView loginPage(ModelAndView mv, HttpServletResponse response, HttpSession session) {
 		User user = (User)session.getAttribute("userInfo");
 		
-	
-		
 		if (user != null) {
 			try {
 				response.sendRedirect("main.mc");
@@ -60,7 +60,7 @@ public class LoginController {
 	
 	@RequestMapping("loginImpl.mc")
 	@ResponseBody
-	public void loginImpl(HttpServletResponse response, HttpSession session, String id, String pwd) {
+	public void loginImpl(HttpServletResponse response, HttpSession session, String id, String pwd, String token) {
 		User user = userBiz.select(id);
 		
 		try {
@@ -70,13 +70,19 @@ public class LoginController {
 				if (user.getUser_pwd().equals(pwd)) {
 					session.setAttribute("userInfo", user);
 					session.setMaxInactiveInterval(10000);
+					if(token.equals("NULL") || token.equals("null")) {
+						
+					}else if(!checkExistDeviceToken(id, token)) {
+						deviceTokenBiz.insert(new DeviceToken(id, token));
+					}
+					
 					//Log4j
 					MDC.put("user_id", user.getUser_id().toString());
 					MDC.put("user_name",user.getUser_name().toString());
 					MDC.put("user_gender", user.getUser_gender().toString());
 					System.out.println(user.getUser_birthdate());
 					MDC.put("user_birthdate", user.getUser_birthdate().toString());
-					
+
 					out.print("LoginSuccess");
 				}
 				
@@ -94,5 +100,15 @@ public class LoginController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public boolean checkExistDeviceToken(String user_id,String device_token) {
+		ArrayList<DeviceToken> deviceTokenList = deviceTokenBiz.selects(user_id);
+		
+		for(DeviceToken deviceToken:deviceTokenList) {
+			if(deviceToken.getDevice_token().equals(device_token)) return true;
+		}
+
+		return false;
 	}
 }
