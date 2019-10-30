@@ -27,6 +27,14 @@
 <link href="assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
 <link href="dist/css/style.min.css" rel="stylesheet">
 
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+
+<script src="assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="dist/js/jquery.ui.touch-punch-improved.js"></script>
+<script src="dist/js/jquery-ui.min.js"></script>
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
