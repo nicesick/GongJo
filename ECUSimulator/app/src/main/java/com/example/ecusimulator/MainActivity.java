@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     SeekBar seekBar, seekBar2, seekBar3,seekBar4,seekBar5, seekBar6, seekBar7,seekBar8,
             seekBar9,seekBar10,seekBar11,seekBar12,seekBar13,seekBar14,seekBar15,seekBar16,
             seekBar17,seekBar18,seekBar19;
-    ImageView imageView,imageView25,imageView26,imageView27,imageView24,imageView28;
+    ImageView imageView,imageView2,imageView25,imageView26,imageView27,imageView24,imageView28;
 
     private SpeedometerGauge speedometer;
 
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     InputStream in;
     int temp =1;
+    int light = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,12 +78,20 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setMax(300);
         seekBar2.setMax(1000);
         seekBar3.setMax(100);
-        seekBar4.setMax(15);
+        seekBar4.setMax(100);
         seekBar5.setMax(4700);
         seekBar6.setMax(200);
         seekBar7.setMax(150);
         seekBar8.setMax(90);
         seekBar9.setMax(100);
+
+        seekBar10.setProgress(100);
+        seekBar11.setProgress(100);
+        seekBar12.setProgress(100);
+        seekBar13.setProgress(100);
+        seekBar14.setProgress(100);
+
+
 
         textViewCO2 = findViewById(R.id.textViewCO2);
         textViewDust = findViewById(R.id.textViewDust);
@@ -126,6 +135,14 @@ public class MainActivity extends AppCompatActivity {
         textViewExtDust.bringToFront();
         textViewExtSdust.bringToFront();
         textViewExtTemperature.bringToFront();
+
+        textViewBrake.setText(100+"%");
+        textViewAircon.setText(100+"%");
+        textViewAccoil.setText(100+"%");
+        textViewEngine.setText(100+"%");
+        textViewCoolwater.setText(100+"%");
+
+
         //Connection
 
         while(true) {
@@ -168,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         imageView = findViewById(R.id.imageView);
+        imageView2 = findViewById(R.id.imageView2);
         /*  imageView24=findViewById(R.id.imageView24);*/
         imageView25 = findViewById(R.id.imageView25);
         imageView27 = findViewById(R.id.imageView27);
@@ -175,6 +193,54 @@ public class MainActivity extends AppCompatActivity {
         imageView28 = findViewById(R.id.imageView28);
 
 
+        //차량 라이트 센서
+        imageView2.bringToFront();
+        imageView2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if(light == 0){
+                    imageView2.setImageResource(R.drawable.lighton);
+                    light = 1;
+                    Runnable testSendIoTRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                out = socket.getOutputStream();
+                                dout = new DataOutputStream(out);
+                                dout.writeUTF("000000050000000000000001");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                    Thread testThread = new Thread(testSendIoTRunnable);
+                    testThread.start();
+                }else if(light ==1){
+                    imageView2.setImageResource(R.drawable.lightoff);
+                    light = 0;
+                    Runnable testSendIoTRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                out = socket.getOutputStream();
+                                dout = new DataOutputStream(out);
+                                dout.writeUTF("000000050000000000000000");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                    Thread testThread = new Thread(testSendIoTRunnable);
+                    testThread.start();
+
+                }
+            }
+        });
 
         imageView.setOnClickListener(new View.OnClickListener() {
 
@@ -295,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
 
                 final int speed = seekBar.getProgress();
                 speedometer.setSpeed(speed, 1000, 300);
-                textViewSpeed.setText(speed + "");
+                textViewSpeed.setText(speed + "km/h");
                 String temp = "";
                 if(speed<10){
                     temp = "00"+speed;
@@ -341,7 +407,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int distance = seekBar2.getProgress();
-                textViewDistance.setText(distance + "");
+                textViewDistance.setText(distance + "km");
                 String temp = "";
                 if(distance<10){
                     temp = "00"+distance;
@@ -385,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int fuel = seekBar3.getProgress();
-                textViewFuel.setText(fuel + "");
+                textViewFuel.setText(fuel + "L");
                 String temp = "";
                 if(fuel<10){
                     temp = "00"+fuel;
@@ -429,7 +495,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int  battery = seekBar4.getProgress();
-                textViewBattery.setText(battery + "");
+                textViewBattery.setText(battery + "%");
                 String temp = "";
                 if(battery<10){
                     temp = "00"+battery;
@@ -474,7 +540,7 @@ public class MainActivity extends AppCompatActivity {
 
                 final int co2 = seekBar5.getProgress()+300;
 
-                textViewCO2.setText(co2 + "");
+                textViewCO2.setText(co2 + "ppm");
                 String temp = "";
                 if(co2<1000){
                     temp = "0"+co2;
@@ -518,7 +584,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int dust = seekBar6.getProgress();
-                textViewDust.setText(dust + "");
+                textViewDust.setText(dust + "㎍/㎥\n");
                 String temp = "";
                 if(dust<10){
                     temp = "00"+dust;
@@ -562,7 +628,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int sdust = seekBar7.getProgress();
-                textViewSdust.setText(sdust + "");
+                textViewSdust.setText(sdust + "㎍/㎥");
                 String temp = "";
                 if(sdust<10){
                     temp = "00"+sdust;
@@ -607,7 +673,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int dust = seekBar17.getProgress();
-                textViewExtDust.setText(dust + "");
+                textViewExtDust.setText(dust + "㎍/㎥");
                 String temp = "";
                 if(dust<10){
                     temp = "00"+dust;
@@ -651,7 +717,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int sdust = seekBar18.getProgress();
-                textViewExtSdust.setText(sdust + "");
+                textViewExtSdust.setText(sdust + "㎍/㎥");
                 String temp = "";
                 if(sdust<10){
                     temp = "00"+sdust;
@@ -696,7 +762,7 @@ public class MainActivity extends AppCompatActivity {
 
                 final int  temperature = seekBar19.getProgress();
                 int temp4text = temperature -40;
-                textViewExtTemperature.setText(temp4text + "");
+                textViewExtTemperature.setText(temp4text + "℃");
                 String temp = "";
                 if(temperature<10){
                     temp = "00"+temperature;
@@ -741,7 +807,7 @@ public class MainActivity extends AppCompatActivity {
 
                 final int  temperature = seekBar8.getProgress();
                 int temp4text = temperature -40;
-                textViewTemperature.setText(temp4text + "");
+                textViewTemperature.setText(temp4text + "℃");
                 String temp = "";
                 if(temperature<10){
                     temp = "00"+temperature;
@@ -785,7 +851,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int  humidity = seekBar9.getProgress();
-                textViewHumidity.setText(humidity + "");
+                textViewHumidity.setText(humidity + "%");
                 String temp = "";
                 if(humidity<10){
                     temp = "00"+humidity;
@@ -830,7 +896,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int  aircon = seekBar10.getProgress();
-                textViewAircon.setText(aircon + "");
+                textViewAircon.setText(aircon + "%");
                 String temp = "";
                 if(aircon<10){
                     temp = "00"+aircon;
@@ -874,7 +940,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int engine = seekBar11.getProgress();
-                textViewEngine.setText(engine + "");
+                textViewEngine.setText(engine + "%");
                 String temp = "";
                 if(engine<10){
                     temp = "00"+engine;
@@ -918,7 +984,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int  brakeoil = seekBar12.getProgress();
-                textViewBrake.setText(brakeoil + "");
+                textViewBrake.setText(brakeoil + "%");
                 String temp = "";
                 if(brakeoil<10){
                     temp = "00"+brakeoil;
@@ -962,7 +1028,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int accoil = seekBar13.getProgress();
-                textViewAccoil.setText(accoil + "");
+                textViewAccoil.setText(accoil + "%");
                 String temp = "";
                 if(accoil<10){
                     temp = "00"+accoil;
@@ -1006,7 +1072,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int  cool = seekBar14.getProgress();
-                textViewCoolwater.setText(cool + "");
+                textViewCoolwater.setText(cool + "%");
                 String temp = "";
                 if(cool<10){
                     temp = "00"+cool;
@@ -1050,7 +1116,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int  accpad = seekBar15.getProgress();
-                textViewAccPressure.setText(accpad + "");
+                textViewAccPressure.setText(accpad + "%");
                 String temp = "";
                 if(accpad<10){
                     temp = "00"+accpad;
@@ -1094,7 +1160,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 final int brakepad = seekBar16.getProgress();
-                textViewBrakePressure.setText(brakepad + "");
+                textViewBrakePressure.setText(brakepad + "%");
                 String temp = "";
                 if(brakepad<10){
                     temp = "00"+brakepad;
@@ -1138,11 +1204,12 @@ public class MainActivity extends AppCompatActivity {
             int data1 = Integer.parseInt(values[0].substring(4,12));
             Log.d("데이터",data+"");
             Log.d("아이디",data1+"");
-            
+
+            //실내 온도
             if(values[0].substring(4,12).equals("00020040")) {
                 seekBar8.setProgress(data);
                 int temp = data - 40;
-                textViewTemperature.setText(temp + "");
+                textViewTemperature.setText(temp + "℃");
 
                 Runnable testSendIoTRunnable = new Runnable() {
                     @Override
@@ -1162,6 +1229,7 @@ public class MainActivity extends AppCompatActivity {
                 Thread testThread = new Thread(testSendIoTRunnable);
                 testThread.start();
             }
+            //차량 시동
             if(values[0].substring(4,12).equals("00000000")) {
                 if(data==0) {
                     imageView.setImageResource(R.drawable.cartopviewoff);
@@ -1202,7 +1270,16 @@ public class MainActivity extends AppCompatActivity {
                     Thread testThread = new Thread(testSendIoTRunnable);
                     testThread.start();
                 }
-
+                //light signal income
+                if(values[0].substring(4,12).equals("00000005")){
+                    if(data == 0){
+                        imageView2.setImageResource(R.drawable.lightoff);
+                        light = 1;
+                    }else if(data == 1){
+                        imageView2.setImageResource(R.drawable.lighton);
+                        light = 0;
+                    }
+                }
 
             }
     }

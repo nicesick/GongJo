@@ -34,7 +34,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="45dp"
                     android:layout_marginTop="50dp"
-                    android:text="TextView"
                     android:textColor="#FFFFFF" />
 
                 <ImageView
@@ -84,7 +83,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="45dp"
                     android:layout_marginTop="50dp"
-                    android:text="TextView"
                     android:textColor="#FFFFFF" />
 
                 <ImageView
@@ -136,12 +134,51 @@
                             android:layout_weight="1">
 
                             <TextView
+                                android:id="@+id/textViewHumidity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="135dp"
+                                android:layout_marginTop="75dp"
+                                android:textColor="#FFFFFF" />
+
+                            <ImageView
+                                android:id="@+id/imageView9"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/humidity" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <SeekBar
+                                android:id="@+id/seekBar9"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
                                 android:id="@+id/textViewTemperature"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="135dp"
                                 android:layout_marginTop="75dp"
-                                android:text="TextView"
                                 android:textColor="#FFFFFF" />
 
                             <ImageView
@@ -182,7 +219,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="135dp"
                                 android:layout_marginTop="75dp"
-                                android:text="TextView"
                                 android:textColor="#FFFFFF" />
 
                             <ImageView
@@ -223,7 +259,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="135dp"
                                 android:layout_marginTop="75dp"
-                                android:text="TextView"
                                 android:textColor="#FFFFFF" />
 
                             <ImageView
@@ -264,7 +299,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="135dp"
                                 android:layout_marginTop="75dp"
-                                android:text="TextView"
                                 android:textColor="#FFFFFF" />
 
                             <ImageView
@@ -305,7 +339,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="135dp"
                                 android:layout_marginTop="75dp"
-                                android:text="TextView"
                                 android:textColor="#FFFFFF" />
 
                             <ImageView
@@ -329,46 +362,6 @@
                         </LinearLayout>
 
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1">
-
-                                <TextView
-                                    android:id="@+id/textViewHumidity"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="135dp"
-                                    android:layout_marginTop="75dp"
-                                    android:text="TextView"
-                                    android:textColor="#FFFFFF" />
-
-                                <ImageView
-                                    android:id="@+id/imageView9"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:srcCompat="@drawable/fuel" />
-
-                            </RelativeLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
-
-                                <SeekBar
-                                    android:id="@+id/seekBar9"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent" />
-                            </LinearLayout>
-
-                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
@@ -386,6 +379,14 @@
                 >
 
                 <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="280dp"
+                    android:layout_marginTop="10dp"
+                    app:srcCompat="@drawable/lightoff" />
+
+                <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -395,23 +396,23 @@
                     android:id="@+id/imageView27"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:layout_marginTop="330dp"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginTop="350dp"
                     app:srcCompat="@drawable/togglebeltlock" />
 
                 <ImageView
                     android:id="@+id/imageView25"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="220dp"
-                    android:layout_marginTop="330dp"
+                    android:layout_marginLeft="280dp"
+                    android:layout_marginTop="350dp"
                     app:srcCompat="@drawable/togglebeltlock" />
 
                 <ImageView
                     android:id="@+id/imageView26"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="220dp"
+                    android:layout_marginLeft="280dp"
                     android:layout_marginTop="220dp"
                     app:srcCompat="@drawable/togglelock" />
 
@@ -419,7 +420,7 @@
                     android:id="@+id/imageView28"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
+                    android:layout_marginLeft="80dp"
                     android:layout_marginTop="220dp"
                     app:srcCompat="@drawable/togglelock" />
 
@@ -458,7 +459,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="135dp"
                                 android:layout_marginTop="75dp"
-                                android:text="TextView"
                                 android:textColor="#FFFFFF" />
 
                             <ImageView
@@ -498,7 +498,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="135dp"
                                 android:layout_marginTop="75dp"
-                                android:text="TextView"
                                 android:textColor="#FFFFFF" />
 
                             <ImageView
@@ -538,7 +537,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="135dp"
                                 android:layout_marginTop="75dp"
-                                android:text="TextView"
                                 android:textColor="#FFFFFF" />
 
                             <ImageView
@@ -578,9 +576,8 @@
                                 android:id="@+id/textViewBattery"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="135dp"
-                                android:layout_marginTop="75dp"
-                                android:text="TextView"
+                                android:layout_marginLeft="150dp"
+                                android:layout_marginTop="60dp"
                                 android:textColor="#FFFFFF" />
 
                             <ImageView
@@ -621,7 +618,6 @@
                         android:id="@+id/textViewSpeed"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
                         android:textColor="#FFFFFF" />
 
                     <TextView
@@ -641,7 +637,6 @@
                         android:id="@+id/textViewDistance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
                         android:textColor="#FFFFFF" />
 
                 </LinearLayout>
@@ -678,7 +673,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="60dp"
-                        android:text="TextView"
                         android:textColor="#FFFFFF" />
 
                     <ImageView
@@ -713,7 +707,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="60dp"
-                        android:text="TextView"
                         android:textColor="#FFFFFF" />
 
                     <ImageView
@@ -749,7 +742,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="60dp"
-                        android:text="TextView"
                         android:textColor="#FFFFFF" />
 
                     <ImageView
@@ -786,7 +778,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="60dp"
-                        android:text="TextView"
                         android:textColor="#FFFFFF" />
 
                     <ImageView
@@ -823,7 +814,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="60dp"
-                        android:text="TextView"
                         android:textColor="#FFFFFF" />
 
                     <ImageView

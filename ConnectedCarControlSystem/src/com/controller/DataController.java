@@ -106,8 +106,7 @@ public class DataController {
 				System.out.println(rs.getDate("test_hive.car_date"));
 				System.out.println(rs.getString("test_hive.car_id"));
 
-				carStatus
-						.add(new CarStatusTestHive(rs.getDate("test_hive.car_date"), rs.getString("test_hive.car_id")));
+				carStatus.add(new CarStatusTestHive(rs.getDate("test_hive.car_date"), rs.getString("test_hive.car_id")));
 			}
 
 			conn.close();
@@ -204,6 +203,12 @@ public class DataController {
 				MDC.put("car_accel_pressure", jo.get("car_accel_pressure").toString());
 				MDC.put("car_brake_pressure", jo.get("car_brake_pressure").toString());
 				MDC.put("car_driving_count", carStatusBiz.select(jo.get("car_id").toString()).getCar_driving_count());
+				
+				MDC.put("car_fuel_spent", Integer.parseInt(jo.get("car_fuel").toString())-carStatusBiz.select(jo.get("car_id").toString()).getCar_fuel());
+				
+				
+				
+				
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
