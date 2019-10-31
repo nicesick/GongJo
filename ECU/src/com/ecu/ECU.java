@@ -65,7 +65,7 @@ public class ECU implements SerialPortEventListener {
 		}
 		
 		portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
-		// Æ÷Æ®°¡ Á¤»óÀÌ¸é CONNECT
+		// ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ CONNECT
 		System.out.println("Connect Com Port!");
 		
 		try {
@@ -195,8 +195,8 @@ public class ECU implements SerialPortEventListener {
 				while (rflag) {
 
 					str = din.readUTF();
-					//¼¾¼­°ª From Simulator To IoT
-					System.out.println("From Simulator To IoT :"+"W28"+str);
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ From Simulator To IoT
+					System.out.println("Send data To IoT :"+"W28"+str);
 					st.sendData("W28"+str);
 //					if (str.substring(0,8).equals("00010010")) {
 //						speed = str.substring(8,24);
@@ -294,7 +294,7 @@ public class ECU implements SerialPortEventListener {
 				
 				//From IoT to Simulator
 				if(ss.substring(0,4).equals(":U28")){
-				System.out.println("From IoT to Simulator :" + ss);
+				System.out.println("Data from IoT to ECU :" + ss);
 				ecu.sendMsg(ss);
 				}
 
@@ -313,17 +313,17 @@ public class ECU implements SerialPortEventListener {
 	public void connectSerial() throws Exception {
 
 		if (portIdentifier.isCurrentlyOwned()) {
-			System.out.println("Error: Port is currently in use"); // ±×·¡µµ¹®Á¦°¡ ÀÖÀ¸¸é ÇÏÁö¸¶¶ó, ´Ù¸¥ »ç¶÷ÀÌ ¾²°í ÀÖ´Ù.
+			System.out.println("Error: Port is currently in use"); // ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 		} else {
 			commPort = portIdentifier.open(this.getClass().getName(), 5000);
 			if (commPort instanceof SerialPort) {
 				serialPort = (SerialPort) commPort; // COMMPORT
 				serialPort.addEventListener(this); //
 				serialPort.notifyOnDataAvailable(true);
-				serialPort.setSerialPortParams(921600, // Åë½Å¼Óµµ
-						SerialPort.DATABITS_8, // µ¥ÀÌÅÍ ºñÆ®
-						SerialPort.STOPBITS_1, // stop ºñÆ®
-						SerialPort.PARITY_NONE); // ÆÐ¸®Æ¼ ¿ì¸®°¡ Àü¼ÛÇÏ´Â°Ç °ËÁõ ÇÏ°Ú´Ù .
+				serialPort.setSerialPortParams(921600, // ï¿½ï¿½Å¼Óµï¿½
+						SerialPort.DATABITS_8, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®
+						SerialPort.STOPBITS_1, // stop ï¿½ï¿½Æ®
+						SerialPort.PARITY_NONE); // ï¿½Ð¸ï¿½Æ¼ ï¿½ì¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°Ú´ï¿½ .
 				in = serialPort.getInputStream();
 				bin = new BufferedInputStream(in);
 				out = serialPort.getOutputStream();
@@ -337,14 +337,13 @@ public class ECU implements SerialPortEventListener {
 		String data;
 
 		public SerialWriter() {
-			this.data = ":G11A9\r"; // ³ªµµ °°ÀÌ Âü°¡ ÇÏ°Ú½À´Ï´Ù .
+			this.data = ":G11A9\r"; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°Ú½ï¿½ï¿½Ï´ï¿½ .
 		}
 
 		public SerialWriter(String serialData) {
 			// W28 00000000 000000000000
-			// :W28 00000000 000000000000 53 \r : \r ½ÃÀÛ°ú ³¡ 53 Ã¼Å©¼¶
+			// :W28 00000000 000000000000 53 \r : \r ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½ 53 Ã¼Å©ï¿½ï¿½
 			String sdata = sendDataFormat(serialData);
-			System.out.println(sdata);
 			this.data = sdata;
 		}
 

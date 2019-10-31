@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -649,3 +651,60 @@ public class DataController {
 			}
 		}
 	}
+  
+	@RequestMapping("drawgraph.mc")
+	public ModelAndView drawgraph(ModelAndView mv, HttpServletResponse response) {
+		ArrayList<CarStatusTestHive> carStatus = new ArrayList<CarStatusTestHive>();
+		JSONArray graph1 = new JSONArray();
+		JSONObject data = new JSONObject();
+		response.setContentType("text/html;charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
+		try {
+			Class.forName("org.apache.hive.jdbc.HiveDriver");
+			Connection conn = DriverManager.getConnection("jdbc:hive2://70.12.60.103:10000/default","root" ,"111111");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT travel01.car_id, max(travel01.car_distance) as distance from travel01 group by travel01.car_id order by distance desc limit 10 ");
+//			"SELECT max(travel01.car_distance) as distance, travel01.car_id from travel01 where travel01.car_on = 'on' group by travel01.car_id"
+		
+			
+			while (rs.next()) {
+				
+				data = new JSONObject();
+				
+					data.put("name", rs.getString("travel01.car_id"));
+					data.put("y", rs.getInt("distance"));
+				
+				
+				System.out.println(data.get("name"));
+				System.out.println(data.get("y"));
+				
+				graph1.add(data);
+			}	
+			conn.close();
+			System.out.println("Success....");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+			out.write(graph1.toJSONString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (out != null) {
+				out.close();
+			}
+		}
+		
+		mv.setViewName("index");
+		mv.addObject("center", "charts");
+		
+		
+
+		return mv;
+	}
+}

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private WebSettings webSettings; //웹뷰 세팅
 
     String newToken;
-    private static final String ENTRY_URL = "http://70.12.60.95/ConnectedCarControlSystem/main.mc";
+    private static final String ENTRY_URL = "http://70.12.60.106/ConnectedCarControlSystem/main.mc";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 view.loadUrl(script);
             }
         });
-        webview.loadUrl("http://70.12.60.95/ConnectedCarControlSystem");
+        webview.loadUrl("http://70.12.60.106/ConnectedCarControlSystem");
 
     }
 
