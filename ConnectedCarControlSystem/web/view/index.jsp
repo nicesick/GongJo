@@ -22,9 +22,7 @@
 
 <!-- Custom CSS -->
 <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet">
-<link href="assets/libs/fullcalendar/dist/fullcalendar.min.css"
-	rel="stylesheet" />
-<link href="assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
+<link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 <link href="dist/css/style.min.css" rel="stylesheet">
 
 <!-- ============================================================== -->
@@ -209,6 +207,11 @@
 							href="getRealTimeDrivingData.mc" aria-expanded="false"><i
 								class="mdi mdi-border-inside"></i><span class="hide-menu">실시간
 									상태</span></a></li>
+									<li class="sidebar-item"><a
+							class="sidebar-link waves-effect waves-dark sidebar-link"
+							href="charts.mc" aria-expanded="false"><i
+								class="mdi mdi-border-inside"></i><span class="hide-menu"> 그래프
+									</span></a></li>
 					</ul>
 				</nav>
 				<!-- End Sidebar navigation -->
@@ -284,7 +287,5 @@
 
 	<!-- calendar page js -->
 	<script src="assets/libs/moment/min/moment.min.js"></script>
-	<script src="assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
-	<script src="dist/js/pages/calendar/cal-init.js"></script>
 </body>
 </html>
