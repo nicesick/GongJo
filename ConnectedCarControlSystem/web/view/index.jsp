@@ -22,9 +22,7 @@
 
 <!-- Custom CSS -->
 <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet">
-<link href="assets/libs/fullcalendar/dist/fullcalendar.min.css"
-	rel="stylesheet" />
-<link href="assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
+<link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 <link href="dist/css/style.min.css" rel="stylesheet">
 
 <!-- ============================================================== -->
@@ -284,7 +282,5 @@
 
 	<!-- calendar page js -->
 	<script src="assets/libs/moment/min/moment.min.js"></script>
-	<script src="assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
-	<script src="dist/js/pages/calendar/cal-init.js"></script>
 </body>
 </html>
