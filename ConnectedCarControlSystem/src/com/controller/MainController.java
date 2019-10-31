@@ -74,4 +74,15 @@ public class MainController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("charts.mc")
+	public ModelAndView registerPage(ModelAndView mv) {
+		mv.setViewName("index");
+		mv.addObject("center", "charts");
+
+		return mv;
+	}
+	
+	
+	
 }
