@@ -41,6 +41,7 @@ import com.google.firebase.messaging.AndroidNotification;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.socket.MainServer;
+import com.socket.Receiver;
 import com.socket.Sender;
 import com.test.PrintLog;
 import com.vo.CarConsumable;
@@ -72,9 +73,65 @@ public class DataController {
 	final String titleMSG = "CAUSE";
 	final String bodyMSG = "you turn on light!!";
 
+	final String HIVE_LAT_STRING = "car_lat";
+	final String HIVE_lON_STRING = "car_log";
+	
 	public DataController() {
 		mainServer = new MainServer();
 		mainServer.start();
+    
+		Runnable sendAreaListRunnable = new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				while(true) {
+					getDangerAreaFromHive();
+					try {
+						Thread.sleep(1000 * 10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		new Thread(sendAreaListRunnable).start();
+	}
+	
+	public void getDangerAreaFromHive( ) {
+		String DangerAreaString = "DangerArea";
+		try {
+			Class.forName("org.apache.hive.jdbc.HiveDriver");
+			Connection conn = DriverManager.getConnection("jdbc:hive2://70.12.60.103:10000/default", "hive_db",
+					"111111");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM travel01");
+      
+			while (rs.next()) {
+				DangerAreaString += "/"+rs.getString("travel01."+HIVE_LAT_STRING)+",";
+				DangerAreaString += rs.getString("travel01."+HIVE_lON_STRING);
+			}
+
+			conn.close();
+			System.out.println("Success....");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    
+		String[] KeySet = mainServer.getSocketMap().keySet().toArray(new String[mainServer.getSocketMap().keySet().size()]);
+		Receiver tempReceiver;
+		Sender sender;
+    
+		for(int i=0;i<KeySet.length;i++) {
+			tempReceiver = mainServer.getSocketMap().get(KeySet[i]);
+			sender = new Sender(tempReceiver.getSocket());
+			sender.setMsg(DangerAreaString);
+			sender.run();
+		}
 	}
 	
 	@RequestMapping("selectcar.mc")
@@ -180,7 +237,7 @@ public class DataController {
 			Connection conn = DriverManager.getConnection("jdbc:hive2://70.12.60.103:10000/default", "hive_db",
 					"111111");
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM test_hive");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM travel01");
 
 			while (rs.next()) {
 				System.out.println(rs.getDate("test_hive.car_date"));
@@ -296,15 +353,16 @@ public class DataController {
 
 		if (carStatus != null) {
 			if (carStatusBiz.select(carStatus.getCar_id()) != null) {
-				
 				//시동 꺼지면  count ++;
+        
 				if(carStatusBiz.select(carStatus.getCar_id()).getCar_on().equals("on") && carStatus.getCar_on().equals("off")) {
 					carStatus.setCar_driving_count(carStatus.getCar_driving_count() + 1);
 				}
 				
-				if(carStatusBiz.select(carStatus.getCar_id()).getCar_date() != carStatus.getCar_date()) {
+				if(!carStatusBiz.select(carStatus.getCar_id()).getCar_date().toString().equals(carStatus.getCar_date().toString()) ) {
 					carStatus.setCar_driving_count(0);
 				}
+        
 				carStatusBiz.update(carStatus);
 			}
 			
@@ -591,44 +649,3 @@ public class DataController {
 			}
 		}
 	}
-	
-	@RequestMapping("drawgraph.mc")
-	public ModelAndView drawgraph(ModelAndView mv) {
-		ArrayList<CarStatusTestHive> carStatus = new ArrayList<CarStatusTestHive>();
-		JSONArray graph1 = new JSONArray();
-		JSONObject data = new JSONObject();
-		
-		try {
-			Class.forName("org.apache.hive.jdbc.HiveDriver");
-			Connection conn = DriverManager.getConnection("jdbc:hive2://70.12.60.103:10000/default","hive_db" ,"111111");
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT MAX(travel01.car_distance), travel01.car_id FROM travel01 where travel01.car_on = 'on' group by travel01.car_id");
-//			"SELECT max(travel01.car_distance) as distance, travel01.car_id from travel01 where travel01.car_on = 'on' group by travel01.car_id"
-		
-			
-			while (rs.next()) {
-				for(int i=1; i<2; i++) {
-				System.out.printf("하이브 메시지"+rs.getString(i)+ " ");
-				data = new JSONObject();
-				data.put("name",rs.getString("travel01.car_id"));
-				data.put("y",rs.getInt("max(travel01.car_distance)"));
-				System.out.println(data.get("name"));
-				
-				}
-				graph1.add(data);
-			}
-
-			conn.close();
-			System.out.println("Success....");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		mv.setViewName("index");
-		mv.addObject("center", "charts");
-
-		return mv;
-	}
-}
