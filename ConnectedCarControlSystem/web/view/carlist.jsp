@@ -29,7 +29,7 @@
 			<div class="col-lg-3 col-md-6">
                         <div class="card">
                             <div class="el-card-item">
-                                <div class="el-card-avatar el-overlay-1"> <img alt="user" src="assets/images/thecar.png">
+                                <div class="el-card-avatar el-overlay-1"> <img alt="user" src="assets/images/kiaspotage_rv.png">
                                     <div class="el-overlay">
                                         <ul class="list-style-none el-info">
                                             <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="getDataFromHive.mc?car_id=${car.car_id }"><i class="mdi mdi-check-circle-outline"></i></a></li>

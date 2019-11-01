@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
-import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -24,7 +22,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.MDC;
 import org.json.JSONArray;
-
+import org.json.simple.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -656,6 +654,7 @@ public class DataController {
 	public ModelAndView drawgraph(ModelAndView mv, HttpServletResponse response) {
 		ArrayList<CarStatusTestHive> carStatus = new ArrayList<CarStatusTestHive>();
 		org.json.simple.JSONArray graph1 = new org.json.simple.JSONArray();
+
 		JSONObject data = new JSONObject();
 		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("utf-8");
@@ -673,7 +672,6 @@ public class DataController {
 				
 					data.put("name", rs.getString("travel01.car_id"));
 					data.put("y", rs.getInt("distance"));
-				
 				
 				System.out.println(data.get("name"));
 				System.out.println(data.get("y"));
