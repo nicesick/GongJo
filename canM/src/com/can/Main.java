@@ -38,14 +38,16 @@ public class Main {
 	public static void main(String[] args) {
 		Receiver receiver = null;
 		SerialTestS st = null;
-		DataCallbackImpl callback = new DataCallbackImpl(receiver, st);
 		
 		try {
 			receiver = new Receiver("70.12.227.247", 8888);
+			st = new SerialTestS("COM8");
+			
+			DataCallbackImpl callback = new DataCallbackImpl(receiver, st);
+			
 			receiver.setCallback(callback);
 			receiver.start();
 
-			st = new SerialTestS("COM8");
 			st.setCallback(callback);
 
 //			SerialTestS st = new SerialTestS("COM8","70.12.225.203", 8788);
