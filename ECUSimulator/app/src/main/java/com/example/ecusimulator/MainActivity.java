@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         //Connection
 
         while(true) {
-            connectServerTask = new ConnectServerTask(8888, "70.12.225.75");
+            connectServerTask = new ConnectServerTask(8888, "70.12.60.106");
             socket = connectServerTask.getSocket();
             try{
             if(socket != null){
