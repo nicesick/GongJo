@@ -349,7 +349,7 @@ public class DataController {
 			e.printStackTrace();
 		}
 
-		if("on".equals(jo.get("car_on").toString()) && "1".equals(jo.get("car_light_on"))) {
+		if("off".equals(jo.get("car_on").toString()) && "1".equals(jo.get("car_light_on"))) {
 			makeFCMEnvironment(jo.get("car_id").toString());
 		}
 
@@ -655,7 +655,7 @@ public class DataController {
 	@RequestMapping("drawgraph.mc")
 	public ModelAndView drawgraph(ModelAndView mv, HttpServletResponse response) {
 		ArrayList<CarStatusTestHive> carStatus = new ArrayList<CarStatusTestHive>();
-		JSONArray graph1 = new JSONArray();
+		org.json.simple.JSONArray graph1 = new org.json.simple.JSONArray();
 		JSONObject data = new JSONObject();
 		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("utf-8");

@@ -69,7 +69,7 @@
 								<img src="assets/images/speed.png" width="160px">
 								<div
 									style="left: 60px; width: 50px; bottom: 50px; color: white; font-weight: bold; position: absolute;">
-									<h1 id="car_speed"></h1>
+									<h3 id="car_speed"></h3>
 								</div>
 							</div>
 
