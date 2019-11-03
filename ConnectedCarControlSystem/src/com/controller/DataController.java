@@ -492,7 +492,7 @@ public class DataController {
 			out.write(responseMsg);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace();	
 		} finally {
 			if (out != null) {
 				out.close();
