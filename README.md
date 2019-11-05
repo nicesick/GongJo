@@ -19,7 +19,7 @@
 4. [Software Stacks](#software-stacks)
    - [WAS](#was)
    - [PAD](#pad)
-   - [IoT & ECU](#iot-&-ecu)
+   - [IoT & ECU](#iot,-ecu)
    - [ECU Simulator](#ecu-simulator)
    - [Native App](#native-app)
    - [LogCatcher](#logcatcher)
@@ -119,7 +119,7 @@
 
 
 
-### IoT & ECU
+### IoT, ECU
 
 ![IoT-ECU](https://user-images.githubusercontent.com/50862254/68084693-5c553a80-fe7c-11e9-863d-642ca27ca731.png)
 
