@@ -60,7 +60,11 @@
 
 ### WAS
 
+- UI
+
 ![WAS](https://user-images.githubusercontent.com/4971222/68285858-61f09180-00c3-11ea-9a13-288edd021e64.png)
+
+- Architecture
 
 ![WAS구성도](https://user-images.githubusercontent.com/50862254/68084673-1c8e5300-fe7c-11e9-996f-c76246f1a28f.png)
 
@@ -85,7 +89,11 @@
 
 ### PAD
 
+- UI
+
 ![PAD](https://user-images.githubusercontent.com/4971222/68285726-2950b800-00c3-11ea-81c2-23c054482d02.png)
+
+- Architecture
 
 ![Android PAD](https://user-images.githubusercontent.com/50862254/68084688-45164d00-fe7c-11e9-8c3c-3722e8631bd1.png)
 
@@ -125,6 +133,8 @@
 
 ### IoT, ECU
 
+- Architecture
+
 ![IoT-ECU](https://user-images.githubusercontent.com/50862254/68084693-5c553a80-fe7c-11e9-863d-642ca27ca731.png)
 
 - [IoT Code](/can) & [IoT Refactoring ver](/canM)
@@ -154,6 +164,8 @@
 
 
 ### ECU Simulator
+
+- UI
 
 ![ECU Simulator](https://user-images.githubusercontent.com/4971222/68285523-c4955d80-00c2-11ea-8499-35887da727b4.png)
 
@@ -185,6 +197,8 @@
 
 
 ### LogCatcher
+
+- UI
 
 ![LogCatcher](https://user-images.githubusercontent.com/4971222/68286087-d0355400-00c3-11ea-8225-10e709ecde46.png)
 
