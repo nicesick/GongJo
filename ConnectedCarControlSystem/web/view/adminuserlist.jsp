@@ -23,6 +23,9 @@
 	<!-- Sales Cards  -->
 	<!-- ============================================================== -->
 	<div class="row el-element-overlay">
+<script>
+
+</script>
 <div class="col-12">
      <div class="card">
          <nav aria-label="breadcrumb">
@@ -45,9 +48,10 @@
                ${user.user_id}    	
                </td>
                <td>
-                   <button class="btn btn-cyan btn-sm" type="button" href="">Edit</button>
-                   <button class="btn btn-danger btn-sm" type="button" href="">Delete</button><br>
-                   	소유 차량 : 
+                   <button class="btn btn-cyan btn-sm" type="button" href="adminuseredit.mc?id=${user.user_id}">Edit</button>
+                   <button class="btn btn-danger btn-sm" type="button" href="adminuserdelete.mc?id=${user.user_id}">Delete</button><br>
+                   	소유 차량 : <c:forEach var="car" items="#{carInfo}">${car.car_id} &nbsp</c:forEach>
+                   	
                </td>
            </tr>
                </c:forEach>
@@ -63,6 +67,7 @@
 	<!-- Recent comment and chats -->
 	<!-- ============================================================== -->
 </div>
+
 </div>
 <!-- Charts js Files -->
 	<script src="assets/libs/flot/excanvas.js"></script>
