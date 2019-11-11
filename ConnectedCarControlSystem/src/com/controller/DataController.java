@@ -147,6 +147,20 @@ public class DataController {
 			e.printStackTrace();
 		}
 	}
+//	
+//	@RequestMapping("deletecar.mc")
+//	public void deletecar(HttpServletResponse response, HttpSession session, String id) {
+//		if (id != null) {
+//			session.setAttribute("selectcar", id);
+//			session.setMaxInactiveInterval(10000);
+//		}
+//
+//		try {
+//			response.sendRedirect("main.mc");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	@RequestMapping("getDrivingRecordFromHive.mc")
 	@ResponseBody

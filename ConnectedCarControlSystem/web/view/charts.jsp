@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-6 col-lg-2 col-xlg-3">
             <div class="card card-hover">
-                <a class="box bg-success text-center">
+                <a class="box bg-success text-center" role="button">
                     <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
                     <h6 class="text-white">Chart 2</h6>
                 </a>
@@ -28,7 +28,7 @@
         </div>
         <div class="col-md-6 col-lg-2 col-xlg-3">
             <div class="card card-hover">
-                <a class="box bg-warning text-center">
+                <a class="box bg-warning text-center" role="button">
                     <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
                     <h6 class="text-white">Chart 3</h6>
                 </a>
@@ -36,15 +36,15 @@
         </div>
         <div class="col-md-6 col-lg-2 col-xlg-3">
             <div class="card card-hover">
-                <a class="box bg-danger text-center">
+                <a class="box bg-cyan text-center" role="button">
                     <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
                     <h6 class="text-white">Chart 4</h6>
-                </da>
+                </a>
             </div>
         </div>
         <div class="col-md-6 col-lg-2 col-xlg-3">
             <div class="card card-hover">
-                <a class="box bg-info text-center">
+                <a class="box bg-info text-center" role="button">
                     <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
                     <h6 class="text-white">Chart 5</h6>
                 </a>
