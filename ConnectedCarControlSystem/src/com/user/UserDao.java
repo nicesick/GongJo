@@ -27,8 +27,8 @@ public class UserDao implements Dao<String, User> {
 	}
 
 	@Override
-	public void delete(String k) {
-		userMapper.delete(k);
+	public void delete(User v) {
+		userMapper.delete(v);
 	}
 
 	@Override

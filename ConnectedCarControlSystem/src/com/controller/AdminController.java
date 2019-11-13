@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -62,11 +63,11 @@ public class AdminController {
 		if (user != null) {
 			PrintLog.printLog("[MainController]", user.toString());
 
-			ArrayList<Car> cars = carBiz.selects(user.getUser_id());
-			PrintLog.printLog("[MainController]", cars.toString());
-
-			ArrayList<User> alluser = userBiz.selectAll(); // selects all cars
+			ArrayList<User> alluser = userBiz.selectAll(); // selects all users
 			session.setAttribute("adminusers", alluser);
+			
+			ArrayList<Car> cars = carBiz.selects(user.getUser_id());
+			session.setAttribute("carInfo", cars);
 
 			mv.addObject("center", "adminuserlist");
 
@@ -74,4 +75,23 @@ public class AdminController {
 
 		return mv;
 	}
+	
+	
+	@RequestMapping("adminuserdelete.mc")
+	public void userdelete(User user, HttpSession session, HttpServletResponse response) {
+		
+		
+			try {
+				userBiz.delete(user);
+				response.sendRedirect("adminuserlist.mc");
+				
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+				
+
+		
+		
+	}
 }
+

@@ -29,8 +29,8 @@ public class UserBiz implements Biz<String, User> {
 	}
 
 	@Override
-	public void delete(String k) {
-		userDao.delete(k);
+	public void delete(User v) {
+		userDao.delete(v);
 	}
 
 	@Override
