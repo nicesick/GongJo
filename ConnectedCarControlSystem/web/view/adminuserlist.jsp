@@ -24,8 +24,15 @@
 	<!-- ============================================================== -->
 	<div class="row el-element-overlay">
 <script>
-
+$('#DeleteButton').click(
+		function(){
+			var id = '${user.user_id}';
+			$('#delete_form').attr('action', 'adminuserdelete.mc');
+			$('#delete_form').attr('method', 'POST');
+			$('#delete_form').submit();
+		});
 </script>
+<form id="delete_form">
 <div class="col-12">
      <div class="card">
          <nav aria-label="breadcrumb">
@@ -48,9 +55,10 @@
                ${user.user_id}    	
                </td>
                <td>
-                   <button class="btn btn-cyan btn-sm" type="button" href="adminuseredit.mc?id=${user.user_id}">Edit</button>
-                   <button class="btn btn-danger btn-sm" type="button" href="adminuserdelete.mc?id=${user.user_id}">Delete</button><br>
-                   	소유 차량 : <c:forEach var="car" items="#{carInfo}">${car.car_id} &nbsp</c:forEach>
+                  <%--  <button class="btn btn-cyan btn-sm" type="button" href="adminuseredit.mc?id=${user.user_id}">Edit</button> --%>
+                   <button id="DeleteButton">Delete</button><br>
+                   	소유 차량 : <c:forEach var="car" items="#{carInfo}">${car.car_id} &nbsp
+                   	</c:forEach>
                    	
                </td>
            </tr>
@@ -60,7 +68,7 @@
       
      </div>
  </div>
- 
+ </form>
  
                          
 	<!-- ============================================================== -->

@@ -33,7 +33,7 @@
                                     <div class="el-overlay">
                                         <ul class="list-style-none el-info">
                                             <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="selectcar.mc?id=${car.car_id}"><i class="mdi mdi-check-circle-outline"></i></a></li>
-                                            <li class="el-item"><a class="btn default btn-outline el-link" href="deletecar.mc?id=${car.car_id}&"><i class="mdi mdi-close-circle-outline"></i></a></li>
+                                            <li class="el-item"><a class="btn default btn-outline el-link" href="deletecar.mc?id=${car.car_id}"><i class="mdi mdi-close-circle-outline"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

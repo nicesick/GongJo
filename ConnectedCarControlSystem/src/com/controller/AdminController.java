@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -75,24 +76,22 @@ public class AdminController {
 		return mv;
 	}
 	
-	@RequestMapping("/adminuseredit.mc")
-	public ModelAndView useredit(ModelAndView mv, String id) {
+	
+	@RequestMapping("adminuserdelete.mc")
+	public void userdelete(User user, HttpSession session, HttpServletResponse response) {
 		
 		
-		return mv;
-	}
-	@RequestMapping("/adminuserdelete.mc")
-	public ModelAndView userdelete(ModelAndView mv, String id) {
-
-		try {
-			ArrayList<User> user = userBiz.selects(id);
-			userBiz.delete(id);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+			try {
+				userBiz.delete(user);
+				response.sendRedirect("adminuserlist.mc");
+				
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+				
 
 		
-		return mv;
+		
 	}
 }
 
