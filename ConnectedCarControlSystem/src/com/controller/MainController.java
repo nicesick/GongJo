@@ -1,12 +1,15 @@
 package com.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,10 +42,8 @@ public class MainController {
 		
 			if(user.getUser_type().equals("1")) { //Admin
 				ArrayList<CarStatus> allcarstatus = carStatusBiz.selectAll();
-				
-				session.setAttribute("admincars", allcarstatus);
-				mv.addObject("center", "admincarlist");
-				
+					session.setAttribute("admincars", allcarstatus);
+					mv.addObject("center", "admincarlist");
 			}
 			
 			else if(cars.size() > 0) {	//Normal Users
