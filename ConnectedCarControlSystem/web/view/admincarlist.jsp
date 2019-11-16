@@ -29,7 +29,8 @@ img {
 	var map;
 	var lonlat;
 	var label;
-
+ 	var markers = [];
+	
 	function initTmap() {
 		map = new Tmapv2.Map("map_div", {
 			center : new Tmapv2.LatLng(37.566481622437934, 126.98502302169841),
@@ -45,32 +46,65 @@ img {
 	}
 
 	//make marker
-	function MakeMarker(car_id, car_lat, car_log) {
+	function MakeMarker(car_id, car_lat, car_log, car_ext_dust, car_ext_fine_dust) {
 		var lonlat = new Tmapv2.LatLng(car_lat, car_log);
 		var title = car_id;
+		var dust  = car_ext_dust;
+		var finedust = car_ext_fine_dust
 
-		label = "<span style='background-color: #46414E;color:white'>" + title
-				+ "</span>";
-
+		label = "<span style='background-color: #46414E;color:white'>" + "미세먼지 :"+ dust+"㎍/m³"+ "초미세먼지 :" +finedust+"㎍/m³" + "</span>";
+		
 		marker = new Tmapv2.Marker({
 			position : lonlat,
 			map : map,
 			title : title,
 			label : label
 		});
+		
+		markers.push(marker);
 	}
-
+	
+	function removeMarkers() {
+		
+		for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+		
+    }
+	
+	
+	function Control(){
+		
+	
+		$.ajax({
+			url : 'adminmakemarkers.mc',
+			method : 'POST',
+			success : function(data) {
+				
+				var obj = JSON.parse(data);
+				removeMarkers();
+				$(obj).each(function(idx, item){
+					
+					MakeMarker(item.car_id, item.car_lat, item.car_log, item.car_ext_dust, item.car_ext_finedust);
+					
+					$('#targetCar${item.car_id}').click(function() {
+						Move(item.car_lat, item.car_log);
+					});
+				});
+					
+			}
+		});
+	}
+	
+	setInterval(Control,5000);
+	
+	
 	$(document).ready(function(){
 		initTmap();
-
-		<c:forEach var="car" items="${admincars}">
-		MakeMarker('${car.car_id}', '${car.car_lat}', '${car.car_log}');
-		
-		$('#targetCar${car.car_id}').click(function() {
-			Move('${car.car_lat}','${car.car_log}');
-		});
-		</c:forEach>	
+ 		
 	});
+	
+
 </script>
 
 </head>

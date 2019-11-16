@@ -1,11 +1,15 @@
 package com.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,7 +34,9 @@ public class AdminController {
 
 	@Resource(name = "CarGroupBiz")
 	Biz<String, CarGroup> carGroupBiz;
-
+	
+	
+	
 	@RequestMapping("admincarlist.mc")
 	public ModelAndView mainPage1(ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		mv.setViewName("index");
@@ -74,4 +80,36 @@ public class AdminController {
 
 		return mv;
 	}
+	
+	@RequestMapping("adminmakemarkers.mc")
+	public void adminmakemarkers(HttpServletResponse response) {
+		
+		ArrayList<CarStatus> allcarstatus = carStatusBiz.selectAll();
+		
+		JSONArray ja = null;
+		ja = new JSONArray();
+		
+		for(int i=0; i<allcarstatus.size(); i++) {
+			JSONObject jo = new JSONObject();
+			jo.put("car_id", allcarstatus.get(i).getCar_id());
+			jo.put("car_lat", allcarstatus.get(i).getCar_lat());
+			jo.put("car_log", allcarstatus.get(i).getCar_log());
+			jo.put("car_ext_dust", allcarstatus.get(i).getCar_ext_dust());
+			jo.put("car_ext_finedust", allcarstatus.get(i).getCar_ext_finedust());
+			ja.add(jo);
+		}
+		
+		
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.write(ja.toJSONString());
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
