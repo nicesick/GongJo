@@ -21,7 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.MDC;
-import org.json.simple.JSONArray;
+import org.json.JSONArray;
+import org.json.simple.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -39,10 +40,9 @@ import com.google.firebase.messaging.AndroidConfig;
 import com.google.firebase.messaging.AndroidNotification;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
-
 import com.socket.MainServer;
+import com.socket.Receiver;
 import com.socket.Sender;
-
 import com.test.PrintLog;
 import com.vo.CarConsumable;
 import com.vo.CarGroup;
@@ -73,9 +73,65 @@ public class DataController {
 	final String titleMSG = "CAUSE";
 	final String bodyMSG = "you turn on light!!";
 
+	final String HIVE_LAT_STRING = "car_lat";
+	final String HIVE_lON_STRING = "car_log";
+	
 	public DataController() {
 		mainServer = new MainServer();
 		mainServer.start();
+    
+		Runnable sendAreaListRunnable = new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				while(true) {
+					getDangerAreaFromHive();
+					try {
+						Thread.sleep(1000 * 10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		new Thread(sendAreaListRunnable).start();
+	}
+	
+	public void getDangerAreaFromHive( ) {
+		String DangerAreaString = "DangerArea";
+		try {
+			Class.forName("org.apache.hive.jdbc.HiveDriver");
+			Connection conn = DriverManager.getConnection("jdbc:hive2://70.12.60.103:10000/default", "hive_db",
+					"111111");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM travel01");
+      
+			while (rs.next()) {
+				DangerAreaString += "/"+rs.getString("travel01."+HIVE_LAT_STRING)+",";
+				DangerAreaString += rs.getString("travel01."+HIVE_lON_STRING);
+			}
+
+			conn.close();
+			System.out.println("Success....");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    
+		String[] KeySet = mainServer.getSocketMap().keySet().toArray(new String[mainServer.getSocketMap().keySet().size()]);
+		Receiver tempReceiver;
+		Sender sender;
+    
+		for(int i=0;i<KeySet.length;i++) {
+			tempReceiver = mainServer.getSocketMap().get(KeySet[i]);
+			sender = new Sender(tempReceiver.getSocket());
+			sender.setMsg(DangerAreaString);
+			sender.run();
+		}
 	}
 	
 	@RequestMapping("selectcar.mc")
@@ -92,6 +148,86 @@ public class DataController {
 		}
 	}
 
+	@RequestMapping("getDrivingRecordFromHive.mc")
+	@ResponseBody
+	public void getDrivingRecordFromHive(String car_id, String date, HttpServletResponse response) {
+		PrintWriter out = null;
+		
+		try {
+			Class.forName("org.apache.hive.jdbc.HiveDriver");
+			Connection conn = DriverManager.getConnection("jdbc:hive2://70.12.60.103:10000/default", "root", "111111");
+			
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT car_driving_count, MAX(car_fuel) AS fuel_max, MIN(car_fuel) AS fuel_min, MAX(car_hms) AS hms_max , MIN(car_hms) AS hms_min, AVG(car_speed) AS speed, MAX(car_distance) AS distance FROM travel01 WHERE car_id='" + car_id + "' AND car_date='" + date + "' GROUP BY car_driving_count");
+
+			JSONArray ja = new JSONArray();
+			
+			while (rs.next()) {
+				JSONObject jo = new JSONObject();
+				
+				int fuelSpent = rs.getInt("fuel_max") - rs.getInt("fuel_min");
+				float speedAvg = rs.getInt("speed");
+				float distance = rs.getFloat("distance");
+				String hms = rs.getString("hms_min") + " ~ " + rs.getString("hms_max");
+				String timeSpent = getTimeSpent(rs.getString("hms_max"), rs.getString("hms_min")); 
+				
+				jo.put("fuelSpent", fuelSpent);
+				jo.put("speedAvg", speedAvg);
+				jo.put("distance", distance);
+				jo.put("hms", hms);
+				jo.put("timeSpent", timeSpent);
+				
+				PrintLog.printLog("getDrivingRecordFromHive", jo.toJSONString());
+				
+				ja.put(jo);
+			}
+
+			conn.close();
+			PrintLog.printLog("getDrivingRecordFromHive", "Hive Success...");
+
+			out = response.getWriter();
+			out.write(ja.toString());
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (out != null) {
+				out.close();
+			}
+		}
+	}
+	
+	public String getTimeSpent(String timeMax, String timeMin) {
+		String[] timeMaxs = timeMax.split(":");
+		String[] timeMins = timeMin.split(":");
+		
+		int second = Integer.parseInt(timeMaxs[2]) - Integer.parseInt(timeMins[2]);
+		int upSecond = 0;
+		
+		if (second < 0) {
+			second += 60;
+			upSecond = -1;
+		}
+		
+		int minute = Integer.parseInt(timeMaxs[1]) - Integer.parseInt(timeMins[1]) + upSecond;
+		int upMinute = 0;
+		
+		if (minute < 0) {
+			minute += 60;
+			upMinute = -1;
+		}
+		
+		int hour = Integer.parseInt(timeMaxs[0]) - Integer.parseInt(timeMins[0]) + upMinute;
+		
+		String spentTime = String.format("%02d:%02d:%02d", hour, minute, second);
+		
+		return spentTime;
+	}
+	
 	@RequestMapping("getDataFromHive.mc")
 	public ModelAndView getDataFromHive(ModelAndView mv) {
 		ArrayList<CarStatusTestHive> carStatus = new ArrayList<CarStatusTestHive>();
@@ -101,7 +237,7 @@ public class DataController {
 			Connection conn = DriverManager.getConnection("jdbc:hive2://70.12.60.103:10000/default", "hive_db",
 					"111111");
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM test_hive");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM travel01");
 
 			while (rs.next()) {
 				System.out.println(rs.getDate("test_hive.car_date"));
@@ -206,30 +342,27 @@ public class DataController {
 				MDC.put("car_driving_count", carStatusBiz.select(jo.get("car_id").toString()).getCar_driving_count());
 				
 				MDC.put("car_fuel_spent", Integer.parseInt(jo.get("car_fuel").toString())-carStatusBiz.select(jo.get("car_id").toString()).getCar_fuel());
-				
-				
-				
-				
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
-		if("on".equals(jo.get("car_on").toString()) && "1".equals(jo.get("car_light_on"))) {
+		if("off".equals(jo.get("car_on").toString()) && "1".equals(jo.get("car_light_on"))) {
 			makeFCMEnvironment(jo.get("car_id").toString());
 		}
 
 		if (carStatus != null) {
 			if (carStatusBiz.select(carStatus.getCar_id()) != null) {
-				
 				//시동 꺼지면  count ++;
+        
 				if(carStatusBiz.select(carStatus.getCar_id()).getCar_on().equals("on") && carStatus.getCar_on().equals("off")) {
 					carStatus.setCar_driving_count(carStatus.getCar_driving_count() + 1);
 				}
 				
-				if(carStatusBiz.select(carStatus.getCar_id()).getCar_date() != carStatus.getCar_date()) {
+				if(!carStatusBiz.select(carStatus.getCar_id()).getCar_date().toString().equals(carStatus.getCar_date().toString()) ) {
 					carStatus.setCar_driving_count(0);
 				}
+        
 				carStatusBiz.update(carStatus);
 			}
 			
@@ -376,9 +509,26 @@ public class DataController {
 	}
 
 	@RequestMapping("getDrivingRecordData.mc")
-	public ModelAndView getDrivingRecordData(ModelAndView mv) {
+	public ModelAndView getDrivingRecordData(ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		mv.setViewName("index");
-		mv.addObject("center", "drivingRecordList");
+    
+    CarStatus carStatus = null;
+		String car_id = (String) session.getAttribute("selectcar");
+		
+		if (car_id != null && !car_id.equals("")) {
+			mv.addObject("center", "drivingRecordList");
+		}
+		
+		else {
+			try {
+				response.sendRedirect("main.mc");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
 
 		return mv;
 	}
@@ -499,33 +649,35 @@ public class DataController {
 			}
 		}
 	}
-	
+  
 	@RequestMapping("drawgraph.mc")
-	public ModelAndView drawgraph(ModelAndView mv) {
+	public ModelAndView drawgraph(ModelAndView mv, HttpServletResponse response) {
 		ArrayList<CarStatusTestHive> carStatus = new ArrayList<CarStatusTestHive>();
-		JSONArray graph1 = new JSONArray();
+		org.json.simple.JSONArray graph1 = new org.json.simple.JSONArray();
+
 		JSONObject data = new JSONObject();
-		
+		response.setContentType("text/html;charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
 		try {
 			Class.forName("org.apache.hive.jdbc.HiveDriver");
-			Connection conn = DriverManager.getConnection("jdbc:hive2://70.12.60.103:10000/default","hive_db" ,"111111");
+			Connection conn = DriverManager.getConnection("jdbc:hive2://70.12.60.103:10000/default","root" ,"111111");
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT MAX(travel01.car_distance), travel01.car_id FROM travel01 where travel01.car_on = 'on' group by travel01.car_id");
+			ResultSet rs = stmt.executeQuery("SELECT travel01.car_id, max(travel01.car_distance) as distance from travel01 group by travel01.car_id order by distance desc limit 10 ");
 //			"SELECT max(travel01.car_distance) as distance, travel01.car_id from travel01 where travel01.car_on = 'on' group by travel01.car_id"
 		
 			
 			while (rs.next()) {
-				for(int i=1; i<2; i++) {
-				System.out.printf("하이브 메시지"+rs.getString(i)+ " ");
-				data = new JSONObject();
-				data.put("name",rs.getString("travel01.car_id"));
-				data.put("y",rs.getInt("max(travel01.car_distance)"));
-				System.out.println(data.get("name"));
 				
-				}
+				data = new JSONObject();
+				
+					data.put("name", rs.getString("travel01.car_id"));
+					data.put("y", rs.getInt("distance"));
+				
+				System.out.println(data.get("name"));
+				System.out.println(data.get("y"));
+				
 				graph1.add(data);
-			}
-
+			}	
 			conn.close();
 			System.out.println("Success....");
 		} catch (ClassNotFoundException e) {
@@ -533,16 +685,24 @@ public class DataController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+			out.write(graph1.toJSONString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (out != null) {
+				out.close();
+			}
+		}
+		
 		mv.setViewName("index");
 		mv.addObject("center", "charts");
+		
+		
 
 		return mv;
 	}
-	
-	
-	
-	
-	
-	
 }

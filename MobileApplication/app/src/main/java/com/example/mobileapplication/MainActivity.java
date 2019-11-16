@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private WebSettings webSettings; //웹뷰 세팅
 
     String newToken;
-    private static final String ENTRY_URL = "http://70.12.60.95/ConnectedCarControlSystem/main.mc";
+    private static final String ENTRY_URL = "http://70.12.60.99/ConnectedCarControlSystem/main.mc";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         webview.setWebViewClient(new WebViewClient()); //클릭시 새창 안뜨게
         webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true); //자바 스크립트 사용 허용
-        webSettings.setLoadWithOverviewMode(true); //컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+         
 
         webview.getSettings().setBuiltInZoomControls(true);
         webview.getSettings().setSupportZoom(true);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 view.loadUrl(script);
             }
         });
-        webview.loadUrl("http://70.12.60.95/ConnectedCarControlSystem");
+        webview.loadUrl("http://70.12.60.99/ConnectedCarControlSystem");
 
     }
 

@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         seekBar8.setMax(90);
         seekBar9.setMax(100);
 
+
+        seekBar3.setProgress(100);
+        seekBar4.setProgress(100);
         seekBar10.setProgress(100);
         seekBar11.setProgress(100);
         seekBar12.setProgress(100);
@@ -136,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         textViewExtSdust.bringToFront();
         textViewExtTemperature.bringToFront();
 
+        textViewBattery.setText(100+"%");
         textViewBrake.setText(100+"%");
         textViewAircon.setText(100+"%");
         textViewAccoil.setText(100+"%");
@@ -321,9 +325,42 @@ public class MainActivity extends AppCompatActivity {
                 if (temp == 0) {
                     imageView25.setImageResource(R.drawable.beltoff);
                     temp = 1;
+                    Runnable testSendIoTRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                out = socket.getOutputStream();
+                                dout = new DataOutputStream(out);
+                                dout.writeUTF("000410400000000000000000");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                    Thread testThread = new Thread(testSendIoTRunnable);
+                    testThread.start();
                 } else if (temp == 1) {
                     imageView25.setImageResource(R.drawable.belton);
                     temp = 0;
+                    Runnable testSendIoTRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                out = socket.getOutputStream();
+                                dout = new DataOutputStream(out);
+                                dout.writeUTF("000410400000000000000025");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                    Thread testThread = new Thread(testSendIoTRunnable);
+                    testThread.start();
+
                 }
             }
         });
@@ -335,9 +372,41 @@ public class MainActivity extends AppCompatActivity {
                 if (temp == 0) {
                     imageView27.setImageResource(R.drawable.beltoff);
                     temp = 1;
+                    Runnable testSendIoTRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                out = socket.getOutputStream();
+                                dout = new DataOutputStream(out);
+                                dout.writeUTF("000420400000000000000000");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                    Thread testThread = new Thread(testSendIoTRunnable);
+                    testThread.start();
                 } else if (temp == 1) {
                     imageView27.setImageResource(R.drawable.belton);
                     temp = 0;
+                    Runnable testSendIoTRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                out = socket.getOutputStream();
+                                dout = new DataOutputStream(out);
+                                dout.writeUTF("000420400000000000000025");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                    Thread testThread = new Thread(testSendIoTRunnable);
+                    testThread.start();
                 }
             }
         });

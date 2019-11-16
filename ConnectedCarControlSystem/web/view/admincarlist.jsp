@@ -22,7 +22,8 @@ img {
 <link href="dist/css/style.min.css" rel="stylesheet">
 <!-- T-map -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&format=javascript&appkey=dbd0828d-01af-45cb-956b-a170291f8d2b"></script>
+<script
+	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&format=javascript&appkey=dbd0828d-01af-45cb-956b-a170291f8d2b"></script>
 
 <script type="text/javascript">
 	var map;
@@ -126,21 +127,22 @@ img {
 					</ol>
 				</nav>
 
-				<!-- T-map Initialization -->
-				<div id="map_div"></div>
+				<div class="card">
+					<!-- T-map Initialization -->
+					<div id="map_div"></div>
+				</div>
 
-				<div class="col-12">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">차량 목록</h5>
-							<div class="row">
-								<c:forEach var="car" items="${admincars}">
-									<div class="col-md-3 col-sm-6">
-										<button id="targetCar${car.car_id }"
-											class="btn btn-lg btn-block btn-outline-info">${car.car_id}</button>
-									</div>
-								</c:forEach>
-							</div>
+
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">차량 목록</h5>
+						<div class="row">
+							<c:forEach var="car" items="${admincars}">
+								<div class="col-md-3 col-sm-6">
+									<button id="targetCar${car.car_id }"
+										class="btn btn-lg btn-block btn-outline-info">${car.car_id}</button>
+								</div>
+							</c:forEach>
 						</div>
 					</div>
 				</div>

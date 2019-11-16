@@ -66,7 +66,7 @@ public class MapFragment extends Fragment {
     }
     void tMapSetting(){
         tMapView = new TMapView(getActivity());
-        tMapView.setSKTMapApiKey("8a7cffe8-176c-43ed-ba28-6b56639f9b6c");
+        tMapView.setSKTMapApiKey("Tmap_API_KEY");
         tMapMarkerItem = new TMapMarkerItem();
         tMapMarkerItem.setName("현재 위치");
         tMapMarkerItem.setVisible(TMapMarkerItem.VISIBLE);
