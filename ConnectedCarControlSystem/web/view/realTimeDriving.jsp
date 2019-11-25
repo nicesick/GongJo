@@ -246,7 +246,7 @@
 								style="display: inline-block; height: 80px; padding: 10px 5px;">
 								<div id="rrbox">
 									연료
-									<h2 id="car_fuel"></h2>
+									<h2 id="car_fuel">30</h2>
 								</div>
 							</div>
 						</div>
@@ -258,7 +258,7 @@
 								style="display: inline-block; height: 80px; padding: 10px 5px;">
 								<div id="rrbox">
 									배터리
-									<h2 id="car_bat"></h2>
+									<h2 id="car_bat">100</h2>
 								</div>
 							</div>
 						</div>

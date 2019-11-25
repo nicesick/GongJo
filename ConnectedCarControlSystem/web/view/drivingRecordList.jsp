@@ -28,7 +28,7 @@
 					<table id="zero_config" class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th>날짜</th>
+								<th>기록시간</th>
 								<th>주행시간</th>
 								<th>주행거리</th>
 								<th>소모연료량</th>
